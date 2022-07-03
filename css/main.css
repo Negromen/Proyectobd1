@@ -1,0 +1,175 @@
+@font-face {
+    font-family: Less;
+    src: url('/fonts/less.otf') format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Quicksand;
+    src: url("/fonts/static/Quicksand-Medium.ttf");
+    font-style: normal;
+}
+
+* {
+    font-family: Quicksand;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+#colDerechaPrincipal {
+    margin: auto 0;
+    text-align: center;
+    margin-right: 50px;
+}
+
+#colDerechaPrincipal h1 {
+    color: black;
+    font-size: 70px;
+    font-style: normal;
+    text-shadow: 0px 0px 3px black;
+}
+
+#colDerechaPrincipal p {
+    text-transform: uppercase;
+    letter-spacing: .5em;
+    display: inline-block;
+    border: none;
+    padding: 1.5em 0em;
+    width: 40em;
+}
+
+#colDerechaPrincipal span {
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: .25em 0 .325em;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 0px 0px 60px rgb(135, 194, 234);
+    /* Clip Background Image */
+    background: url("/img/animated-text-fill2.png") repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Animate Background Image */
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+    /* Activate hardware acceleration for smoother animations */
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+}
+
+#parrafoInicio {
+    margin-top: -80px;
+}
+
+#colIzquierdaPrincipal {
+    text-align: center;
+}
+
+#colIzquierdaPrincipal img {
+    box-shadow: 0px 0px 30px rgb(135, 194, 234);
+    border-radius: 500px;
+}
+
+#contenidoFooter {
+    color: white;
+    text-align: center;
+}
+
+#carousel {
+    position: absolute;
+    z-index: -1;
+    filter: blur(3px);
+    height: 830px;
+    overflow: hidden;
+}
+
+#tablaPrincipal {
+    background-color: rgb(255, 255, 255, 0.75);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px white;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.botonPanel {
+    background-color: rgb(135, 194, 234);
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(120, 171, 206);
+    margin-bottom: -25px;
+}
+
+#botonVacuna {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#botonContagio {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#botonVacuna:hover {
+    background-color: rgb(120, 171, 206);
+    transition: .3s ease all;
+    transform: scale(1.02, 1.02);
+    box-shadow: 0px 0px 10px rgb(120, 171, 206);
+}
+
+#botonContagio:hover {
+    background-color: rgb(120, 171, 206);
+    transition: .3s ease all;
+    transform: scale(1.02, 1.02);
+    box-shadow: 0px 0px 10px rgb(120, 171, 206);
+}
+
+.ancho {
+    padding-top: 56px;
+    padding-bottom: 56px;
+}
+
+#navBar {
+    background-color: rgb(135, 194, 234);
+}
+
+#navBar h5 {
+    padding-top: 10px;
+    font-family: Less;
+}
+
+#tablaPrincipalVacunacion {
+    background-color: rgba(135, 194, 234, 0.904);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgb(135, 194, 234);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.encabezado {
+    position: relative;
+    display: flex;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px white;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    height: 73px;
+}
+
+@-webkit-keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
