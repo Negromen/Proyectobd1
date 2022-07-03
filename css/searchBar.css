@@ -1,0 +1,58 @@
+.flexbox {
+    background: rgb(135, 194, 234);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    align-content: flex-end;
+    padding-right: 10px;
+}
+
+.search>div {
+    display: inline-block;
+    position: relative;
+}
+
+.search>div::after {
+    content: "";
+    background: rgb(255, 118, 54);
+    width: 2px;
+    height: 10px;
+    position: absolute;
+    top: 21px;
+    right: 0px;
+    transform: rotate(135deg);
+}
+
+.search>div>input {
+    color: black;
+    font-size: 16px;
+    background: white;
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    border: solid 3px rgb(226, 106, 50);
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+}
+
+.search>div>input::placeholder {
+    color: black;
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+}
+
+.search>div>input:focus::placeholder {
+    opacity: 1;
+}
+
+.search>div>input:focus,
+.search>div>input:not(:placeholder-shown) {
+    width: 250px;
+}
+
+.flexbox h1 {
+    font-size: 16px;
+    padding-top: 11px;
+    padding-right: 5px;
+}
