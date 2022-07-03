@@ -1,7 +1,6 @@
 const express = require('express');
-const router = require(express.Router);
+const router = express.Router();
 const pool = require ('../database');
 
-//ESTE ES EL CAMBIO
-
+//fneriugbeivberv
 module.exports=router;

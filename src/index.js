@@ -8,16 +8,15 @@ const app = express(); // ESTA EJECUCION REGRESA UN OBJETO QUE BASICAMENTE ES LA
 
 
 //settings 
-app.set('port',process.env.PORT || 4000); //ESTA LINEA ASIGNA UN PUERTO PARA CORRER LA APLICACION, EL "process.env.PORT || 4000" LO QUE DICE ES QUE SI HAY UN PUERTO DISPONIBLE, QUE LO TOME, SI NO, QUE USE EL PUERTO 4000
-app.set('views',path.join(__dirname, 'views')); //Para decirle a node donde esta la carpeta views, se concatenan directorios 
-app.engine('.hbs',exphbs({
-    defaultLayout:'main',
-    layoutsDir:path.join(app.get('views', 'layout')),
-    partialsDir:path.join(app.get('views','partials')),
-    extname:'.hbs',
-    helpers:require('./lib/handlebars')
-}));
-
+app.set('port', process.env.PORT || 4000);
+app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', exphbs.engine({
+    defaultLayout: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs',
+    helpers: require('./lib/handlebars')
+}))
 app.set('view engine', '.hbs');
 
 //middlewares 
@@ -28,7 +27,6 @@ app.use(express.json());
 
 //global variables 
 app.use((req,res,next) => {
-
 
     next();
 });
