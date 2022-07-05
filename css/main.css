@@ -82,7 +82,8 @@ body {
     position: absolute;
     z-index: -1;
     filter: blur(3px);
-    height: 830px;
+    /* height: 830px; */
+    height: 10px;
     overflow: hidden;
 }
 

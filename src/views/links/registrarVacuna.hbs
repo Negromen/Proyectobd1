@@ -52,7 +52,7 @@
         <div id="tablaPrincipalVacunacion" class="container">
             <form class="row g-3" action="/links/registrarVacuna" method="POST">
                 <div class="encabezado">
-                    <h1>Registrar paciente</h1>
+                    <h1>Registrar vacunación</h1>
                 </div>
                 <div class="col-md-6">
                     <label for="inputNombre" class="form-label">Nombre</label>
@@ -103,7 +103,34 @@
                         <option value="">No</option>
                     </select>
                 </div>
-                <div class="encabezado">
+                <div class="col-md-4">
+                    <label for="inputVacuna" class="form-label">Vacuna</label>
+                    <select id="inputVacuna" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="">?</option>
+                        <option value="">?</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputDosis" class="form-label">Número de dosis</label>
+                    <select id="inputDosis" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="">?</option>
+                        <option value="">?</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputCS" class="form-label">Centro de Salud</label>
+                    <select id="inputCS" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="">?</option>
+                        <option value="">?</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+                {{!-- <div class="encabezado">
                     <h1>Registrar vacunación</h1>
                 </div>
                 <div class="col-md-5">
@@ -128,17 +155,37 @@
                 </div>
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Registrar</button>
-                </div>
+                </div> --}}
             </form>
         </div>
     </div>
 
     <div style="background-color: rgb(135, 194, 234);">
         <footer>
-            <div class="row-auto py-3">
+            <div id="footer" class="row-auto py-3">
                 <div class="col" id="contenidoFooter">
                     <h6>© 2022 De Gouveia - Garofalo</h6>
                 </div>
             </div>
         </footer>
     </div>
+
+    <style>
+    @media (max-width: 1920px) {
+        .carousel {
+            max-height: 1080px;
+        }
+        #footer {
+            margin-top: 266px;
+        }
+    }
+
+    @media (max-width: 1600px){
+        .carousel{
+            max-height: 600px;
+        }
+        #footer{
+            margin-top: 50px;
+        }
+    }
+    </style>
