@@ -27,13 +27,12 @@ app.use(express.json());
 
 //global variables 
 app.use((req, res, next) => {
-
     next();
 });
 
 //routes 
 app.use(require('./routes/index'));
-app.use('./links', require('./routes/links'));
+app.use('/links', require('./routes/links'));
 
 
 //public 
