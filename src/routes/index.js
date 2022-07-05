@@ -5,5 +5,4 @@ router.get('/', (req, res) => {
     res.render("links/index");
 });
 
-
 module.exports = router;

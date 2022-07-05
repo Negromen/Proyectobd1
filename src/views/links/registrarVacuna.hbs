@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedicLab - Registrar Vacuna</title>
-    <link rel="icon" href="/img/VaccineCard.png">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/searchBar.css">
-    <script src="/js/bootstrap.bundle.min.js"></script>
-</head>
-
-<body>
     <!-- NAVBAR -->
     <div id="navBar">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -85,23 +70,23 @@
                     <label for="inputCedula" class="form-label">Cédula</label>
                     <input type="text" class="form-control" id="inputCedula" placeholder="Ej: X-0000000">
                 </div>
-                <div class="col-md-4">
+                {{!-- <div class="col-md-4">
                     <label for="inputOcupacion" class="form-label">Ocupación</label>
                     <input type="text" class="form-control" id="inputOcupacion" placeholder="Ej: Comerciante">
-                </div>
-                <div class="col-md-2">
+                </div> --}}
+                {{!-- <div class="col-md-2">
                     <label for="inputTelefono" class="form-label">Teléfono</label>
                     <input type="text" class="form-control" id="inputTelefono" placeholder="Ej: 0412XXXXXXX">
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                     <label for="inputDate" class="form-label">Fecha de Nacimiento</label>
                     <input type="date" class="form-control" id="inputDate">
                 </div>
-                <div class="col-md-5">
+                {{!-- <div class="col-md-5">
                     <label for="inputNacionalidad" class="form-label">Nacionalidad</label>
                     <input type="text" class="form-control" id="inputNacionalidad" placeholder="Ej: Venezolano">
-                </div>
-                <div class="col-md-3">
+                </div> --}}
+                <div class="col-md-2">
                     <label for="inputGenero" class="form-label">Género</label>
                     <select id="inputGenero" class="form-select">
                         <option selected disabled>Género</option>
@@ -110,34 +95,37 @@
                         <option value="">N/A</option>
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <label for="inputAltoR" class="form-label">Alto riesgo</label>
+                    <select id="inputAltoR" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="">Si</option>
+                        <option value="">No</option>
+                    </select>
+                </div>
                 <div class="encabezado">
                     <h1>Registrar vacunación</h1>
                 </div>
-                <div class="col-md-4">
-                    <label for="inputMaterial" class="form-label">Material</label>
-                    <input type="text" class="form-control" id="inputMaterial" placeholder="Material??">
-                </div>
                 <div class="col-md-5">
+                    <label for="inputLaboratorio" class="form-label">Laboratorio</label>
+                    <input type="text" class="form-control" id="inputLaboratorio" placeholder="Laboratorio">
+                </div>
+                <div class="col-md-4">
                     <label for="idNombreVacuna" class="form-label">Nombre de Vacuna</label>
                     <input type="text" class="form-control" id="idNombreVacuna" placeholder="Vacuna">
                 </div>
                 <div class="col-md-3">
-                    <label for="" class="form-label">a</label>
-                    <input type="text" class="form-control" id="">
+                    <label for="loteVacuna" class="form-label">Lote de vacuna</label>
+                    <input type="number" class="form-control" id="loteVacuna" placeholder="Lote de vacuna">
                 </div>
                 <div class="col-md-5">
-                    <label for="" class="form-label">a</label>
-                    <input type="text" class="form-control" id="">
+                    <label for="" class="form-label">Cantidad de dosis</label>
+                    <input type="number" class="form-control" id="" placeholder="Cantidad de dosis">
                 </div>
                 <div class="col-md-3">
-                    <label for="" class="form-label">a</label>
-                    <input type="text" class="form-control" id="">
+                    <label for="tipoVacuna" class="form-label">Tipo de vacuna</label>
+                    <input type="text" class="form-control" id="tipoVacuna">
                 </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">a</label>
-                    <input type="text" class="form-control" id="">
-                </div>
-
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
@@ -154,8 +142,3 @@
             </div>
         </footer>
     </div>
-
-
-</body>
-
-</html>
