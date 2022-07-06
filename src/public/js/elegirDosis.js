@@ -1,4 +1,6 @@
-const pool = require('../database');
+const pool = require('src/database');
+const { promisify } = require('util');
+
 
 function elegirDosis() {
     let vacuna = document.getElementById('inputVacuna');
