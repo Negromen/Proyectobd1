@@ -103,7 +103,7 @@
                         <option value="">No</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="inputVacuna" class="form-label">Vacuna</label>
                     <select id="inputVacuna" class="form-select">
                         <option selected disabled>Seleccionar...</option>
@@ -119,7 +119,19 @@
                         <option value="">?</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <label for="inputDateV" class="form-label">Fecha de vacunación</label>
+                    <input type="date" class="form-control" id="inputDateV">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputCS" class="form-label">Personal de salud</label>
+                    <select id="inputCS" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="">?</option>
+                        <option value="">?</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <label for="inputCS" class="form-label">Centro de Salud</label>
                     <select id="inputCS" class="form-select">
                         <option selected disabled>Seleccionar...</option>
@@ -127,7 +139,7 @@
                         <option value="">?</option>
                     </select>
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
                 {{!-- <div class="encabezado">
@@ -176,16 +188,16 @@
             max-height: 1080px;
         }
         #footer {
-            margin-top: 266px;
+            margin-top: 180px;
         }
     }
 
     @media (max-width: 1600px){
         .carousel{
-            max-height: 600px;
+            max-height: 680px;
         }
         #footer{
-            margin-top: 50px;
+            margin-top: 20px;
         }
     }
     </style>
