@@ -98,7 +98,7 @@
                 <div class="col-md-3">
                     {{#if Query}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
-                    <select id="inputVacuna" onchange="damevacuna(); "class="form-select">
+                    <select id="inputVacuna" onchange="elegirDosis();" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                         {{#each Query}}
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>
@@ -106,12 +106,10 @@
                     </select>
                     {{/if}}
                 </div>
-                <div class="col-md-2" style="display: none;">
+                <div class="col-md-2" style="display: none;" id="divDosis">
                     <label for="inputDosis" class="form-label">Número de dosis</label>
                     <select id="inputDosis" class="form-select">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="">?</option>
-                        <option value="">?</option>
                     </select>
                 </div>
                 <div class="col-md-3">
