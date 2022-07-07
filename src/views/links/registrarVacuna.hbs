@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" disabled>
-                            <a class="nav-link active" aria-current="page" href="/links/registrarVacuna">Registrar vacunación</a>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Registrar contagio y tratamiento</a>
@@ -62,9 +62,21 @@
                     <label for="inputApellido" class="form-label">Apellido</label>
                     <input type="text" class="form-control" id="inputApellido" placeholder="Ej: Lopez">
                 </div>
-                <div class="col-12">
+                {{!-- <div class="col-12">
                     <label for="inputAddress" class="form-label">Dirección</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="Ej: Av. Carlos Soublette. San Bernardino, Caracas">
+                </div> --}}
+                <div class="col-4">
+                    <label for="inputPais" class="form-label">Pais</label>
+                    <input type="text" class="form-control" id="inputPais" placeholder="Ej: Venezuela">
+                </div>
+                <div class="col-4">
+                    <label for="inputEstado" class="form-label">Estado/Provincia</label>
+                    <input type="text" class="form-control" id="inputEstado" placeholder="Ej: Distrito Capital">
+                </div>
+                <div class="col-4">
+                    <label for="inputMunicipio" class="form-label">Municipio</label>
+                    <input type="text" class="form-control" id="inputMunicipio" placeholder="Ej: Libertador">
                 </div>
                 <div class="col-md-6">
                     <label for="inputCedula" class="form-label">Cédula</label>
@@ -117,19 +129,17 @@
                     <input type="date" class="form-control" id="inputDateV">
                 </div>
                 <div class="col-md-2">
-                    <label for="inputCS" class="form-label">Personal de salud</label>
-                    <select id="inputCS" class="form-select">
+                    <label for="inputCS" class="form-label">Centro de Salud</label>
+                    <select id="inputCS" class="form-select" onchange="elegirPS();">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="">?</option>
-                        <option value="">?</option>
+                        <option value="1">Hola</option>
+                        <option value="2">Chao</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <label for="inputCS" class="form-label">Centro de Salud</label>
-                    <select id="inputCS" class="form-select">
+                <div class="col-md-2" style="display: none;" id="divPS">
+                    <label for="inputPS" class="form-label">Personal de salud</label>
+                    <select id="inputPS" class="form-select">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="">?</option>
-                        <option value="">?</option>
                     </select>
                 </div>
                 <div class="col-md-12">
@@ -181,15 +191,22 @@
             max-height: 1080px;
         }
         #footer {
-            margin-top: 180px;
+            margin-top: 156px;
         }
+        #tablaPrincipalVacunacion{
+            margin-top: 110px;
+        }
+
     }
 
     @media (max-width: 1600px){
         .carousel{
-            max-height: 680px;
+            max-height: 650px;
         }
         #footer{
+            margin-top: 30px;
+        }
+        #tablaPrincipalVacunacion{
             margin-top: 20px;
         }
     }

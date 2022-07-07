@@ -6,10 +6,10 @@ const pool = require('../database');
 async function elegirDosis() {
     let vacuna = document.getElementById('inputVacuna');
     let idvacuna = vacuna.value;
-    //const Query = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
-    //console.log(Query);
-    document.getElementById('inputDosis').value = 2;
-    const valor = 2;
+    // const Query = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
+    // console.log("este es el query", Query);
+    // document.getElementById('inputDosis').value = Query[0];
+    const valor = 4;
     const select = document.getElementById('inputDosis');
 
     for (var i = 1; i <= valor; i++) {
