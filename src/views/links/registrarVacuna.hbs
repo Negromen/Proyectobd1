@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     {{#if Query}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
-                    <select id="inputVacuna" onchange="elegirDosis();" class="form-select">
+                    <select id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                         {{#each Query}}
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>

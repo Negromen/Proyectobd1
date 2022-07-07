@@ -5,11 +5,11 @@ const pool = require('../database');
 ////--------------------------------------------------------FUNCIONES------------------------------------------------------------
 
 
-function elegirDosis() {
+async function elegirDosis() {
     let vacuna = document.getElementById('inputVacuna');
     let idvacuna = vacuna.value;
-    //const Query = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
-    //console.log("este es el query", Query);
+    const Query = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
+    console.log("este es el query", Query);
     document.getElementById('inputDosis').value = 4;
     const valor = 4;
     const select = document.getElementById('inputDosis');
@@ -35,9 +35,18 @@ router.get('/registrarVacuna', async(req, res, next) => {
 });
 
 router.post('/registrarVacuna', async(req, res, next) => {
-
     res.render("links/registrarVacuna");
 });
+
+router.get('/buscadosis/:vacuna', async(req, res, next) => {
+    var idvacuna = req.params.vacuna;
+    const Query3 = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
+    console.log(Query3);
+    if(Query3)
+    res.json(Query3[0]);
+});
+
+
 
 router.get('/verificarRegistro', (req, res) => {
     res.render("links/verificarRegistro");
