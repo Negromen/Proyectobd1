@@ -38,12 +38,10 @@ router.get('/registrarVacuna', async(req, res, next) => {
 
 router.post('/registrarVacuna', async(req, res, next) => {
     const varr = req.body;
-    console.log(varr);
-    console.log("entro");
-    console.log(varr.fechanac);
-    /*if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
+    //console.log(varr);
+    if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
         await pool.query ("INSERT INTO persona set ? " , {
-            docidentidad:varr.cedula,
+            docidentidad:parseInt(varr.cedula),
             nombreper:varr.nombre,
             apellidoper:varr.apellido,
             fechanacimiento:varr.fechanac,
@@ -51,22 +49,20 @@ router.post('/registrarVacuna', async(req, res, next) => {
             altoriesgo:true
         });
         await pool.query("INSERT INTO vacunada set ? ",{
-            idvacuna:varr.vacuna.value,
-            codpais:,
-            docidentidad:,
-            codcentro:,
-            codestado:,
-            codpais1:,
-            docidentidad1:,
-            dosis:,
-            fechavacuna:
-
+            idvacuna:parseInt(varr.vacuna),
+            codpais:parseInt(varr.pais),
+            docidentidad:parseInt(varr.cedula),
+            codcentro:parseInt(varr.centroSalud),
+            codestado:parseInt(varr.estado),
+            codpais1:1,
+            docidentidad1:parseInt(varr.personalSalud),
+            dosis:parseInt(varr.numDosis),
+            fechavacuna:varr.fechaVac
         });
+        res.render("links/index");
     }else{
-        
+        res.render("links/registrarVacuna");
     }
-    */
-    res.render("links/registrarVacuna");
  });
 
 
@@ -83,7 +79,7 @@ router.get('/buscadosis/:vacuna', async(req, res, next) => {
 
 router.get('/buscapersonal/:centro', async(req, res, next) => {
     var codcentro = req.params.centro;
-    const Query3 = await pool.query("select p.nombreper, p.apellidoper from persona as p, asignado as a where a.codcentro= ? and a.docidentidad=p.docidentidad; ", [codcentro]);
+    const Query3 = await pool.query("select p.docidentidad ,p.nombreper, p.apellidoper from persona as p, asignado as a where a.codcentro= ? and a.docidentidad=p.docidentidad; ", [codcentro]);
     console.log(Query3);
     if (Query3)
         res.json(Query3);

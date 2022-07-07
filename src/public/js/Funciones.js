@@ -30,7 +30,7 @@ async function elegirPS() {
     }
     for (i = 1; i <= valor; i++) {
         const option = document.createElement('option');
-        option.value = i;
+        option.value = response2[i-1].docidentidad;
         option.text = response2[i-1].nombreper +" "+ response2[i-1].apellidoper;
         select.appendChild(option);
     }
