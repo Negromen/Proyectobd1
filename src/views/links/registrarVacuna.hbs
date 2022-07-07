@@ -67,16 +67,27 @@
                     <input type="text" class="form-control" id="inputAddress" placeholder="Ej: Av. Carlos Soublette. San Bernardino, Caracas">
                 </div> --}}
                 <div class="col-4">
+                    {{#if Query3}}
                     <label for="inputPais" class="form-label">Pais</label>
-                    <input type="text" name="pais" class="form-control" id="inputPais" placeholder="Ej: Venezuela">
+                    <select name="pais" id="inputPais" onchange="elegirEstado();" class="form-select">
+                        <option selected value="0" disabled>Seleccionar...</option>
+                        {{#each Query3}}
+                            <option value="{{codpais}}">{{nombrepais}}</option>
+                        {{/each}}
+                    </select>
+                    {{/if}}
                 </div>
-                <div class="col-4">
+                <div class="col-4" style="display:none ;" id="divEstado">
                     <label for="inputEstado" class="form-label">Estado/Provincia</label>
-                    <input type="text" name="estado" class="form-control" id="inputEstado" placeholder="Ej: Distrito Capital">
+                    <select name="estado" id="inputEstado" onchange="elegirMunicipio(); " class="form-select">
+                        <option selected value="0" disabled>Seleccionar...</option>
+                    </select>
                 </div>
-                <div class="col-4">
+                <div class="col-4" style="display:none;" id="divMunicipio">
                     <label for="inputMunicipio" class="form-label">Municipio</label>
-                    <input type="text" name="municipio" class="form-control" id="inputMunicipio" placeholder="Ej: Libertador">
+                    <select name="municipio" id="inputMunicipio" class="form-select">
+                        <option selected value="0" disabled>Seleccionar...</option>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label for="inputCedula" class="form-label">Cédula</label>

@@ -27,25 +27,49 @@ async function elegirDosis() {
 router.get('/registrarVacuna', async(req, res, next) => {
     const Query = await pool.query("select idvacuna,nombrevacuna from vacuna");
     const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
-    console.log(Query2);
+    const Query3= await pool.query("select codpais, nombrepais from pais ");
     //RECUERDA PONER QUERY2 EN EL IF
     if ((Query) && (Query2))
-        res.render("links/registrarVacuna", { Query, Query2 });
+        res.render("links/registrarVacuna", { Query, Query2, Query3 });
     else
         res.render("links/registrarVacuna");
 });
 
+
 router.post('/registrarVacuna', async(req, res, next) => {
     const varr = req.body;
+    console.log(varr);
     console.log("entro");
     console.log(varr.fechanac);
     /*if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
+        await pool.query ("INSERT INTO persona set ? " , {
+            docidentidad:varr.cedula,
+            nombreper:varr.nombre,
+            apellidoper:varr.apellido,
+            fechanacimiento:varr.fechanac,
+            sexo:varr.genero,
+            altoriesgo:true
+        });
+        await pool.query("INSERT INTO vacunada set ? ",{
+            idvacuna:varr.vacuna.value,
+            codpais:,
+            docidentidad:,
+            codcentro:,
+            codestado:,
+            codpais1:,
+            docidentidad1:,
+            dosis:,
+            fechavacuna:
+
+        });
     }else{
         
     }
     */
     res.render("links/registrarVacuna");
  });
+
+
 
 ////-------------------------------------------EVENTOS-----------------------------------------------------------------------------
 
@@ -65,6 +89,22 @@ router.get('/buscapersonal/:centro', async(req, res, next) => {
         res.json(Query3);
 });
 
+router.get('/buscaestado/:pais', async(req, res, next) => {
+    var codpais = req.params.pais;
+    const Query3 = await pool.query("select codestado, nombreestado from estado_provincia where codpais= ? ; ", [codpais]);
+    console.log(Query3);
+    if (Query3)
+        res.json(Query3);
+});
+
+router.get('/buscamunicipio/:estado', async(req, res, next) => {
+    var codestado = req.params.estado;
+    const Query3 = await pool.query("select codmunicipio, nombremunicipio from municipio where codestado= ? ; ", [codestado]);
+    console.log(Query3);
+    if (Query3)
+        res.json(Query3);
+});
+
 ////--------------------------------------------------------------------------------------------------------------------------------
 
 router.get('/verificarRegistro', (req, res) => {
@@ -72,7 +112,6 @@ router.get('/verificarRegistro', (req, res) => {
 });
 
 router.post('/verificarRegistro', async(req, res, next) => {
-
     res.render("links/verificarRegistro");
 });
 
