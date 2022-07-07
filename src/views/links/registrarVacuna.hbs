@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" disabled>
-                            <a class="nav-link active" aria-current="page" href="/links/registrarVacuna">Registrar vacunación</a>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Registrar contagio y tratamiento</a>
@@ -117,19 +117,17 @@
                     <input type="date" class="form-control" id="inputDateV">
                 </div>
                 <div class="col-md-2">
-                    <label for="inputCS" class="form-label">Personal de salud</label>
-                    <select id="inputCS" class="form-select">
+                    <label for="inputCS" class="form-label">Centro de Salud</label>
+                    <select id="inputCS" class="form-select" onchange="elegirPS();">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="">?</option>
-                        <option value="">?</option>
+                        <option value="1">Hola</option>
+                        <option value="2">Chao</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <label for="inputCS" class="form-label">Centro de Salud</label>
-                    <select id="inputCS" class="form-select">
+                <div class="col-md-2" style="display: none;" id="divPS">
+                    <label for="inputPS" class="form-label">Personal de salud</label>
+                    <select id="inputPS" class="form-select">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="">?</option>
-                        <option value="">?</option>
                     </select>
                 </div>
                 <div class="col-md-12">
@@ -181,15 +179,22 @@
             max-height: 1080px;
         }
         #footer {
-            margin-top: 180px;
+            margin-top: 156px;
         }
+        #tablaPrincipalVacunacion{
+            margin-top: 110px;
+        }
+
     }
 
     @media (max-width: 1600px){
         .carousel{
-            max-height: 680px;
+            max-height: 650px;
         }
         #footer{
+            margin-top: 30px;
+        }
+        #tablaPrincipalVacunacion{
             margin-top: 20px;
         }
     }
