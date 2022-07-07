@@ -22,31 +22,48 @@ async function elegirDosis() {
 };
 
 
-////--------------------------------------------------------REDIRECCCIONAMIENTO--------------------------------------------------
+////-------------------------------------------REDIRECCCIONAMIENTO REGISTRO VACUNA--------------------------------------------------
 
 router.get('/registrarVacuna', async(req, res, next) => {
     const Query = await pool.query("select idvacuna,nombrevacuna from vacuna");
-    //const Query2 = await pool.query("select cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
-    console.log(Query);
-    if ((Query))
-        res.render("links/registrarVacuna", { Query });
+    const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
+    console.log(Query2);
+    //RECUERDA PONER QUERY2 EN EL IF
+    if ((Query)&&(Query2))
+        res.render("links/registrarVacuna",{Query,Query2});
     else
         res.render("links/registrarVacuna");
 });
 
 router.post('/registrarVacuna', async(req, res, next) => {
+    const varr = req.body;
+    if(varr.){
+
+    }else{
+
+    }
     res.render("links/registrarVacuna");
 });
+
+////-------------------------------------------EVENTOS-----------------------------------------------------------------------------
 
 router.get('/buscadosis/:vacuna', async(req, res, next) => {
     var idvacuna = req.params.vacuna;
     const Query3 = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
     console.log(Query3);
     if(Query3)
-    res.json(Query3[0]);
+        res.json(Query3[0]);
 });
 
+router.get('/buscapersonal/:centro', async(req, res, next)=> {
+    var codcentro = req.params.centro;
+    const Query3 = await pool.query("select p.nombreper, p.apellidoper from persona as p, asignado as a where a.codcentro= ? and a.docidentidad=p.docidentidad; ",[codcentro]);
+    console.log(Query3);
+    if(Query3)
+        res.json(Query3);
+});
 
+////--------------------------------------------------------------------------------------------------------------------------------
 
 router.get('/verificarRegistro', (req, res) => {
     res.render("links/verificarRegistro");

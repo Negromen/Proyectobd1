@@ -129,16 +129,19 @@
                     <input type="date" class="form-control" id="inputDateV">
                 </div>
                 <div class="col-md-2">
+                    {{#if Query2}}
                     <label for="inputCS" class="form-label">Centro de Salud</label>
                     <select id="inputCS" class="form-select" onchange="elegirPS();">
                         <option selected disabled>Seleccionar...</option>
-                        <option value="1">Hola</option>
-                        <option value="2">Chao</option>
+                        {{#each Query2}}
+                        <option value="{{codcentro}}">{{nombrecentro}}</option>
+                        {{/each}}
                     </select>
+                    {{/if}}
                 </div>
                 <div class="col-md-2" style="display: none;" id="divPS">
                     <label for="inputPS" class="form-label">Personal de salud</label>
-                    <select id="inputPS" class="form-select">
+                    <select id="inputPS" name="personal" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                     </select>
                 </div>

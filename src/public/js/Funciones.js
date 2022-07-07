@@ -19,13 +19,19 @@ async function elegirDosis() {
 };
 
 async function elegirPS() {
-    let CS = document.getElementById('inputCS');
-    let valueCS = CS.value;
-    const valor = 4;
+    let cs = document.getElementById('inputCS');
+    let valueCS = cs.value;
+    let response = await fetch(`http://localhost:4000/links/buscapersonal/${valueCS}`);
+    let response2 = await response.json();
+    const valor = Object.keys(response2).length;
     const select = document.getElementById('inputPS');
-    for (var i = 1; i <= valor; i++) {
+    for (var i = 1;i<=(select.length);i++ ){
+        select.remove(i);
+    }
+    for (i = 1; i <= valor; i++) {
         const option = document.createElement('option');
-        option.text = i;
+        option.value = i;
+        option.text = response2[i-1].nombreper +" "+ response2[i-1].apellidoper;
         select.appendChild(option);
     }
     document.getElementById('divPS').style.display = 'block';
