@@ -4,6 +4,6 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'basededatos1'
+        database: 'bdpedrogaro'
     }
 };
