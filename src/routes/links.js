@@ -28,8 +28,4 @@ router.post('/verificarRegistro', async(req, res, next) => {
     res.render("links/verificarRegistro");
 });
 
-router.get('/verificarRegistro', (req, res) => {
-    res.render("links/verificarRegistro");
-});
-
 module.exports = router;
