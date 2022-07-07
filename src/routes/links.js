@@ -37,10 +37,13 @@ router.get('/registrarVacuna', async(req, res, next) => {
 
 router.post('/registrarVacuna', async(req, res, next) => {
     const varr = req.body;
-    if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
+    console.log("entro");
+    console.log(varr.fechanac);
+    /*if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
     }else{
         
     }
+    */
     res.render("links/registrarVacuna");
  });
 
