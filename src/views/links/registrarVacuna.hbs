@@ -101,7 +101,7 @@
                 <div class="col-md-2">
                     <label for="inputGenero" class="form-label">Género</label>
                     <select name="genero" id="inputGenero" class="form-select">
-                        <option selected disabled>Género</option>
+                        <option selected value="0" disabled>Género</option>
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                         <option value="N/A">N/A</option>
@@ -111,7 +111,7 @@
                     {{#if Query}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
                     <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select">
-                        <option selected disabled>Seleccionar...</option>
+                        <option selected value="0" disabled>Seleccionar...</option>
                         {{#each Query}}
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>
                         {{/each}}
@@ -121,7 +121,7 @@
                 <div class="col-md-2" style="display: none;" id="divDosis">
                     <label for="inputDosis" class="form-label">Número de dosis</label>
                     <select name="numDosis" id="inputDosis" class="form-select">
-                        <option selected disabled>Seleccionar...</option>
+                        <option selected value="0" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -132,7 +132,7 @@
                     {{#if Query2}}
                     <label for="inputCS" class="form-label">Centro de Salud</label>
                     <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();">
-                        <option selected disabled>Seleccionar...</option>
+                        <option selected value="0" disabled>Seleccionar...</option>
                         {{#each Query2}}
                         <option value="{{codcentro}}">{{nombrecentro}}</option>
                         {{/each}}
@@ -142,11 +142,15 @@
                 <div class="col-md-2" style="display: none;" id="divPS">
                     <label for="inputPS" class="form-label">Personal de salud</label>
                     <select name="personalSalud" id="inputPS" name="personal" class="form-select">
-                        <option selected disabled>Seleccionar...</option>
+                        <option selected value="0" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <form action="/links/registrarVacuna" method="POST">
+                        <button type="submit" class="btn btn-primary">
+                            <a href="/links/registrarVacuna">Registrar</a>
+                        </button>
+                    </form>
                 </div>
                 {{!-- <div class="encabezado">
                     <h1>Registrar vacunación</h1>

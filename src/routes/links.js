@@ -35,15 +35,14 @@ router.get('/registrarVacuna', async(req, res, next) => {
         res.render("links/registrarVacuna");
 });
 
-// router.post('/registrarVacuna', async(req, res, next) => {
-//     const varr = req.body;
-//     if (varr) {
-
-//     } else {
-
-//     }
-//     res.render("links/registrarVacuna");
-// });
+router.post('/registrarVacuna', async(req, res, next) => {
+    const varr = req.body;
+    if ((varr.nombre !== "") &&(varr.apellido !== "")&& (varr.pais !== "") &&(varr.estado !== "")&& (varr.municipio !== "")&& (varr.cedula !== "") && (varr.fechanac !== "") &&(varr.genero !== "")&&(varr.vacuna !== "")&&(varr.numDosis !== "")&&(varr.fechaVac !== "")&&(varr.centroSalud !== "")&&(varr.personalSalud !== "")) {
+    }else{
+        
+    }
+    res.render("links/registrarVacuna");
+ });
 
 ////-------------------------------------------EVENTOS-----------------------------------------------------------------------------
 
