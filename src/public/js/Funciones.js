@@ -1,4 +1,4 @@
-const { options } = require("../../routes/links");
+//const { options } = require("../../routes/links");
 
 async function elegirDosis() {
     let vacuna = document.getElementById('inputVacuna');
