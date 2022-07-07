@@ -29,21 +29,21 @@ router.get('/registrarVacuna', async(req, res, next) => {
     const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
     console.log(Query2);
     //RECUERDA PONER QUERY2 EN EL IF
-    if ((Query)&&(Query2))
-        res.render("links/registrarVacuna",{Query,Query2});
+    if ((Query) && (Query2))
+        res.render("links/registrarVacuna", { Query, Query2 });
     else
         res.render("links/registrarVacuna");
 });
 
-router.post('/registrarVacuna', async(req, res, next) => {
-    const varr = req.body;
-    if(varr.){
+// router.post('/registrarVacuna', async(req, res, next) => {
+//     const varr = req.body;
+//     if (varr) {
 
-    }else{
+//     } else {
 
-    }
-    res.render("links/registrarVacuna");
-});
+//     }
+//     res.render("links/registrarVacuna");
+// });
 
 ////-------------------------------------------EVENTOS-----------------------------------------------------------------------------
 
@@ -51,15 +51,15 @@ router.get('/buscadosis/:vacuna', async(req, res, next) => {
     var idvacuna = req.params.vacuna;
     const Query3 = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
     console.log(Query3);
-    if(Query3)
+    if (Query3)
         res.json(Query3[0]);
 });
 
-router.get('/buscapersonal/:centro', async(req, res, next)=> {
+router.get('/buscapersonal/:centro', async(req, res, next) => {
     var codcentro = req.params.centro;
-    const Query3 = await pool.query("select p.nombreper, p.apellidoper from persona as p, asignado as a where a.codcentro= ? and a.docidentidad=p.docidentidad; ",[codcentro]);
+    const Query3 = await pool.query("select p.nombreper, p.apellidoper from persona as p, asignado as a where a.codcentro= ? and a.docidentidad=p.docidentidad; ", [codcentro]);
     console.log(Query3);
-    if(Query3)
+    if (Query3)
         res.json(Query3);
 });
 

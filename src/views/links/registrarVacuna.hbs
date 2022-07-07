@@ -56,11 +56,11 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputNombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="inputNombre" placeholder="Ej: Alberto">
+                    <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto">
                 </div>
                 <div class="col-md-6">
                     <label for="inputApellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="inputApellido" placeholder="Ej: Lopez">
+                    <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez">
                 </div>
                 {{!-- <div class="col-12">
                     <label for="inputAddress" class="form-label">Dirección</label>
@@ -68,19 +68,19 @@
                 </div> --}}
                 <div class="col-4">
                     <label for="inputPais" class="form-label">Pais</label>
-                    <input type="text" class="form-control" id="inputPais" placeholder="Ej: Venezuela">
+                    <input type="text" name="pais" class="form-control" id="inputPais" placeholder="Ej: Venezuela">
                 </div>
                 <div class="col-4">
                     <label for="inputEstado" class="form-label">Estado/Provincia</label>
-                    <input type="text" class="form-control" id="inputEstado" placeholder="Ej: Distrito Capital">
+                    <input type="text" name="estado" class="form-control" id="inputEstado" placeholder="Ej: Distrito Capital">
                 </div>
                 <div class="col-4">
                     <label for="inputMunicipio" class="form-label">Municipio</label>
-                    <input type="text" class="form-control" id="inputMunicipio" placeholder="Ej: Libertador">
+                    <input type="text" name="municipio" class="form-control" id="inputMunicipio" placeholder="Ej: Libertador">
                 </div>
                 <div class="col-md-6">
                     <label for="inputCedula" class="form-label">Cédula</label>
-                    <input type="text" class="form-control" id="inputCedula" placeholder="Ej: X-0000000">
+                    <input type="text" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000">
                 </div>
                 {{!-- <div class="col-md-4">
                     <label for="inputOcupacion" class="form-label">Ocupación</label>
@@ -92,7 +92,7 @@
                 </div> --}}
                 <div class="col-md-4">
                     <label for="inputDate" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" name="fechanac" class="form-control" id="inputDate">
                 </div>
                 {{!-- <div class="col-md-5">
                     <label for="inputNacionalidad" class="form-label">Nacionalidad</label>
@@ -100,7 +100,7 @@
                 </div> --}}
                 <div class="col-md-2">
                     <label for="inputGenero" class="form-label">Género</label>
-                    <select id="inputGenero" class="form-select">
+                    <select name="genero" id="inputGenero" class="form-select">
                         <option selected disabled>Género</option>
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     {{#if Query}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
-                    <select id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select">
+                    <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                         {{#each Query}}
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>
@@ -120,18 +120,18 @@
                 </div>
                 <div class="col-md-2" style="display: none;" id="divDosis">
                     <label for="inputDosis" class="form-label">Número de dosis</label>
-                    <select id="inputDosis" class="form-select">
+                    <select name="numDosis" id="inputDosis" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <label for="inputDateV" class="form-label">Fecha de vacunación</label>
-                    <input type="date" class="form-control" id="inputDateV">
+                    <input name="fechaVac" type="date" class="form-control" id="inputDateV">
                 </div>
                 <div class="col-md-2">
                     {{#if Query2}}
                     <label for="inputCS" class="form-label">Centro de Salud</label>
-                    <select id="inputCS" class="form-select" onchange="elegirPS();">
+                    <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();">
                         <option selected disabled>Seleccionar...</option>
                         {{#each Query2}}
                         <option value="{{codcentro}}">{{nombrecentro}}</option>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="col-md-2" style="display: none;" id="divPS">
                     <label for="inputPS" class="form-label">Personal de salud</label>
-                    <select id="inputPS" name="personal" class="form-select">
+                    <select name="personalSalud" id="inputPS" name="personal" class="form-select">
                         <option selected disabled>Seleccionar...</option>
                     </select>
                 </div>
