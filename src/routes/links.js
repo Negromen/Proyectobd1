@@ -29,7 +29,7 @@ router.get('/registrarVacuna', async(req, res, next) => {
     const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
     const Query3 = await pool.query("select codpais, nombrepais from pais ");
     //RECUERDA PONER QUERY2 EN EL IF
-    if ((Query) && (Query2))
+    if ((Query) && (Query2) && (Query3))
         res.render("links/registrarVacuna", { Query, Query2, Query3 });
     else
         res.render("links/registrarVacuna");
@@ -37,32 +37,31 @@ router.get('/registrarVacuna', async(req, res, next) => {
 
 
 router.post('/registrarVacuna', async(req, res, next) => {
+    const Query = await pool.query("select idvacuna,nombrevacuna from vacuna");
+    const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
+    const Query3 = await pool.query("select codpais, nombrepais from pais ");
     const varr = req.body;
     //console.log(varr);
-    if ((varr.nombre !== "") && (varr.apellido !== "") && (varr.pais !== "") && (varr.estado !== "") && (varr.municipio !== "") && (varr.cedula !== "") && (varr.fechanac !== "") && (varr.genero !== "") && (varr.vacuna !== "") && (varr.numDosis !== "") && (varr.fechaVac !== "") && (varr.centroSalud !== "") && (varr.personalSalud !== "")) {
-        await pool.query("INSERT INTO persona set ? ", {
-            docidentidad: parseInt(varr.cedula),
-            nombreper: varr.nombre,
-            apellidoper: varr.apellido,
-            fechanacimiento: varr.fechanac,
-            sexo: varr.genero,
-            altoriesgo: true
-        });
-        await pool.query("INSERT INTO vacunada set ? ", {
-            idvacuna: parseInt(varr.vacuna),
-            codpais: parseInt(varr.pais),
-            docidentidad: parseInt(varr.cedula),
-            codcentro: parseInt(varr.centroSalud),
-            codestado: parseInt(varr.estado),
-            codpais1: 1,
-            docidentidad1: parseInt(varr.personalSalud),
-            dosis: parseInt(varr.numDosis),
-            fechavacuna: varr.fechaVac
-        });
-        // res.render("links/registrarVacuna");
-    } else {
-        res.render("links/registrarVacuna");
-    }
+
+    await pool.query("INSERT INTO persona set ? ", {
+        docidentidad: parseInt(varr.cedula),
+        nombreper: varr.nombre,
+        apellidoper: varr.apellido,
+        fechanacimiento: varr.fechanac,
+        sexo: varr.genero,
+        altoriesgo: true
+    });
+    await pool.query("INSERT INTO vacunada set ? ", {
+        idvacuna: parseInt(varr.vacuna),
+        codpais: parseInt(varr.pais),
+        docidentidad: parseInt(varr.cedula),
+        codcentro: parseInt(varr.centroSalud),
+        codestado: parseInt(varr.estado),
+        codpais1: 1,
+        docidentidad1: parseInt(varr.personalSalud),
+        dosis: parseInt(varr.numDosis),
+        fechavacuna: varr.fechaVac
+    });
 });
 
 
