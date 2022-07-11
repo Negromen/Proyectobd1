@@ -65,7 +65,10 @@
                     <label for="inputAddress" class="form-label">Dirección</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="Ej: Av. Carlos Soublette. San Bernardino, Caracas">
                 </div> --}}
-                <div class="col-4">
+                <div>
+                    
+                </div>
+                <div class="col-md-4">
                     {{#if Query3}}
                     <label for="inputPais" class="form-label">Pais</label>
                     <select name="pais" id="inputPais" onchange="elegirEstado();" class="form-select" required>
@@ -76,13 +79,13 @@
                     </select>
                     {{/if}}
                 </div>
-                <div class="col-4" style="display:none ;" id="divEstado">
+                <div class="col-md-4" style="display:none ;" id="divEstado">
                     <label for="inputEstado" class="form-label">Estado/Provincia</label>
                     <select name="estado" id="inputEstado" onchange="elegirMunicipio(); " class="form-select" required>
                         <option selected value="0" disabled>Seleccionar...</option>
                     </select>
                 </div>
-                <div class="col-4" style="display:none;" id="divMunicipio">
+                <div class="col-md-4" style="display:none;" id="divMunicipio">
                     <label for="inputMunicipio" class="form-label">Municipio</label>
                     <select name="municipio" id="inputMunicipio" class="form-select" required>
                         <option selected value="0" disabled>Seleccionar...</option>

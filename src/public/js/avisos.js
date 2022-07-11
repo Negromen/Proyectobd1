@@ -26,7 +26,7 @@ function alertaRegistroVacuna() {
     } else {
         Swal.fire(
             'Error!',
-            'Datos invalidos',
+            'Datos invalidos!',
             'error'
         );
     };
