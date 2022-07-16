@@ -110,4 +110,12 @@ router.post('/verificarRegistro', async(req, res, next) => {
     res.render("links/verificarRegistro");
 });
 
+router.get('/vacuna', (req, res) => {
+    res.render("links/registrarSoloVacuna");
+});
+
+router.post('/vacuna', async(req, res, next) => {
+    res.render("links/registrarSoloVacuna");
+});
+
 module.exports = router;
