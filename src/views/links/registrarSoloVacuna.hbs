@@ -51,6 +51,7 @@
         <div id="tablaPrincipalVacunacion" class="container">
             <form class="row g-3" action="">
                 <div class="encabezado" id="divEncabezado1">
+                    <button class="btn btn-danger" id="btnBorrar"><img src="/img/borrar.png" width="22px"></button>
                     <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button>
                     <h1>Datos personales</h1>
                 </div>
@@ -90,7 +91,14 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputCedula" class="form-label">Cédula</label>
-                    <input type="number" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" min="1" disabled>
+                    <div class="input-group">
+                        <span>
+                            <select name="tipoCedula" id="tipoCedula" class="form-select" disabled>
+                                <option selected value="0" disabled>X</option>
+                            </select>
+                        </span>
+                        <input type="number" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" min="1" disabled>
+                    </div>
                 </div>
                 {{!-- <div class="col-md-4">
                     <label for="inputOcupacion" class="form-label">Ocupación</label>

@@ -266,6 +266,20 @@ body {
     left: 6px;
 }
 
+#btnBorrar {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 94%;
+    top: 28%;
+}
+
+#btnBorrar img {
+    position: absolute;
+    top: 3px;
+    left: 6px;
+}
+
 @keyframes colores {
     0% {
         background-position: 0 50%;
