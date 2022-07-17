@@ -280,6 +280,46 @@ body {
     left: 6px;
 }
 
+#divBuscarCedula {
+    width: auto;
+}
+
+.circle {
+    background-color: red;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    border-color: black;
+    border: solid;
+    border-width: 2px;
+}
+
+.circle2 {
+    background-color: green;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    border-color: black;
+    border: solid;
+    border-width: 2px;
+}
+
+#divAltoRiesto {
+    position: absolute;
+    top: 90px;
+    left: 86%;
+}
+
+#altoRiesgo {
+    width: 170px;
+}
+
+#divCircle {
+    margin-left: -20px;
+    margin-top: -2px;
+    width: auto;
+}
+
 @keyframes colores {
     0% {
         background-position: 0 50%;

@@ -110,3 +110,12 @@ function habilitarCampos() {
     document.getElementById('inputGenero').disabled = false;
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
+
+function cambiarColorAltoRiesgo() {
+
+    //alto riesgo
+    document.getElementById('circle').style.background = 'green';
+
+    //bajo riesgo
+    document.getElementById('circle').style.background = 'red';
+};

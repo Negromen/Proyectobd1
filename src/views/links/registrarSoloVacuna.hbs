@@ -53,6 +53,14 @@
                 <div class="encabezado" id="divEncabezado1">
                     <button class="btn btn-danger" id="btnBorrar"><img src="/img/borrar.png" width="22px"></button>
                     <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button>
+                    <div class="row" id="divAltoRiesto">
+                        <div class="col" id="altoRiesgo">
+                            <h6>Alto riesgo:</h6>
+                        </div>
+                        <div class="col" id="divCircle">
+                            <div class="circle" id="circle"> </div>
+                        </div>
+                    </div>
                     <h1>Datos personales</h1>
                 </div>
                 {{#if Query}}
@@ -119,7 +127,7 @@
                     </div>
                     <div class="col-md-3" style="display: none;" id="divFechaVac">
                         <label for="inputDateV" class="form-label">Fecha de vacunación</label>
-                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" required>
+                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" readonly>
                     </div>
                     <div class="col-md-2" style="display: none;" id="divCS">
                         <label for="inputCS" class="form-label">Centro de Salud</label>

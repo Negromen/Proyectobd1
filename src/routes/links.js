@@ -22,50 +22,50 @@ router.get('/registrarVacuna', async(req, res, next) => {
 router.post('/registrarVacuna', async(req, res, next) => {
     const varr = req.body;
     let cedula = varr.tipoCedula + "-" + varr.cedula;
-    let riesgo =false;
-    var actual=new Date();
-    var recibido =new Date(varr.fechanac);
-    if((actual.getFullYear()-recibido.getFullYear())>=60) riesgo=true;
-    actual=moment(actual).format('YYYY-MM-DD');
-    
-    const Query =await pool.query("select docidentidad from persona where docidentidad = ? ",[cedula]);
+    let riesgo = false;
+    var actual = new Date();
+    var recibido = new Date(varr.fechanac);
+    if ((actual.getFullYear() - recibido.getFullYear()) >= 60) riesgo = true;
+    actual = moment(actual).format('YYYY-MM-DD');
+
+    const Query = await pool.query("select docidentidad from persona where docidentidad = ? ", [cedula]);
     console.log(Query);
-    if(Object.keys(Query).length==0){
+    if (Object.keys(Query).length == 0) {
         await pool.query("INSERT INTO persona set ? ", {
-            docidentidad:cedula,
+            docidentidad: cedula,
             nombreper: varr.nombre,
             apellidoper: varr.apellido,
             fechanacimiento: varr.fechanac,
             sexo: varr.genero,
-            altoriesgo:riesgo 
+            altoriesgo: riesgo
         });
-    
+
         await pool.query("INSERT INTO paciente set ? ", {
-            docidentidad:cedula
+            docidentidad: cedula
         });
-    
-        await pool.query("INSERT INTO reside set ? " , {
-            docidentidad:cedula,
-            codmunicipio:parseInt(varr.municipio),
-            codestado:parseInt(varr.estado),
-            codpais:parseInt(varr.pais),
-            fecharesidencia:actual
+
+        await pool.query("INSERT INTO reside set ? ", {
+            docidentidad: cedula,
+            codmunicipio: parseInt(varr.municipio),
+            codestado: parseInt(varr.estado),
+            codpais: parseInt(varr.pais),
+            fecharesidencia: actual
         });
-    
+
         const Query1 = await pool.query("select codestado,codpais from centro_vacunacion where codcentro = ? ", [parseInt(varr.centroSalud)]);
-        const Query2= await pool.query("select codpais from vacuna where idvacuna = ? ",[parseInt(varr.vacuna)])
+        const Query2 = await pool.query("select codpais from vacuna where idvacuna = ? ", [parseInt(varr.vacuna)])
         await pool.query("INSERT INTO vacunada set ? ", {
             idvacuna: parseInt(varr.vacuna),
-            codpais:Query2[0].codpais,
+            codpais: Query2[0].codpais,
             docidentidad: cedula,
             codcentro: parseInt(varr.centroSalud),
-            codestado:Query1[0].codestado,
-            codpais1:Query1[0].codpais,
-            docidentidad1:varr.personalSalud,
+            codestado: Query1[0].codestado,
+            codpais1: Query1[0].codpais,
+            docidentidad1: varr.personalSalud,
             dosis: parseInt(varr.numDosis),
             fechavacuna: varr.fechaVac
         });
-    }    
+    }
 });
 
 
@@ -74,7 +74,7 @@ router.post('/registrarVacuna', async(req, res, next) => {
 
 router.get('/buscarepetido/:cedula', async(req, res, next) => {
     var docidentidad = req.params.cedula;
-    const Query3 = await pool.query("select docidentidad from persona where docidentidad = ? ",[docidentidad]);
+    const Query3 = await pool.query("select docidentidad from persona where docidentidad = ? ", [docidentidad]);
     console.log(Query3);
     if (Query3)
         res.json(Query3[0]);
@@ -119,13 +119,13 @@ router.post('/verificarRegistro', async(req, res, next) => {
 });
 
 router.get('/registrarSoloVacuna', async(req, res) => {
-    const Query =await pool.query("select * from persona where docidentidad = 'V-27692889' ");
-    if(Query[0].sexo ==='M')Query[0].sexo='Masculino';
-    if(Query[0].sexo ==='F')Query[0].sexo='Femenino';
-    else Query[0].sexo='No aplica';
+    const Query = await pool.query("select * from persona where docidentidad = 'V-27692889' ");
+    if (Query[0].sexo === 'M') Query[0].sexo = 'Masculino';
+    if (Query[0].sexo === 'F') Query[0].sexo = 'Femenino';
+    else Query[0].sexo = 'No aplica';
     console.log(Query[0]);
-    if(Query)   
-        res.render("links/registrarSoloVacuna",{Query});
+    if (Query)
+        res.render("links/registrarSoloVacuna", { Query });
     else
         res.render("links/registrarSoloVacuna");
 });

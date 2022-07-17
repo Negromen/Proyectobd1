@@ -39,8 +39,17 @@
                 <form action="/links/registrarSoloVacuna" method="GET">
                     <h1>Si ha registrado sus datos anteriormente, por favor introduzca su cédula</h1>
                     <div class="formRegistro">
-                        <input class="form-control" type="text" placeholder="X-00000000">
-                        <button class="btn btn-primary">
+                        <div class="input-group" id="divBuscarCedula">
+                            <span>
+                                <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select">
+                                    <option selected value="0" >X</option>
+                                    <option value="1" >V</option>
+                                    <option value="2" >E</option>
+                                </select>
+                            </span>
+                            <input type="text" name="buscarCedula" class="form-control" id="buscarCedula" placeholder="Ej: 0000000" value="">
+                        </div>
+                        <button class="btn btn-primary" onclick="cambiarColorAltoRiesgo();">
                             Buscar<a href="/links/registrarSoloVacuna"></a>
                         </button>
                     </div>
