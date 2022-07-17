@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 const moment = require('moment');
-var mensaje = 0;
 
 ////--------------------------------------------------------FUNCIONES------------------------------------------------------------
 
 ////-------------------------------------------REDIRECCCIONAMIENTO REGISTRO VACUNA--------------------------------------------------
 
+//PROCEDIMIENTO PARA ABRIR LA INTERFAZ DE REGISTRAR PERSONA Y SU VACUNA POR PRIMERA VEZ
 router.get('/registrarVacuna', async(req, res, next) => {
     const Query = await pool.query("select idvacuna,nombrevacuna from vacuna");
     const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
@@ -18,6 +18,7 @@ router.get('/registrarVacuna', async(req, res, next) => {
         res.render("links/registrarVacuna");
 });
 
+//PROCEDIMIENTO PARA INSERTAR EN LA BASE DE DATOS UNA PERSONA CON SU VACUNA POR PRIMERA VEZ
 router.post('/registrarVacuna', async(req, res, next) => {
     const varr = req.body;
     let cedula = varr.tipoCedula + "-" + varr.cedula;
@@ -117,11 +118,19 @@ router.post('/verificarRegistro', async(req, res, next) => {
     res.render("links/verificarRegistro");
 });
 
-router.get('/vacuna', (req, res) => {
-    res.render("links/registrarSoloVacuna");
+router.get('/registrarSoloVacuna', async(req, res) => {
+    const Query =await pool.query("select * from persona where docidentidad = 'V-27692889' ");
+    if(Query[0].sexo ==='M')Query[0].sexo='Masculino';
+    if(Query[0].sexo ==='F')Query[0].sexo='Femenino';
+    else Query[0].sexo='No aplica';
+    console.log(Query[0]);
+    if(Query)   
+        res.render("links/registrarSoloVacuna",{Query});
+    else
+        res.render("links/registrarSoloVacuna");
 });
 
-router.post('/vacuna', async(req, res, next) => {
+router.post('/registrarSoloVacuna', async(req, res, next) => {
     res.render("links/registrarSoloVacuna");
 });
 

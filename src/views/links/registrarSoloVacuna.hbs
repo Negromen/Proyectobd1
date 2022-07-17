@@ -55,113 +55,93 @@
                     <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button>
                     <h1>Datos personales</h1>
                 </div>
-                <div class="col-md-6">
-                    <label for="inputNombre" class="form-label">Nombre</label>
-                    <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto" disabled>
-                </div>
-                <div class="col-md-6">
-                    <label for="inputApellido" class="form-label">Apellido</label>
-                    <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez" disabled>
-                </div>
-                {{!-- <div class="col-12">
-                    <label for="inputAddress" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Ej: Av. Carlos Soublette. San Bernardino, Caracas">
-                </div> --}}
-                <div>
-                    
-                </div>
-                <div class="col-md-4">
-                    <label for="inputPais" class="form-label">Pais</label>
-                    <select name="pais" id="inputPais" onchange="elegirEstado();" class="form-select" disabled>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                            <option value=""></option>
-                    </select>
-                </div>
-                <div class="col-md-4" id="divEstado">
-                    <label for="inputEstado" class="form-label">Estado/Provincia</label>
-                    <select name="estado" id="inputEstado" onchange="elegirMunicipio(); " class="form-select" disabled>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                    </select>
-                </div>
-                <div class="col-md-4" id="divMunicipio">
-                    <label for="inputMunicipio" class="form-label">Municipio</label>
-                    <select name="municipio" id="inputMunicipio" class="form-select" disabled>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="inputCedula" class="form-label">Cédula</label>
-                    <div class="input-group">
-                        <span>
-                            <select name="tipoCedula" id="tipoCedula" class="form-select" disabled>
-                                <option selected value="0" disabled>X</option>
-                            </select>
-                        </span>
-                        <input type="number" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" min="1" disabled>
+                {{#if Query}}
+                    <div class="col-md-6">
+                        <label for="inputNombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto" value="{{Query.nombreper}}" readonly>
                     </div>
-                </div>
-                {{!-- <div class="col-md-4">
-                    <label for="inputOcupacion" class="form-label">Ocupación</label>
-                    <input type="text" class="form-control" id="inputOcupacion" placeholder="Ej: Comerciante">
-                </div> --}}
-                {{!-- <div class="col-md-2">
-                    <label for="inputTelefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="inputTelefono" placeholder="Ej: 0412XXXXXXX">
-                </div> --}}
-                <div class="col-md-4">
-                    <label for="inputDate" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" name="fechanac" class="form-control" id="inputDate" disabled>
-                </div>
-                {{!-- <div class="col-md-5">
-                    <label for="inputNacionalidad" class="form-label">Nacionalidad</label>
-                    <input type="text" class="form-control" id="inputNacionalidad" placeholder="Ej: Venezolano">
-                </div> --}}
-                <div class="col-md-2">
-                    <label for="inputGenero" class="form-label">Género</label>
-                    <select name="genero" id="inputGenero" class="form-select" disabled>
-                        <option selected value="0" disabled>Género</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                        <option value="N/A">N/A</option>
-                    </select>
-                </div>
-                <div class="col-md-3" style="display: none;" id="divVacuna">
-                    <label for="inputVacuna" class="form-label">Vacuna</label>
-                    <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                        <option value=""></option>
-                    </select>
-                </div>
-                <div class="col-md-2" id="divDosis" style="display: none;">
-                    <label for="inputDosis" class="form-label">Número de dosis</label>
-                    <select name="numDosis" id="inputDosis" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                    </select>
-                </div>
-                <div class="col-md-3" style="display: none;" id="divFechaVac">
-                    <label for="inputDateV" class="form-label">Fecha de vacunación</label>
-                    <input name="fechaVac" type="date" class="form-control" id="inputDateV" required>
-                </div>
-                <div class="col-md-2" style="display: none;" id="divCS">
-                    <label for="inputCS" class="form-label">Centro de Salud</label>
-                    <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                        <option value=""></option>
-                    </select>
-                </div>
-                <div class="col-md-2" id="divPS" style="display: none;">
-                    <label for="inputPS" class="form-label">Personal de salud</label>
-                    <select name="personalSalud" id="inputPS" name="personal" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
-                    </select>
-                </div>
-                <div class="col-md-12" style="display: none;" id="divBtnRegistro">
-                    <form action="" method="">
-                        <button type="submit" class="btn btn-primary" onclick="">
-                            Registrar
-                        </button>
-                    </form>
-                </div>
+                    <div class="col-md-6">
+                        <label for="inputApellido" class="form-label">Apellido</label>
+                        <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez" value="{{Query.apellidoper}}" readonly>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputPais" class="form-label">Pais</label>
+                        <select name="pais" id="inputPais" class="form-select" readonly>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option value="0">pais</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4" id="divEstado">
+                        <label for="inputEstado" class="form-label">Estado/Provincia</label>
+                        <select name="estado" id="inputEstado" class="form-select" readonly>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4" id="divMunicipio">
+                        <label for="inputMunicipio" class="form-label">Municipio</label>
+                        <select name="municipio" id="inputMunicipio" class="form-select" readonly>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCedula" class="form-label">Cédula</label>
+                        <div class="input-group">
+                            <span>
+                                <select name="tipoCedula" id="tipoCedula" class="form-select" readonly>
+                                    <option selected value="0" >X</option>
+                                </select>
+                            </span>
+                            <input type="text" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" value="{{docidentidad}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputDate" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" name="fechanac" class="form-control" id="inputDate" value="{{Query.fechanacimiento}}" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputGenero" class="form-label">Género</label>
+                        <input type="text" name="genero" class="form-control" id="inputFecha" value="{{Query.sexo}}">
+                    </div>
+                    <div class="col-md-3" style="display: none;" id="divVacuna">
+                        <label for="inputVacuna" class="form-label">Vacuna</label>
+                        <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select" required>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" id="divDosis" style="display: none;">
+                        <label for="inputDosis" class="form-label">Número de dosis</label>
+                        <select name="numDosis" id="inputDosis" class="form-select" required>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="display: none;" id="divFechaVac">
+                        <label for="inputDateV" class="form-label">Fecha de vacunación</label>
+                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" required>
+                    </div>
+                    <div class="col-md-2" style="display: none;" id="divCS">
+                        <label for="inputCS" class="form-label">Centro de Salud</label>
+                        <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();" required>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" id="divPS" style="display: none;">
+                        <label for="inputPS" class="form-label">Personal de salud</label>
+                        <select name="personalSalud" id="inputPS" name="personal" class="form-select" required>
+                            <option selected value="0" disabled>Seleccionar...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12" style="display: none;" id="divBtnRegistro">
+                        <form action="" method="">
+                            <button type="submit" class="btn btn-primary" onclick="">
+                                Registrar
+                            </button>
+                        </form>
+                    </div>
+                {{/if}}
                 <div class="encabezado mt-4">
                     <h1>Vacunas registradas</h1>
                 </div>
