@@ -119,7 +119,10 @@ router.post('/verificarRegistro', async(req, res, next) => {
 });
 
 router.get('/registrarSoloVacuna', async(req, res) => {
-    const Query = await pool.query("select * from persona where docidentidad = 'V-27692889' ");
+    const varr=req.body;
+    console.log("ENTRANDO AL GET");
+    console.log(varr);
+    /*const Query = await pool.query("select * from persona where docidentidad = ? ",[docidentidad]);
     if (Query[0].sexo === 'M') Query[0].sexo = 'Masculino';
     if (Query[0].sexo === 'F') Query[0].sexo = 'Femenino';
     else Query[0].sexo = 'No aplica';
@@ -127,7 +130,8 @@ router.get('/registrarSoloVacuna', async(req, res) => {
     if (Query)
         res.render("links/registrarSoloVacuna", { Query });
     else
-        res.render("links/registrarSoloVacuna");
+*/
+    res.render("links/registrarSoloVacuna");
 });
 
 router.post('/registrarSoloVacuna', async(req, res, next) => {
