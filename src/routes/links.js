@@ -80,6 +80,13 @@ router.get('/buscarepetido/:cedula', async(req, res, next) => {
         res.json(Query3[0]);
 });
 
+router.get('/buscavacuna', async(req, res, next) => {
+    var idvacuna = req.params.vacuna;
+    const Query3 = await pool.query("select idvacuna,nombrevacuna from vacuna ");
+    if (Query3)
+        res.json(Query3[0]);
+});
+
 router.get('/buscadosis/:vacuna', async(req, res, next) => {
     var idvacuna = req.params.vacuna;
     const Query3 = await pool.query("select cantdosis from vacuna where idvacuna = ? ", [idvacuna]);
@@ -119,19 +126,40 @@ router.post('/verificarRegistro', async(req, res, next) => {
 });
 
 router.get('/registrarSoloVacuna', async(req, res) => {
-    const varr=req.body;
-    console.log("ENTRANDO AL GET");
-    console.log(varr);
-    /*const Query = await pool.query("select * from persona where docidentidad = ? ",[docidentidad]);
-    if (Query[0].sexo === 'M') Query[0].sexo = 'Masculino';
-    if (Query[0].sexo === 'F') Query[0].sexo = 'Femenino';
-    else Query[0].sexo = 'No aplica';
-    console.log(Query[0]);
-    if (Query)
-        res.render("links/registrarSoloVacuna", { Query });
+    const varr=req.query;
+    var docidentidad=varr.buscarTipoCedula + "-" + varr.buscarCedula;
+    const Query = await pool.query("select * from persona where docidentidad = ? ",[docidentidad]);
+    if (Query[0].sexo == 'M') 
+        Query[0].sexo = 'Masculino';
     else
-*/
-    res.render("links/registrarSoloVacuna");
+        if (Query[0].sexo == 'F')
+            Query[0].sexo = 'Femenino';
+        else
+            if((Query[0].sexo !== 'F') && (Query[0].sexo !== 'M'))    
+                Query[0].sexo = 'No aplica';
+    Query[0].fechanacimiento = moment(Query[0].fechanacimiento).format('YYYY-MM-DD');
+    const Query2= await pool.query("SELECT m.codmunicipio,m.nombremunicipio,m.codestado,m.codpais FROM municipio as m,reside as r WHERE m.codmunicipio=r.codmunicipio and m.codestado=r.codestado and m.codpais=r.codpais and r.docidentidad= ? ",[docidentidad]);
+    const Query3= await pool.query("SELECT e.codestado,e.nombreestado,e.codpais FROM estado_provincia as e WHERE e.codestado= ? and e.codpais= ? ",[Query2[0].codestado,Query2[0].codpais]);
+    const Query4= await pool.query("select p.codpais,p.nombrepais from pais as p where p.codpais= ?",[Query3[0].codpais]);
+    const Query5 = await pool.query("select idvacuna,nombrevacuna from vacuna");
+    const Query6 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
+    const lacedula ={
+        tipocedula:varr.buscarTipoCedula,
+        cedula:varr.buscarCedula
+    };
+    var fechita=new Date();
+    console.log(fechita.getFullYear());
+    Query[0]=Object.assign(Query[0],lacedula);
+    Query[0]=Object.assign(Query[0],Query2[0]);
+    Query[0]=Object.assign(Query[0],Query3[0]);
+    Query[0]=Object.assign(Query[0],Query4[0]);
+    console.log(Query);
+    console.log(Query5);
+    console.log(Query6);
+    if ((Query)&&(Query5)&&(Query6))
+        res.render("links/registrarSoloVacuna", {Query,Query5,Query6});
+    else
+        res.render("links/registrarSoloVacuna");
 });
 
 router.post('/registrarSoloVacuna', async(req, res, next) => {

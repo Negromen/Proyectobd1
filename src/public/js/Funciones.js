@@ -68,7 +68,6 @@ async function elegirMunicipio() {
     for (var i = 1; i <= (select.length); i++) {
         select.remove(i);
     }
-    console.log(response2);
     for (i = 1; i <= valor; i++) {
         const option = document.createElement('option');
         option.value = response2[i - 1].codmunicipio;
@@ -80,13 +79,10 @@ async function elegirMunicipio() {
 
 function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';
-    document.getElementById('divDosis').style.display = 'block';
     document.getElementById('divFechaVac').style.display = 'block';
     document.getElementById('divCS').style.display = 'block';
-    document.getElementById('divPS').style.display = 'block';
-    document.getElementById('divPS').style.display = 'block';
     document.getElementById('divBtnRegistro').style.display = 'block';
-}
+};
 
 function aparecer() {
     var card = document.getElementById('divCard');
