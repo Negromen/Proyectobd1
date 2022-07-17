@@ -77,6 +77,11 @@
                             <option value="{{codpais}}">{{nombrepais}}</option>
                         {{/each}}
                     </select>
+                    {{else}}
+                    <label for="inputPais" class="form-label">Pais</label>
+                    <select name="pais" id="inputPais" class="form-select">
+                        <option selected value="0" disabled>Seleccionar...</option>
+                    </select>
                     {{/if}}
                 </div>
                 <div class="col-md-4" style="display:none ;" id="divEstado">
@@ -96,10 +101,9 @@
                     <div class="input-group">
                         <span>
                             <select name="tipoCedula" id="tipoCedula" class="form-select" required>
-                                <option selected value="0" disabled>X</option>
-                                <option value="1">V</option>
-                                <option value="1">E</option>
-
+                                <option selected value="" disabled>X</option>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
                             </select>
                         </span>
                         <input type="number" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" min="1" required>
@@ -139,6 +143,11 @@
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>
                         {{/each}}
                     </select>
+                    {{else}}
+                    <label for="inputVacuna" class="form-label">Vacuna</label>
+                    <select name="vacuna" id="inputVacuna" name="vacuna" class="form-select">
+                        <option selected value="0" disabled>Seleccionar...</option>
+                    </select>
                     {{/if}}
                 </div>
                 <div class="col-md-2" style="display: none;" id="divDosis">
@@ -159,6 +168,11 @@
                         {{#each Query2}}
                         <option value="{{codcentro}}">{{nombrecentro}}</option>
                         {{/each}}
+                    </select>
+                    {{else}}
+                    <label for="inputCS" class="form-label">Centro de Salud</label>
+                    <select name="centroSalud" id="inputCS" class="form-select" required>
+                        <option selected value="0" disabled>Seleccionar...</option>
                     </select>
                     {{/if}}
                 </div>

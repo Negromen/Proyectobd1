@@ -78,7 +78,7 @@ async function elegirMunicipio() {
     document.getElementById('divMunicipio').style.display = 'block';
 };
 
-async function datosVacuna() {
+function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';
     document.getElementById('divDosis').style.display = 'block';
     document.getElementById('divFechaVac').style.display = 'block';
@@ -88,7 +88,7 @@ async function datosVacuna() {
     document.getElementById('divBtnRegistro').style.display = 'block';
 }
 
-async function aparecer() {
+function aparecer() {
     var card = document.getElementById('divCard');
     var boton = document.getElementById('botonBorrar');
     card.addEventListener('mouseover', () => {
@@ -99,7 +99,7 @@ async function aparecer() {
     }, false);
 };
 
-async function habilitarCampos() {
+function habilitarCampos() {
     document.getElementById('inputNombre').disabled = false;
     document.getElementById('inputApellido').disabled = false;
     document.getElementById('inputPais').disabled = false;
