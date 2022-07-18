@@ -29,7 +29,6 @@ router.post('/registrarVacuna', async(req, res, next) => {
     actual = moment(actual).format('YYYY-MM-DD');
 
     const Query = await pool.query("select docidentidad from persona where docidentidad = ? ", [cedula]);
-    console.log(Query);
     if (Object.keys(Query).length == 0) {
         await pool.query("INSERT INTO persona set ? ", {
             docidentidad: cedula,
@@ -76,13 +75,6 @@ router.get('/buscarepetido/:cedula', async(req, res, next) => {
     var docidentidad = req.params.cedula;
     const Query3 = await pool.query("select docidentidad from persona where docidentidad = ? ", [docidentidad]);
     console.log(Query3);
-    if (Query3)
-        res.json(Query3[0]);
-});
-
-router.get('/buscavacuna', async(req, res, next) => {
-    var idvacuna = req.params.vacuna;
-    const Query3 = await pool.query("select idvacuna,nombrevacuna from vacuna ");
     if (Query3)
         res.json(Query3[0]);
 });
@@ -143,26 +135,58 @@ router.get('/registrarSoloVacuna', async(req, res) => {
     const Query4= await pool.query("select p.codpais,p.nombrepais from pais as p where p.codpais= ?",[Query3[0].codpais]);
     const Query5 = await pool.query("select idvacuna,nombrevacuna from vacuna");
     const Query6 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
-    const lacedula ={
-        tipocedula:varr.buscarTipoCedula,
-        cedula:varr.buscarCedula
+    const Query7 = await pool.query("select * from vacunada where docidentidad = ?",[docidentidad]);
+    var listica =[];
+    for(let i=0;i<=((Object.keys(Query7).length)-1);i++){
+        var Query8 = await pool.query("select nombrevacuna,tipo from vacuna where idvacuna = ? and codpais = ? ",[Query7[i].idvacuna,Query7[i].codpais]);
+        var Query9 = await pool.query("select nombrecentro from centro_salud where codcentro = ? and codestado = ? and codpais = ?",[Query7[i].codcentro,Query7[i].codestado,Query7[i].codpais1]);
+        var Query10= await pool.query("select nombreper from persona where docidentidad = ?",[Query7[i].docidentidad1]);
+        let objeto ={
+            numdosis:Query7[i].dosis,
+            fechavac:moment(Query7[i].fechavacuna).format('YYYY-MM-DD')
+        };
+        objeto=Object.assign(objeto,Query8[0]);
+        objeto=Object.assign(objeto,Query9[0]);
+        objeto=Object.assign(objeto,Query10[0]);
+        listica.push(objeto);
+
     };
     var fechita=new Date();
-    console.log(fechita.getFullYear());
+    const lacedula ={
+        tipocedula:varr.buscarTipoCedula,
+        cedula:varr.buscarCedula,
+        hoy:moment(fechita).format('YYYY-MM-DD')
+    };
     Query[0]=Object.assign(Query[0],lacedula);
     Query[0]=Object.assign(Query[0],Query2[0]);
     Query[0]=Object.assign(Query[0],Query3[0]);
     Query[0]=Object.assign(Query[0],Query4[0]);
-    console.log(Query);
-    console.log(Query5);
-    console.log(Query6);
+    Query[0]=Object.assign(Query[0],fechita);
+    console.log(Query)
     if ((Query)&&(Query5)&&(Query6))
-        res.render("links/registrarSoloVacuna", {Query,Query5,Query6});
+        res.render("links/registrarSoloVacuna", {Query,Query5,Query6,listica});
     else
         res.render("links/registrarSoloVacuna");
 });
 
 router.post('/registrarSoloVacuna', async(req, res, next) => {
+    const varr=req.body;
+    let cedula = varr.tipoCedula + "-" + varr.cedula;
+    var actual = new Date();
+
+    const Query1 = await pool.query("select codestado,codpais from centro_vacunacion where codcentro = ? ", [parseInt(varr.centroSalud)]);
+    const Query2 = await pool.query("select codpais from vacuna where idvacuna = ? ", [parseInt(varr.vacuna)])
+    await pool.query("INSERT INTO vacunada set ? ", {
+        idvacuna: parseInt(varr.vacuna),
+        codpais: Query2[0].codpais,
+        docidentidad: cedula,
+        codcentro: parseInt(varr.centroSalud),
+        codestado: Query1[0].codestado,
+        codpais1: Query1[0].codpais,
+        docidentidad1: varr.personalSalud,
+        dosis: parseInt(varr.numDosis),
+        fechavacuna: varr.fechaVac
+    });
     res.render("links/registrarSoloVacuna");
 });
 

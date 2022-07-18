@@ -49,7 +49,7 @@
 
     <div class="container-fluid py-3">
         <div id="tablaPrincipalVacunacion" class="container">
-            <form class="row g-3" action="">
+            <form class="row g-3" action="/links/registrarSoloVacuna" method="POST">
                 <div class="encabezado" id="divEncabezado1">
                     <button class="btn btn-danger" id="btnBorrar"><img src="/img/borrar.png" width="22px"></button>
                     <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-md-3" style="display: none;" id="divFechaVac">
                         <label for="inputDateV" class="form-label">Fecha de vacunación</label>
-                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" value="" readonly>
+                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" value="{{hoy}}" readonly>
                     </div>
                     <div class="col-md-2" id="divPS" style="display: none;">
                         <label for="inputPS" class="form-label">Personal de salud</label>
@@ -129,7 +129,7 @@
                         </select>
                     </div>
                     <div class="col-md-12" style="display: none;" id="divBtnRegistro">
-                        <form action="" method="">
+                        <form action="/links/registrarSoloVacuna" method="POST">
                             <button type="submit" class="btn btn-primary" onclick="">
                                 Registrar
                             </button>
@@ -161,20 +161,22 @@
                 <div class="encabezado mt-4">
                     <h1>Vacunas registradas</h1>
                 </div>
+                {{#each listica}}
                 <div class="col-md-3 py-3" id="divCard">
                     <div class="card" style="width: 18rem;" onmouseenter="aparecer();">
                         <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
                         <div class="card-body">
-                            <h5 class="card-title">Nombre Vacuna</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Tipo vacuna</h6>
-                            <h6>Dosis recibidas:</h6>
-                            <h6>Centro de salud:</h6>
-                            <h6>Personal de salud:</h6>
-                            <h6>Fecha de vacunación: 00/00/00</h6>
+                            <h5 class="card-title">{{nombrevacuna}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{tipo}}</h6>
+                            <h6>Dosis recibida:{{numdosis}}</h6>
+                            <h6>Centro de salud:{{nombrecentro}}</h6>
+                            <h6>Personal de salud:{{nombreper}}</h6>
+                            <h6>Fecha de vacunación:{{fechavac}}</h6>
                             <h6></h6>
                         </div>
                     </div>
                 </div>
+                {{/each}}
                 {{!-- <div class="col-md-5">
                     <label for="inputLaboratorio" class="form-label">Laboratorio</label>
                     <input type="text" class="form-control" id="inputLaboratorio" placeholder="Laboratorio">
