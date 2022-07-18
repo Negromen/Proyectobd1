@@ -140,7 +140,7 @@ router.get('/registrarSoloVacuna', async(req, res) => {
     for(let i=0;i<=((Object.keys(Query7).length)-1);i++){
         var Query8 = await pool.query("select nombrevacuna,tipo from vacuna where idvacuna = ? and codpais = ? ",[Query7[i].idvacuna,Query7[i].codpais]);
         var Query9 = await pool.query("select nombrecentro from centro_salud where codcentro = ? and codestado = ? and codpais = ?",[Query7[i].codcentro,Query7[i].codestado,Query7[i].codpais1]);
-        var Query10= await pool.query("select nombreper from persona where docidentidad = ?",[Query7[i].docidentidad1]);
+        var Query10= await pool.query("select nombreper,apellidoper from persona where docidentidad = ?",[Query7[i].docidentidad1]);
         let objeto ={
             numdosis:Query7[i].dosis,
             fechavac:moment(Query7[i].fechavacuna).format('YYYY-MM-DD')
@@ -172,8 +172,7 @@ router.get('/registrarSoloVacuna', async(req, res) => {
 router.post('/registrarSoloVacuna', async(req, res, next) => {
     const varr=req.body;
     let cedula = varr.tipoCedula + "-" + varr.cedula;
-    var actual = new Date();
-
+    
     const Query1 = await pool.query("select codestado,codpais from centro_vacunacion where codcentro = ? ", [parseInt(varr.centroSalud)]);
     const Query2 = await pool.query("select codpais from vacuna where idvacuna = ? ", [parseInt(varr.vacuna)])
     await pool.query("INSERT INTO vacunada set ? ", {
@@ -187,6 +186,7 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
         dosis: parseInt(varr.numDosis),
         fechavacuna: varr.fechaVac
     });
+    
     res.render("links/registrarSoloVacuna");
 });
 
