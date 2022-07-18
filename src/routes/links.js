@@ -119,7 +119,7 @@ router.post('/verificarRegistro', async(req, res, next) => {
 });
 
 router.get('/registrarSoloVacuna', async(req, res) => {
-    const varr=req.body;
+    const varr = req.params.buscarCedula;
     console.log("ENTRANDO AL GET");
     console.log(varr);
     /*const Query = await pool.query("select * from persona where docidentidad = ? ",[docidentidad]);
@@ -137,5 +137,25 @@ router.get('/registrarSoloVacuna', async(req, res) => {
 router.post('/registrarSoloVacuna', async(req, res, next) => {
     res.render("links/registrarSoloVacuna");
 });
+
+router.get('/controlCentroSalud', (req, res) => {
+    res.render("links/controlCentroSalud");
+});
+
+router.post('/controlCentroSalud', async(req, res, next) => {
+    res.render("links/controlCentroSalud");
+});
+
+router.get('/controlPersonalSalud', (req, res) => {
+    res.render("links/controlPersonalSalud");
+});
+
+router.post('/controlPersonalSalud', async(req, res, next) => {
+    res.render("links/controlPersonalSalud");
+});
+
+
+
+
 
 module.exports = router;
