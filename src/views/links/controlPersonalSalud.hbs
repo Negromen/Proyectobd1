@@ -36,7 +36,16 @@
         <div class="container backgroundInput" id="backgroundContenido">
             <div class="row" id="contenidoPersonal">
                 <div class="col-4 pt-3" style="background-color: rgb(135, 194, 234)">
-                    <input type="number" class="form-control" placeholder="Cedula del Personal de Salud" style="width: 300px;" id="buscarPersonal">
+                    <div class="input-group col-1">
+                        <span>
+                            <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select">
+                                <option selected value="0" disabled>X</option>
+                                <option value="V" >V</option>
+                                <option value="E" >E</option>
+                            </select>
+                        </span>
+                        <input type="number" class="form-control" placeholder="Cedula del Personal de Salud" style="width: 100px;" id="buscarPersonal">
+                    </div>
                     <button class="btn btn-primary mt-2" type="submit">Buscar</button>
                 </div>
                 <div class="col py-2" style="background-color: rgb(196, 229, 252);" id="inputContenido">
@@ -44,6 +53,7 @@
                         <h1>Control de Personal de Salud</h1>
                     </div>
                     <div class="col-7">
+                        <label for="">Cédula del Personal de Salud</label>
                         <div class="input-group">
                             <span>
                                 <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select">
@@ -56,9 +66,11 @@
                         </div>   
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Nombre del Personal de Salud</label>
                         <input type="text" class="form-control" placeholder="Nombre del Personal de Salud">
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Apellido del Personal de Salud</label>
                         <input type="text" class="form-control" placeholder="Apellido del Personal de Salud">
                     </div>
                     <div class="pt-2 col-7">
@@ -66,6 +78,7 @@
                         <input type="date" class="form-control">
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Género del Personal de Salud</label>
                         <select class="form-select" name="genero" id="genero">
                             <option value="0" selected disabled>Género...</option>
                             <option value="M">Masculino</option>
@@ -74,21 +87,25 @@
                         </select>
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Pais del Personal de Salud</label>
                         <select class="form-select" name="pais" id="pais">
                             <option value="0" selected disabled>Pais...</option>
                         </select>
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Estado/Provincia del Personal de Salud</label>
                         <select class="form-select" name="estado" id="estado">
                             <option value="0" selected disabled>Estado...</option>
                         </select>
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Municipio del Personal de Salud</label>
                         <select class="form-select" name="municipo" id="municipio">
                             <option value="0" selected disabled>Municipio...</option>
                         </select>
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Tipo del Personal de Salud</label>
                         <select class="form-select" name="tipoPersonal" id="tipoPersonal">
                             <option value="0" selected disabled>Tipo de Personal de Salud...</option>
                             <option value="1">Médico</option>
@@ -97,6 +114,7 @@
                         </select>
                     </div>
                     <div class="pt-2 col-7">
+                        <label for="">Centro de Salud asignado</label>
                         <select class="form-select" name="tipoCentro" id="tipoCentro">
                             <option value="0" selected disabled>Centro de Salud...</option>
                         </select> 
@@ -134,11 +152,11 @@
         #backgroundRegistro{
             min-height: 815px;
         }
-        #footer{
-            margin-top: -1px;
+        .backgroundInput{
+            padding-bottom: 20px;
         }
         #backgroundRegistro{
-            padding-top: 70px;
+            padding-top: 20px;
         }
     }
 

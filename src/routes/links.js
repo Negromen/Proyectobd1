@@ -115,20 +115,21 @@ router.get('/buscamunicipio/:estado', async(req, res, next) => {
 //BUSCA EL CENTRO A TRAVES DE UN CODIGO DE CENTRO Y MANDA LA INFORMACION NECESARIA
 router.get('/buscamecentro/:codcentro', async(req, res, next) => {
     var codcentro = req.params.codcentro;
-    const Query3 = await pool.query("select * from centro_salud where codcentro = ? ",[codcentro]);
-    const Query4 = await pool.query("select nombreestado from estado_provincia where codestado = ? and codpais = ?",[Query3[0].codestado,Query3[0].pais]);
-    console.log("PEO AQUI",Query4);
-    const Query5 = await pool.query("select nombrepais from pais where codpais = ?",[Query3[0].pais]);
-    console.log("PEO AQUI",Query5);
-    const Query6 = await pool.query("select nombreper,apellidoper from persona where docidentidad =?",[Query3[0].docidentidad]);
-    centro ={tipo:"Hospitalizacion"};
-    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ",[Query3[0].codcentro/*,Query3[0].codestado,Query3[0].pais*/]);
-    if((Object.keys(Query7).length) !== 0){centro.tipo="Vacunacion";}
+    console.log(codcentro);
+    const Query3 = await pool.query("select * from centro_salud where codcentro = ? ", [codcentro]);
+    const Query4 = await pool.query("select nombreestado from estado_provincia where codestado = ? and codpais = ?", [Query3[0].codestado, Query3[0].codpais]);
+    console.log(Query4);
+    const Query5 = await pool.query("select nombrepais from pais where codpais = ?", [Query3[0].codpais]);
+    console.log(Query5);
+    const Query6 = await pool.query("select nombreper,apellidoper from persona where docidentidad =?", [Query3[0].docidentidad]);
+    centro = { tipo: "Hospitalizacion" };
+    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ", [Query3[0].codcentro /*,Query3[0].codestado,Query3[0].pais*/ ]);
+    if ((Object.keys(Query7).length) !== 0) { centro.tipo = "Vacunacion"; }
     Query3[0].fechaEncargado = moment(Query3[0].fechaEncargado).format('YYYY-MM-DD');
-    Query3[0]= Object.assign(Query3[0],Query4[0]);
-    Query3[0]= Object.assign(Query3[0],Query5[0]);
-    Query3[0]= Object.assign(Query3[0],Query6[0]);
-    Query3[0]= Object.assign(Query3[0], centro);
+    Query3[0] = Object.assign(Query3[0], Query4[0]);
+    Query3[0] = Object.assign(Query3[0], Query5[0]);
+    Query3[0] = Object.assign(Query3[0], Query6[0]);
+    Query3[0] = Object.assign(Query3[0], centro);
     console.log(Query3);
     if (Query3)
         res.json(Query3);
@@ -204,13 +205,13 @@ router.get('/registrarSoloVacuna', async(req, res) => {
 //PARA INSERTAR EN LA BD LA NUEVA VACUNACION
 router.post('/registrarSoloVacuna', async(req, res, next) => {
     console.log(req.query);
-    
+
     const varr = req.body;
     let cedula = varr.tipoCedula + "-" + varr.cedula;
     console.log(varr);
-    const Query = await pool.query("select idvacuna,dosis from vacunada where idvacuna= ? and dosis= ? and docidentidad= ? ",[parseInt(varr.vacuna),parseInt(varr.numDosis),cedula]);
+    const Query = await pool.query("select idvacuna,dosis from vacunada where idvacuna= ? and dosis= ? and docidentidad= ? ", [parseInt(varr.vacuna), parseInt(varr.numDosis), cedula]);
     console.log(Object.keys(Query).length);
-    if((Object.keys(Query).length)==0){
+    if ((Object.keys(Query).length) == 0) {
         const Query1 = await pool.query("select codestado,codpais from centro_vacunacion where codcentro = ? ", [parseInt(varr.centroSalud)]);
         const Query2 = await pool.query("select codpais from vacuna where idvacuna = ? ", [parseInt(varr.vacuna)])
         await pool.query("INSERT INTO vacunada set ? ", {

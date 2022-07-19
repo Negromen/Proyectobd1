@@ -82,7 +82,7 @@ async function elegirMunicipio() {
 };
 
 //PARA BUSCAR CENTROS EN LA INTERFAZ DE CONTROL DE CENTROS
-async function buscarCentro(){
+async function buscarCentro() {
     let centro = document.getElementById('buscarCodigo');
     let codcentro = centro.value;
     console.log(codcentro);
@@ -90,26 +90,30 @@ async function buscarCentro(){
     let response2 = await response.json();
     console.log("sale del fetch");
     console.log(response2);
-    document.getElementById('inputNombreC').value=response2[0].nombrecentro;
-    document.getElementById('inputDireccionC').value=response2[0].direccion;
-    document.getElementById('fechaEncargado').value=fechaEncargado;
-    var option = document.createElement('option');
-    const pais = document.getElementById('inputPais');
-    option.value=response2[0].codpais;
-    option.text=response2[0].nombrepais;
-    pais.appendChild(option);
-    const estado =document.getElementById('inputEstado');
-    option.value=response2[0].codestado;
-    option.text=response2[0].nombreestado;
-    estado.appendChild(option);
-    const encargado= document.getElementById('medico');
-    option.value=response2[0].docidentidad;
-    option.text=response2[0].nombreper;
-    encargado.appendChild(option);
-    const tipo = document.getElementById('tipoCentro');
-    option.value="0";
-    option.text=response2[0].tipo;
-    tipo.appendChild(option);
+    document.getElementById('inputNombreC').value = response2[0].nombrecentro;
+    document.getElementById('inputDireccionC').value = response2[0].direccion;
+    document.getElementById('fechaEncargado').value = response2[0].fechaEncargado;
+    document.getElementById('inputPais').options[0].text = response2[0].nombrepais;
+    document.getElementById('inputEstado').options[0].text = response2[0].nombreestado;
+    document.getElementById('medico').options[0].text = response2[0].nombreper + ' ' + response2[0].apellidoper;
+    document.getElementById('tipoCentro').options[0].text = response2[0].tipo;
+    // const option = document.createElement('option');
+    // const pais = document.getElementById('inputPais');
+    // option.value = response2[0].codpais;
+    // option.text = response2[0].nombrepais;
+    // pais.appendChild(option);
+    // const estado = document.getElementById('inputEstado');
+    // option.value = response2[0].codestado;
+    // option.text = response2[0].nombreestado;
+    // estado.appendChild(option);
+    // const encargado = document.getElementById('medico');
+    // option.value = response2[0].docidentidad;
+    // option.text = response2[0].nombreper;
+    // encargado.appendChild(option);
+    // const tipo = document.getElementById('tipoCentro');
+    // option.value = "0";
+    // option.text = response2[0].tipo;
+    // tipo.appendChild(option);
 };
 
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
@@ -153,5 +157,3 @@ function cambiarColorAltoRiesgo() {
     //bajo riesgo
     document.getElementById('circle').style.background = 'red';
 };
-
-
