@@ -32,14 +32,52 @@
 
 {{!-- CONTENIDO --}}
 
-    <div class="container-fluid" style="background-color: green;">
-        <div class="container" style="background-color: red">
-            <div class="row">
-                <div class="col" style="background-color: blue;">
-                    a
+    <div class="container-fluid" id="backgroundRegistro">
+        <div class="container" id="backgroundContenido">
+            <div class="row" id="contenidoCentro">
+                <div class="col-4 pt-3" style="background-color: rgb(135, 194, 234)">
+                    <input type="number" class="form-control" placeholder="Codigo de Centro de Salud" style="width: 300px;" id="buscarCodigo">
+                    <button class="btn btn-primary mt-2" type="submit">Buscar</button>
                 </div>
-                <div class="col" style="background-color: pink;">
-                    a
+                <div class="col py-2" style="background-color: rgb(196, 229, 252);">
+                    <div>
+                        <h1>Control de Centro de Salud</h1>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control" placeholder="Nombre de Centro de Salud">    
+                    </div>
+                    <div class="pt-2 col-7">
+                        <input type="text" class="form-control" placeholder="Dirección de Centro de Salud">
+                    </div>
+                    <div class="pt-2 col-7">
+                        <select name="pais" id="Pais" class="form-select">
+                            <option value="0" selected disabled>Pais...</option>
+                        </select>
+                    </div>
+                    <div class="pt-2 col-7">
+                        <select name="estado" id="Estado" class="form-select">
+                            <option value="0" selected disabled>Estado...</option>
+                        </select>
+                    </div>
+                    <div class="pt-2 col-7">
+                        <select class="form-select" name="medico" id="medico">
+                            <option value="0" disabled selected>Medico encargado...</option>
+                        </select>
+                    </div>
+                    <div class="pt-2 col-7">
+                        <label for="fechaEncargado">Fecha de asignación</label>
+                        <input type="date" class="form-control" id="fechaEncargado">
+                    </div>
+                    <div class="pt-2 col-7">
+                        <select class="form-select" name="tipoCentro" id="tipoCentro">
+                            <option value="0" disabled selected>Tipo de Centro...</option>
+                        </select>
+                    </div>
+                    <div class="divBotones">
+                        <button class="btn btn-success" type="submit">Añadir</button>
+                        <button class="btn btn-danger" type="submit">Borrar</button>
+                        <button class="btn btn-warning" type="submit">Editar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,3 +95,30 @@
             </div>
         </footer>
     </div>
+
+
+    <style>
+    @media (max-width: 1920px) {
+        #backgroundRegistro{
+            min-height: 815px;
+        }
+        #footer{
+            margin-top: -1px;
+        }
+        #backgroundRegistro{
+            padding-top: 180px;
+        }
+    }
+
+    @media (max-width: 1600px){
+        #backgroundRegistro{
+            min-height: 599px;
+        }
+        #footer{
+            margin-top: -1px;
+        }
+        #backgroundRegistro{
+            padding-top: 70px;
+        }
+    }
+    </style>
