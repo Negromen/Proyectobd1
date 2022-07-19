@@ -1,5 +1,7 @@
 //const { options } = require("../../routes/links");
 
+
+//PARA ELEGIR LA CANTIDAD DE DOSIS DE UNA VACUNA
 async function elegirDosis() {
     let vacuna = document.getElementById('inputVacuna');
     let idvacuna = vacuna.value;
@@ -18,6 +20,7 @@ async function elegirDosis() {
     document.getElementById('divDosis').style.display = 'block';
 };
 
+//PARA ELEGIR EL PEROSNAL DE SALUD DE UN CENTRO 
 async function elegirPS() {
     let cs = document.getElementById('inputCS');
     let valueCS = cs.value;
@@ -37,7 +40,7 @@ async function elegirPS() {
     document.getElementById('divPS').style.display = 'block';
 };
 
-
+//PARA ELEGIR LOS ESTADOS DE UN PAIS
 async function elegirEstado() {
     let pais = document.getElementById('inputPais');
     let valuepais = pais.value;
@@ -58,6 +61,7 @@ async function elegirEstado() {
     document.getElementById('divEstado').style.display = 'block';
 };
 
+//PARA ELEGIR LOS MUNICIPIOS DE UN ESTADO
 async function elegirMunicipio() {
     let estado = document.getElementById('inputEstado');
     let valueestado = estado.value;
@@ -77,6 +81,38 @@ async function elegirMunicipio() {
     document.getElementById('divMunicipio').style.display = 'block';
 };
 
+//PARA BUSCAR CENTROS EN LA INTERFAZ DE CONTROL DE CENTROS
+async function buscarCentro(){
+    let centro = document.getElementById('buscarCodigo');
+    let codcentro = centro.value;
+    console.log(codcentro);
+    let response = await fetch(`http://localhost:4000/links/buscamecentro/${codcentro}`);
+    let response2 = await response.json();
+    console.log("sale del fetch");
+    console.log(response2);
+    document.getElementById('inputNombreC').value=response2[0].nombrecentro;
+    document.getElementById('inputDireccionC').value=response2[0].direccion;
+    document.getElementById('fechaEncargado').value=fechaEncargado;
+    var option = document.createElement('option');
+    const pais = document.getElementById('inputPais');
+    option.value=response2[0].codpais;
+    option.text=response2[0].nombrepais;
+    pais.appendChild(option);
+    const estado =document.getElementById('inputEstado');
+    option.value=response2[0].codestado;
+    option.text=response2[0].nombreestado;
+    estado.appendChild(option);
+    const encargado= document.getElementById('medico');
+    option.value=response2[0].docidentidad;
+    option.text=response2[0].nombreper;
+    encargado.appendChild(option);
+    const tipo = document.getElementById('tipoCentro');
+    option.value="0";
+    option.text=response2[0].tipo;
+    tipo.appendChild(option);
+};
+
+//HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
 function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';
     document.getElementById('divFechaVac').style.display = 'block';
@@ -84,6 +120,7 @@ function datosVacuna() {
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
 
+//
 function aparecer() {
     var card = document.getElementById('divCard');
     var boton = document.getElementById('botonBorrar');
@@ -95,6 +132,7 @@ function aparecer() {
     }, false);
 };
 
+/*  FUNCION SIN USO AUN
 function habilitarCampos() {
     document.getElementById('inputNombre').disabled = false;
     document.getElementById('inputApellido').disabled = false;
@@ -106,12 +144,14 @@ function habilitarCampos() {
     document.getElementById('inputGenero').disabled = false;
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
+*/
 
 function cambiarColorAltoRiesgo() {
-
     //alto riesgo
     document.getElementById('circle').style.background = 'green';
 
     //bajo riesgo
     document.getElementById('circle').style.background = 'red';
 };
+
+
