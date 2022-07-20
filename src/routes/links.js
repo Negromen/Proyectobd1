@@ -208,8 +208,8 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
 /*----------------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/
 
 router.get('/controlCentroSalud', (req, res) => {
-    const Query = await pool.query("select codcentro from centro_salud");
-    res.render("links/controlCentroSalud",{Query});
+    // const Query = await pool.query("select codcentro from centro_salud");
+    res.render("links/controlCentroSalud");
 });
 
 
@@ -241,7 +241,7 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
 
 router.get('/buscadoctores/:codcentro', async(req, res, next) => {
     var codcentro = req.params.codcentro;
-    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m,asignado as a where p.docidentidad=a.docidentidad and p.docidentidad=m.docidentidad and a.codcentro=?",[codcentro]);
+    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m,asignado as a where p.docidentidad=a.docidentidad and p.docidentidad=m.docidentidad and a.codcentro=?", [codcentro]);
     console.log(Query3);
     if (Query3)
         res.json(Query3);
@@ -260,7 +260,7 @@ router.post('/borrarCentro/:codcentro', async(req, res, next) => {
 */
 
 router.post('/GuardarEditarCentro/:Centro', async(req, res, next) => {
-    const DatosC=req.params.Centro;
+    const DatosC = req.params.Centro;
     console.log(DatosC);
 });
 
