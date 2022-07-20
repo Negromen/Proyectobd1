@@ -202,12 +202,17 @@ router.get('/registrarSoloVacuna', async(req, res) => {
         Query[0] = Object.assign(Query[0], Query3[0]);
         Query[0] = Object.assign(Query[0], Query4[0]);
         Query[0] = Object.assign(Query[0], fechita);
+
+        console.log(Query);
         if ((Query) && (Query5) && (Query6))
             res.render("links/registrarSoloVacuna", { Query, Query5, Query6, listica });
         else
-            res.render("links/registrarSoloVacuna");
+        // res.render("links/registrarSoloVacuna");
+            res.end();
     } else {
-        res.render("links/registrarVacuna");
+        const mensaje = true;
+        console.log(mensaje);
+        res.render("links/verificarRegistro", { mensaje });
     }
 });
 
@@ -236,7 +241,6 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
         });
     }
     /*ARREGLAR ERROR DE QUE DEBE REDIRECCIONAR A LA MISMA INTERFAZ CON MENSAJE CUANDO HAY UN ERROR*/
-    res.render('links/index');
 });
 
 /*----------------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/

@@ -38,6 +38,9 @@
                 </div>
                 <form class="needs-validation" action="/links/registrarSoloVacuna" method="GET" novalidate>
                     <h1>Si ha registrado sus datos anteriormente, por favor introduzca su cédula</h1>
+                    {{#if mensaje}}
+                        <div onload="cedulaError();"></div>
+                    {{/if}}
                     <div class="formRegistro">
                         <div class="input-group" id="divBuscarCedula">
                             <span>
@@ -49,7 +52,7 @@
                             </span>
                             <input type="text" name="buscarCedula" class="form-control" id="buscarCedula" placeholder="Ej: 0000000" required>
                         </div>
-                        <button class="btn btn-primary" onclick="cambiarColorAltoRiesgo();">
+                        <button class="btn btn-primary" onclick="cedulaError">
                             Buscar
                         </button>
                     </div>

@@ -58,7 +58,13 @@
                             <h6>Alto riesgo:</h6>
                         </div>
                         <div class="col" id="divCircle">
-                            <div class="circle" id="circle"> </div>
+                        {{#each Query}}    
+                            {{#if altoriesgo}}
+                                <div class="circle" id="circle" style="background-color: green;"> </div>
+                            {{else}}
+                                <div class="circle" id="circle" style="background-color: red;"> </div>
+                            {{/if}}
+                        {{/each}}        
                         </div>
                     </div>
                     <h1>Datos personales</h1>
@@ -108,7 +114,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="inputGenero" class="form-label">Género</label>
-                        <input type="text" name="genero" class="form-control" id="inputFecha" value="{{sexo}}" readonly required>
+                        <input type="text" name="genero" class="form-control" id="inputGenero" value="{{sexo}}" readonly required>
                     </div>
                     <div class="col-md-3" style="display: none;" id="divFechaVac">
                         <label for="inputDateV" class="form-label">Fecha de vacunación</label>
@@ -151,7 +157,7 @@
                     </div>
                 <div class="col-md-12" style="display: none;" id="divBtnRegistro">
                     <form action="/links/registrarSoloVacuna" method="POST">
-                        <button type="submit" class="btn btn-primary" onclick="">
+                        <button type="submit" class="btn btn-primary" onclick="alertaRegistroVacuna();">
                             Registrar
                         </button>
                     </form>
@@ -160,47 +166,24 @@
                     <h1>Vacunas registradas</h1>
                 </div>
 
-
-                <div class="col py-3" id="divCard">
-                    <div class="card" style="width: 18rem;" onmouseenter="aparecer();">
-                        <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"></h6>
-                        <h6>Dosis recibida: </h6>
-                        <h6>Centro de salud: </h6>
-                        <h6>Personal de salud: </h6>
-                        <h6>Fecha de vacunación: </h6>
-                        <h6></h6>
-                    </div>
-                </div>
-                
-                    <div class="col-md-2">
-                        hola
-                    </div>
-                    <div class="col-md-2">
-                        hola
-                    </div>
-                
-
-
-                
-                {{#each listica}}
-                <div class="col-md-3 py-3" id="divCard">
-                    <div class="card" style="width: 18rem;" onmouseenter="aparecer();">
-                        <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
-                        <div class="card-body">
-                            <h5 class="card-title">{{nombrevacuna}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{tipo}}</h6>
-                            <h6>Dosis recibida: {{numdosis}}</h6>
-                            <h6>Centro de salud: {{nombrecentro}}</h6>
-                            <h6>Personal de salud: {{nombreper}} {{apellidoper}}</h6>
-                            <h6>Fecha de vacunación: {{fechavac}}</h6>
-                            <h6></h6>
+                <div class="row">
+                     {{#each listica}}
+                    <div class="col-md-3 py-3" id="divCard">
+                        <div class="card" style="width: 18rem;">
+                            <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
+                            <div class="card-body">
+                                <h5 class="card-title">{{nombrevacuna}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{tipo}}</h6>
+                                <h6>Dosis recibida: {{numdosis}}</h6>
+                                <h6>Centro de salud: {{nombrecentro}}</h6>
+                                <h6>Personal de salud: {{nombreper}} {{apellidoper}}</h6>
+                                <h6>Fecha de vacunación: {{fechavac}}</h6>
+                                <h6></h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {{/each}}
+                    {{/each}}
+                </div>              
                 {{!-- <div class="col-md-5">
                     <label for="inputLaboratorio" class="form-label">Laboratorio</label>
                     <input type="text" class="form-control" id="inputLaboratorio" placeholder="Laboratorio">
