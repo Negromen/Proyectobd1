@@ -35,7 +35,7 @@
                             <option value="{{codcentro}}">{{codcentro}}</option>
                         {{/each}}
                     </select>
-                    <button class="btn btn-primary mt-2" onclick="buscarCentro();" type="submit">Buscar</button>
+                    <button class="btn btn-primary mt-2" id="botonBuscar" onclick="buscarCentro();"  type="submit">Buscar</button>
                 </div>
                 <div class="col py-2" style="background-color: rgb(196, 229, 252);">
                     <div>
@@ -76,13 +76,13 @@
                             <label for="tipoCentro">Tipo de Centro de Salud</label>
                             <select class="form-select" name="tipoCentro" id="tipoCentro" disabled>
                                 <option value="0" disabled selected>Tipo de centro...</option>
-                                <option value="H" >Hospitalizacion</option>
-                                <option value="V" >Vacunacion</option>
+                                <option value="Hospitalizacion" >Hospitalizacion</option>
+                                <option value="Vacunacion" >Vacunacion</option>
                             </select>
                         </div>
                         <div class="divBotones">
                             <button class="btn btn-success" id="botonanadir" type="submit">Añadir</button>
-                            <button class="btn btn-danger"  id="botonborrar"  type="submit" disabled>Borrar</button>
+                            <button class="btn btn-danger"  id="botonborrar" onclick="borraCentro();" type="submit" disabled>Borrar</button>
                             <button class="btn btn-warning" id="botoneditar" onclick="editarCentro();" type="submit"disabled>Editar</button>
                             <button class="btn btn-primary" id="botonguardar" type="submit" onclick="GuardarEditarCentro()" disabled>Guardar</button>
                         </div>
