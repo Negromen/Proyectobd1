@@ -36,18 +36,18 @@
                 <div class="logoRegistro">
                     <img src="/img/VaccineCard.png" alt="" width="200px">
                 </div>
-                <form action="/links/registrarSoloVacuna" method="GET">
+                <form class="needs-validation" action="/links/registrarSoloVacuna" method="GET" novalidate>
                     <h1>Si ha registrado sus datos anteriormente, por favor introduzca su cédula</h1>
                     <div class="formRegistro">
                         <div class="input-group" id="divBuscarCedula">
                             <span>
-                                <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select">
-                                    <option selected value="0" disabled>X</option>
+                                <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select" required>
+                                    <option selected value="" disabled>X</option>
                                     <option value="V" >V</option>
                                     <option value="E" >E</option>
                                 </select>
                             </span>
-                            <input type="text" name="buscarCedula" class="form-control" id="buscarCedula" placeholder="Ej: 0000000" >
+                            <input type="text" name="buscarCedula" class="form-control" id="buscarCedula" placeholder="Ej: 0000000" required>
                         </div>
                         <button class="btn btn-primary" onclick="cambiarColorAltoRiesgo();">
                             Buscar

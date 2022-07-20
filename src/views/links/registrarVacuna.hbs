@@ -72,7 +72,7 @@
                     {{#if Query3}}
                     <label for="inputPais" class="form-label">Pais</label>
                     <select name="pais" id="inputPais" onchange="elegirEstado();" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                         {{#each Query3}}
                             <option value="{{codpais}}">{{nombrepais}}</option>
                         {{/each}}
@@ -80,20 +80,20 @@
                     {{else}}
                     <label for="inputPais" class="form-label">Pais</label>
                     <select name="pais" id="inputPais" class="form-select">
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                     {{/if}}
                 </div>
                 <div class="col-md-4" style="display:none ;" id="divEstado">
                     <label for="inputEstado" class="form-label">Estado/Provincia</label>
                     <select name="estado" id="inputEstado" onchange="elegirMunicipio();" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-4" style="display:none;" id="divMunicipio">
                     <label for="inputMunicipio" class="form-label">Municipio</label>
                     <select name="municipio" id="inputMunicipio" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -128,7 +128,7 @@
                 <div class="col-md-2">
                     <label for="inputGenero" class="form-label">Género</label>
                     <select name="genero" id="inputGenero" class="form-select" required>
-                        <option selected value="0" disabled>Género</option>
+                        <option selected value="" disabled>Género</option>
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                         <option value="N/A">N/A</option>
@@ -138,7 +138,7 @@
                     {{#if Query}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
                     <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                         {{#each Query}}
                         <option value="{{idvacuna}}">{{nombrevacuna}}</option>
                         {{/each}}
@@ -146,14 +146,14 @@
                     {{else}}
                     <label for="inputVacuna" class="form-label">Vacuna</label>
                     <select name="vacuna" id="inputVacuna" name="vacuna" class="form-select">
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                     {{/if}}
                 </div>
                 <div class="col-md-2" style="display: none;" id="divDosis">
                     <label for="inputDosis" class="form-label">Número de dosis</label>
                     <select name="numDosis" id="inputDosis" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -164,7 +164,7 @@
                     {{#if Query2}}
                     <label for="inputCS" class="form-label">Centro de Salud</label>
                     <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                         {{#each Query2}}
                         <option value="{{codcentro}}">{{nombrecentro}}</option>
                         {{/each}}
@@ -172,14 +172,14 @@
                     {{else}}
                     <label for="inputCS" class="form-label">Centro de Salud</label>
                     <select name="centroSalud" id="inputCS" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                     {{/if}}
                 </div>
                 <div class="col-md-2" style="display: none;" id="divPS">
                     <label for="inputPS" class="form-label">Personal de salud</label>
                     <select name="personalSalud" id="inputPS" name="personal" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-12">
