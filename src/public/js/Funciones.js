@@ -97,6 +97,8 @@ async function buscarCentro() {
     document.getElementById('inputEstado').options[0].text = response2[0].nombreestado;
     document.getElementById('medico').options[0].text = response2[0].nombreper + ' ' + response2[0].apellidoper;
     document.getElementById('tipoCentro').options[0].text = response2[0].tipo;
+    document.getElementById('botonborrar').disabled=false;
+    document.getElementById('botoneditar').disabled=false;
     // const option = document.createElement('option');
     // const pais = document.getElementById('inputPais');
     // option.value = response2[0].codpais;
@@ -149,6 +151,15 @@ function habilitarCampos() {
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
 */
+
+function editarCentro(){
+    console.log("sexo");
+    document.getElementById('inputNombreC').disabled=false;
+    document.getElementById('inputDireccionC').disabled=false;
+    document.getElementById('tipoCentro').disabled=false;
+    document.getElementById('tipoCentro').disabled=false;
+    
+}
 
 function cambiarColorAltoRiesgo() {
     //alto riesgo

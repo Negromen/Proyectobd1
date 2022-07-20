@@ -36,7 +36,7 @@
         <div class="container" id="backgroundContenido">
             <div class="row" id="contenidoCentro">
                 <div class="col-4 pt-3" style="background-color: rgb(135, 194, 234)">
-                    <input type="number" class="form-control" placeholder="Codigo de Centro de Salud" style="width: 300px;" id="buscarCodigo">
+                    <input type="number" class="form-control" placeholder="Codigo de Centro de Salud" min="0" style="width: 300px;" id="buscarCodigo">
                     <button class="btn btn-primary mt-2" onclick="buscarCentro();" type="submit">Buscar</button>
                 </div>
                 <div class="col py-2" style="background-color: rgb(196, 229, 252);">
@@ -46,11 +46,11 @@
                     {{!-- {{#if Query}} --}}
                         <div class="col-7">
                             <label for="inputNombreC">Nombre de Centro de Salud</label>
-                            <input type="text" name="inputNombreC" id="inputNombreC" class="form-control" placeholder="Nombre de Centro de Salud" readonly>     
+                            <input type="text" name="inputNombreC" id="inputNombreC" class="form-control" placeholder="Nombre de Centro de Salud" disabled>     
                         </div>
                         <div class="pt-2 col-7">
                             <label for="inputDireccionC">Dirección de Centro de Salud</label>
-                            <input type="text" name="direccioncentro" id="inputDireccionC" class="form-control" placeholder="Dirección de Centro de Salud" readonly>
+                            <input type="text" name="direccioncentro" id="inputDireccionC" class="form-control" placeholder="Dirección de Centro de Salud" disabled>
                         </div>
                         <div class="pt-2 col-7">
                             <label for="inputPais">Pais del Centro de Salud</label>
@@ -90,8 +90,8 @@
                         </div>
                         <div class="divBotones">
                             <button class="btn btn-success" type="submit">Añadir</button>
-                            <button class="btn btn-danger" type="submit" disabled>Borrar</button>
-                            <button class="btn btn-warning" type="submit"disabled>Editar</button>
+                            <button class="btn btn-danger" id="botonborrar"  type="submit" disabled>Borrar</button>
+                            <button class="btn btn-warning" id="botoneditar" onclick="editarCentro();" type="submit"disabled>Editar</button>
                         </div>
                     {{!-- {{else}} --}}
                         {{!-- <div class="col-7">

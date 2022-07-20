@@ -133,6 +133,17 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
         res.json(Query3);
 });
 
+/*PARA BORRAR UN CENTRO DE SALUD 
+router.get('/borrarCentro/:codcentro', async(req, res, next) => {
+    const codcentro = req.params.codcentro;
+    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codcentro]);
+    if((Object.keys(Query1).length)== 0){
+        await pool.query("delete from centro_hospitalizacion where codcentro=?",[codcentro]);
+    }
+    await pool.query("delete from centro_salud where codcentro = ? ",[codcentro]);
+    res.render('links/controlCentroSalud');
+});
+*/
 
 ////--------------------------------------------------------------------------------------------------------------------------------
 
