@@ -39,7 +39,16 @@
                 <form class="needs-validation" action="/links/registrarSoloVacuna" method="GET" novalidate>
                     <h1>Si ha registrado sus datos anteriormente, por favor introduzca su cédula</h1>
                     {{#if mensaje}}
-                        <div onload="cedulaError();"></div>
+                        <script type="text/javascript">
+                            function cedulaError() {
+                                Swal.fire(
+                                    'Cédula no encontrada!',
+                                    'Debe haberse registrado previamente.',
+                                    'error'
+                                );
+                            }
+                            cedulaError();
+                        </script>
                     {{/if}}
                     <div class="formRegistro">
                         <div class="input-group" id="divBuscarCedula">

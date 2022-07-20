@@ -32,14 +32,11 @@ function alertaRegistroVacuna() {
     };
 };
 
-function cedulaError() {
-    console.log('entro');
-    if (document.getElementById('buscarCedula').value == '12') {
-        Swal.fire(
-            'Error!',
-            'Datos invalidos!',
-            'error'
-        );
-        window.location = "http://localhost:4000/links/verificarRegistro";
-    }
-}
+// function cedulaError() {
+//     console.log('entro');
+//     Swal.fire(
+//         'Cédula no encontrada',
+//         'Debe haberse registrado previamente.',
+//         'error'
+//     );
+// }

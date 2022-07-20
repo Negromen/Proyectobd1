@@ -121,7 +121,7 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
     const Query5 = await pool.query("select nombrepais from pais where codpais = ?", [Query3[0].codpais]);
     const Query6 = await pool.query("select nombreper,apellidoper from persona where docidentidad =?", [Query3[0].docidentidad]);
     centro = { tipo: "Hospitalizacion" };
-    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ", [Query3[0].codcentro ,Query3[0].codestado,Query3[0].codpais]);
+    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ", [Query3[0].codcentro, Query3[0].codestado, Query3[0].codpais]);
     if ((Object.keys(Query7).length) !== 0) { centro.tipo = "Vacunacion"; }
     Query3[0].fechaEncargado = moment(Query3[0].fechaEncargado).format('YYYY-MM-DD');
     Query3[0] = Object.assign(Query3[0], Query4[0]);
@@ -207,11 +207,9 @@ router.get('/registrarSoloVacuna', async(req, res) => {
         if ((Query) && (Query5) && (Query6))
             res.render("links/registrarSoloVacuna", { Query, Query5, Query6, listica });
         else
-        // res.render("links/registrarSoloVacuna");
-            res.end();
+            res.render("links/registrarSoloVacuna");
     } else {
         const mensaje = true;
-        console.log(mensaje);
         res.render("links/verificarRegistro", { mensaje });
     }
 });
