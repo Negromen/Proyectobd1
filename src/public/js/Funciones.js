@@ -100,21 +100,53 @@ async function buscarCentro() {
     document.getElementById('botoneditar').disabled=false;
 };
 
-function editarCentro(){
-    console.log("sexo");
+
+async function editarCentro(){
     document.getElementById('inputNombreC').disabled=false;
     document.getElementById('inputDireccionC').disabled=false;
     document.getElementById('tipoCentro').disabled=false;
     document.getElementById('tipoCentro').disabled=false;
-    let response = await fetch(`http://localhost:4000/links/buscadoctores/`);
+    document.getElementById('medico').disabled=false;
+    codcentro =document.getElementById('buscarCodigo').value;
+    console.log(codcentro);
+    var cedula = document.getElementById('medico').value;
+    let response = await fetch(`http://localhost:4000/links/buscadoctores/${codcentro}`);
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
     const select = document.getElementById('medico');
-    
-
-
+    for (i = 1; i <= valor; i++) {
+        console.log(response2[i-1].nombreper + ' ' + response2[i-1].apellidoper)
+        if((response2[i - 1].docidentidad) !== cedula ){
+            const option = document.createElement('option');
+            option.value = response2[i - 1].docidentidad;
+            option.text = response2[i - 1].nombreper + " " +response2[i - 1].apellidoper;
+            select.appendChild(option);
+        }
+    }
 };
 
+function editarfechaEncargado(){
+    let date = new Date();
+    let output =  date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    console.log(output);
+    document.getElementById('fechaEncargado').disabled=false;
+    document.getElementById('fechaEncargado').value=output;
+}
+
+/*
+async function guardarCentro(){
+    var centro={
+        codcentro:,
+        nombrecentro:,
+        direccion:,
+        codestado:,
+        codpais:,
+        docidentidad:,
+        fechaEncargado
+    }
+}
+
+*/
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
 function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';
@@ -123,7 +155,6 @@ function datosVacuna() {
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
 
-//
 function aparecer() {
     var card = document.getElementById('divCard');
     var boton = document.getElementById('botonBorrar');
