@@ -107,6 +107,7 @@ async function editarCentro() {
     document.getElementById('tipoCentro').disabled = false;
     document.getElementById('tipoCentro').disabled = false;
     document.getElementById('medico').disabled = false;
+    document.getElementById('botonguardar').disabled = false;
     codcentro = document.getElementById('buscarCodigo').value;
     console.log(codcentro);
     var cedula = document.getElementById('medico').value;
@@ -125,16 +126,8 @@ async function editarCentro() {
     }
 };
 
-function editarfechaEncargado() {
-    let date = new Date();
-    let output = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-    console.log(output);
-    document.getElementById('fechaEncargado').disabled = false;
-    document.getElementById('fechaEncargado').value = output;
-}
-
 /*
-async function guardarCentro(){
+async function GuardarEditarCentro(){
     var centro={
         codcentro:,
         nombrecentro:,
@@ -144,9 +137,18 @@ async function guardarCentro(){
         docidentidad:,
         fechaEncargado
     }
+        document.getElementById('botonguardar').disabled = true;
+};
+*/
+
+function editarfechaEncargado() {
+    let date = new Date();
+    let output = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    console.log(output);
+    document.getElementById('fechaEncargado').disabled = false;
+    document.getElementById('fechaEncargado').value = output;
 }
 
-*/
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
 function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';

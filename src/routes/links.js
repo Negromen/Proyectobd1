@@ -207,9 +207,9 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
 
 /*----------------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/
 
-router.get('/controlCentroSalud', (req, res) => {
-    // const Query = await pool.query("select codcentro from centro_salud");
-    res.render("links/controlCentroSalud");
+router.get('/controlCentroSalud', async(req, res) => {
+    const Query = await pool.query("select codcentro from centro_salud");
+    res.render("links/controlCentroSalud",{Query});
 });
 
 
