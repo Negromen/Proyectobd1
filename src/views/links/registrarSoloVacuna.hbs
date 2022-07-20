@@ -49,10 +49,10 @@
 
     <div class="container-fluid py-3">
         <div id="tablaPrincipalVacunacion" class="container">
-            <form class="row g-3" action="/links/registrarSoloVacuna" method="POST">
+            <form class="row g-3 needs-validation" action="/links/registrarSoloVacuna" method="POST" novalidate>
                 <div class="encabezado" id="divEncabezado1">
-                    <button class="btn btn-danger" id="btnBorrar"><img src="/img/borrar.png" width="22px"></button>
-                    <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button>
+                    {{!-- <button class="btn btn-danger" id="btnBorrar"><img src="/img/borrar.png" width="22px"></button>
+                    <button class="btn btn-warning" id="btnModificar"><img src="/img/modificar.png" width="25px" onclick="habilitarCampos();"></button> --}}
                     <div class="row" id="divAltoRiesto">
                         <div class="col" id="altoRiesgo">
                             <h6>Alto riesgo:</h6>
@@ -66,29 +66,27 @@
                 {{#each Query}}
                     <div class="col-md-6">
                         <label for="inputNombre" class="form-label">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto" value="{{nombreper}}" readonly>
+                        <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto" value="{{nombreper}}" readonly required>
                     </div>
                     <div class="col-md-6">
                         <label for="inputApellido" class="form-label">Apellido</label>
-                        <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez" value="{{apellidoper}}" readonly>
-                    </div>
-                    <div>
+                        <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez" value="{{apellidoper}}" readonly required>
                     </div>
                     <div class="col-md-4">
                         <label for="inputPais" class="form-label">Pais</label>
-                        <select name="pais" id="inputPais" class="form-select" readonly>
+                        <select name="pais" id="inputPais" class="form-select" disabled required>
                             <option value="{{codpais}}" readonly>{{nombrepais}}</option>
                         </select>
                     </div>
                     <div class="col-md-4" id="divEstado">
                         <label for="inputEstado" class="form-label">Estado/Provincia</label>
-                        <select name="estado" id="inputEstado" class="form-select" readonly>
+                        <select name="estado" id="inputEstado" class="form-select" disabled required>
                             <option selected value="{{codestado}}" readonly>{{nombreestado}}</option>
                         </select>
                     </div>
                     <div class="col-md-4" id="divMunicipio">
                         <label for="inputMunicipio" class="form-label">Municipio</label>
-                        <select name="municipio" id="inputMunicipio" class="form-select" readonly>
+                        <select name="municipio" id="inputMunicipio" class="form-select" disabled required>
                             <option selected value="{{codmunicipio}}" readonly>{{nombremunicipio}}</option>
                         </select>
                     </div>
@@ -96,32 +94,32 @@
                         <label for="inputCedula" class="form-label">Cédula</label>
                         <div class="input-group">
                             <span>
-                                <select name="tipoCedula" id="tipoCedula" class="form-select" readonly>
+                                <select name="tipoCedula" id="tipoCedula" class="form-select" readonly required>
                                     <option selected value="{{tipocedula}}" >{{tipocedula}}</option>
                                 </select>
                             </span>
-                            <input type="text" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" value="{{cedula}}" readonly>
+                            <input type="text" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" value="{{cedula}}" readonly required>
                         </div>
                     </div>
                     
                     <div class="col-md-4">
                         <label for="inputDate" class="form-label">Fecha de Nacimiento</label>
-                        <input type="date" name="fechanac" class="form-control" id="inputDate" value="{{fechanacimiento}}" readonly>
+                        <input type="date" name="fechanac" class="form-control" id="inputDate" value="{{fechanacimiento}}" readonly required>
                     </div>
                     <div class="col-md-2">
                         <label for="inputGenero" class="form-label">Género</label>
-                        <input type="text" name="genero" class="form-control" id="inputFecha" value="{{sexo}}" readonly>
+                        <input type="text" name="genero" class="form-control" id="inputFecha" value="{{sexo}}" readonly required>
                     </div>
                     <div class="col-md-3" style="display: none;" id="divFechaVac">
                         <label for="inputDateV" class="form-label">Fecha de vacunación</label>
-                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" value="{{hoy}}" readonly>
+                        <input name="fechaVac" type="date" class="form-control" id="inputDateV" value="{{hoy}}" readonly required>
                     </div>
                 {{/each}}
                 <div class="col-md-3" style="display:none;" id="divVacuna">
                         {{#if Query5}}
                         <label for="inputVacuna" class="form-label">Vacuna</label>
                         <select name="vacuna" id="inputVacuna" name="vacuna" onchange="elegirDosis();" class="form-select" required>
-                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option selected value="" disabled>Seleccionar...</option>
                             {{#each Query5}}
                             <option value="{{idvacuna}}">{{nombrevacuna}}</option>
                             {{/each}}
@@ -131,14 +129,14 @@
                 <div class="col-md-2" id="divDosis" style="display: none;">
                     <label for="inputDosis" class="form-label">Número de dosis</label>
                     <select name="numDosis" id="inputDosis" class="form-select" required>
-                        <option selected value="0" disabled>Seleccionar...</option>
+                        <option selected value="" disabled>Seleccionar...</option>
                     </select>
                 </div>
                 <div class="col-md-2" style="display:none;" id="divCS">
                         {{#if Query6}}
                         <label for="inputCS" class="form-label">Centro de Salud</label>
                         <select name="centroSalud" id="inputCS" class="form-select" onchange="elegirPS();" required>
-                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option selected value="" disabled>Seleccionar...</option>
                             {{#each Query6}}
                             <option value="{{codcentro}}">{{nombrecentro}}</option>
                             {{/each}}
@@ -148,7 +146,7 @@
                     <div class="col-md-2" id="divPS" style="display: none;">
                         <label for="inputPS" class="form-label">Personal de salud</label>
                         <select name="personalSalud" id="inputPS" name="personal" class="form-select" required>
-                            <option selected value="0" disabled>Seleccionar...</option>
+                            <option selected value="" disabled>Seleccionar...</option>
                         </select>
                     </div>
                 <div class="col-md-12" style="display: none;" id="divBtnRegistro">
@@ -161,6 +159,32 @@
                 <div class="encabezado mt-4">
                     <h1>Vacunas registradas</h1>
                 </div>
+
+
+                <div class="col py-3" id="divCard">
+                    <div class="card" style="width: 18rem;" onmouseenter="aparecer();">
+                        <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <h6>Dosis recibida: </h6>
+                        <h6>Centro de salud: </h6>
+                        <h6>Personal de salud: </h6>
+                        <h6>Fecha de vacunación: </h6>
+                        <h6></h6>
+                    </div>
+                </div>
+                
+                    <div class="col-md-2">
+                        hola
+                    </div>
+                    <div class="col-md-2">
+                        hola
+                    </div>
+                
+
+
+                
                 {{#each listica}}
                 <div class="col-md-3 py-3" id="divCard">
                     <div class="card" style="width: 18rem;" onmouseenter="aparecer();">
@@ -201,6 +225,8 @@
                     <a href="#divEncabezado1"><button type="submit" class="btn btn-primary" onclick="datosVacuna();">Agregar vacuna</button></a>
                 </div>
             </form>
+
+            
         </div>
     </div>
 
