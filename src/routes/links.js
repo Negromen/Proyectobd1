@@ -118,12 +118,10 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
     console.log(codcentro);
     const Query3 = await pool.query("select * from centro_salud where codcentro = ? ", [codcentro]);
     const Query4 = await pool.query("select nombreestado from estado_provincia where codestado = ? and codpais = ?", [Query3[0].codestado, Query3[0].codpais]);
-    console.log(Query4);
     const Query5 = await pool.query("select nombrepais from pais where codpais = ?", [Query3[0].codpais]);
-    console.log(Query5);
     const Query6 = await pool.query("select nombreper,apellidoper from persona where docidentidad =?", [Query3[0].docidentidad]);
     centro = { tipo: "Hospitalizacion" };
-    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ", [Query3[0].codcentro /*,Query3[0].codestado,Query3[0].pais*/ ]);
+    const Query7 = await pool.query("select * from centro_vacunacion where codcentro = ? ", [Query3[0].codcentro ,Query3[0].codestado,Query3[0].codpais]);
     if ((Object.keys(Query7).length) !== 0) { centro.tipo = "Vacunacion"; }
     Query3[0].fechaEncargado = moment(Query3[0].fechaEncargado).format('YYYY-MM-DD');
     Query3[0] = Object.assign(Query3[0], Query4[0]);
