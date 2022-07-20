@@ -85,37 +85,34 @@ async function elegirMunicipio() {
 async function buscarCentro() {
     let centro = document.getElementById('buscarCodigo');
     let codcentro = centro.value;
-    console.log(codcentro);
+    console.log("codcentro",codcentro);
     let response = await fetch(`http://localhost:4000/links/buscamecentro/${codcentro}`);
     let response2 = await response.json();
-    console.log("sale del fetch");
-    console.log(response2);
     document.getElementById('inputNombreC').value = response2[0].nombrecentro;
     document.getElementById('inputDireccionC').value = response2[0].direccion;
     document.getElementById('fechaEncargado').value = response2[0].fechaEncargado;
     document.getElementById('inputPais').options[0].text = response2[0].nombrepais;
     document.getElementById('inputEstado').options[0].text = response2[0].nombreestado;
     document.getElementById('medico').options[0].text = response2[0].nombreper + ' ' + response2[0].apellidoper;
+    document.getElementById('medico').options[0].value=response2[0].docidentidad;
     document.getElementById('tipoCentro').options[0].text = response2[0].tipo;
     document.getElementById('botonborrar').disabled=false;
     document.getElementById('botoneditar').disabled=false;
-    // const option = document.createElement('option');
-    // const pais = document.getElementById('inputPais');
-    // option.value = response2[0].codpais;
-    // option.text = response2[0].nombrepais;
-    // pais.appendChild(option);
-    // const estado = document.getElementById('inputEstado');
-    // option.value = response2[0].codestado;
-    // option.text = response2[0].nombreestado;
-    // estado.appendChild(option);
-    // const encargado = document.getElementById('medico');
-    // option.value = response2[0].docidentidad;
-    // option.text = response2[0].nombreper;
-    // encargado.appendChild(option);
-    // const tipo = document.getElementById('tipoCentro');
-    // option.value = "0";
-    // option.text = response2[0].tipo;
-    // tipo.appendChild(option);
+};
+
+function editarCentro(){
+    console.log("sexo");
+    document.getElementById('inputNombreC').disabled=false;
+    document.getElementById('inputDireccionC').disabled=false;
+    document.getElementById('tipoCentro').disabled=false;
+    document.getElementById('tipoCentro').disabled=false;
+    let response = await fetch(`http://localhost:4000/links/buscadoctores/`);
+    let response2 = await response.json();
+    const valor = Object.keys(response2).length;
+    const select = document.getElementById('medico');
+    
+
+
 };
 
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
@@ -151,20 +148,3 @@ function habilitarCampos() {
     document.getElementById('divBtnRegistro').style.display = 'block';
 };
 */
-
-function editarCentro(){
-    console.log("sexo");
-    document.getElementById('inputNombreC').disabled=false;
-    document.getElementById('inputDireccionC').disabled=false;
-    document.getElementById('tipoCentro').disabled=false;
-    document.getElementById('tipoCentro').disabled=false;
-    
-}
-
-function cambiarColorAltoRiesgo() {
-    //alto riesgo
-    document.getElementById('circle').style.background = 'green';
-
-    //bajo riesgo
-    document.getElementById('circle').style.background = 'red';
-};

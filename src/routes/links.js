@@ -133,8 +133,15 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
         res.json(Query3);
 });
 
+router.get('/buscadoctores', async(req, res, next) => {
+    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m where p.docidentidad=m.docidentidad");
+    console.log(Query3);
+    if (Query3)
+        res.json(Query3);
+});
+
 /*PARA BORRAR UN CENTRO DE SALUD 
-router.get('/borrarCentro/:codcentro', async(req, res, next) => {
+router.post('/borrarCentro/:codcentro', async(req, res, next) => {
     const codcentro = req.params.codcentro;
     const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codcentro]);
     if((Object.keys(Query1).length)== 0){
@@ -219,7 +226,6 @@ router.get('/registrarSoloVacuna', async(req, res) => {
 //PARA INSERTAR EN LA BD LA NUEVA VACUNACION
 router.post('/registrarSoloVacuna', async(req, res, next) => {
     console.log(req.query);
-
     const varr = req.body;
     let cedula = varr.tipoCedula + "-" + varr.cedula;
     console.log(varr);
