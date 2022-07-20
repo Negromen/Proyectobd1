@@ -85,7 +85,7 @@ async function elegirMunicipio() {
 async function buscarCentro() {
     let centro = document.getElementById('buscarCodigo');
     let codcentro = centro.value;
-    console.log("codcentro",codcentro);
+    console.log("codcentro", codcentro);
     let response = await fetch(`http://localhost:4000/links/buscamecentro/${codcentro}`);
     let response2 = await response.json();
     document.getElementById('inputNombreC').value = response2[0].nombrecentro;
@@ -94,23 +94,23 @@ async function buscarCentro() {
     document.getElementById('inputPais').options[0].text = response2[0].nombrepais;
     document.getElementById('inputEstado').options[0].text = response2[0].nombreestado;
     document.getElementById('medico').options[0].text = response2[0].nombreper + ' ' + response2[0].apellidoper;
-    document.getElementById('medico').options[0].value=response2[0].docidentidad;
+    document.getElementById('medico').options[0].value = response2[0].docidentidad;
     document.getElementById('tipoCentro').options[0].text = response2[0].tipo;
-    document.getElementById('botonborrar').disabled=false;
-    document.getElementById('botoneditar').disabled=false;
+    document.getElementById('botonborrar').disabled = false;
+    document.getElementById('botoneditar').disabled = false;
 };
 
-function editarCentro(){
+async function editarCentro() {
     console.log("sexo");
-    document.getElementById('inputNombreC').disabled=false;
-    document.getElementById('inputDireccionC').disabled=false;
-    document.getElementById('tipoCentro').disabled=false;
-    document.getElementById('tipoCentro').disabled=false;
+    document.getElementById('inputNombreC').disabled = false;
+    document.getElementById('inputDireccionC').disabled = false;
+    document.getElementById('tipoCentro').disabled = false;
+    document.getElementById('tipoCentro').disabled = false;
     let response = await fetch(`http://localhost:4000/links/buscadoctores/`);
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
     const select = document.getElementById('medico');
-    
+
 
 
 };
