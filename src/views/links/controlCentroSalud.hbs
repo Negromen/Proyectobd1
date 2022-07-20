@@ -61,7 +61,7 @@
                         </div>
                         <div class="pt-2 col-7">
                             <label for="medico">Médico Encargado del Centro de Salud</label>
-                            <select class="form-select" name="medico" id="medico" disabled>
+                            <select class="form-select" name="medico" id="medico" onchange="editarfechaEncargado()" disabled>
                                 <option value="0" disabled selected>Medico encargado...</option>
                                 {{#each Query}}
                                 <option value="{{docidentidad}}" readonly>{{nombreper}}</option>
