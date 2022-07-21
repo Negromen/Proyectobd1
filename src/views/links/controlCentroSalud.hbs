@@ -56,8 +56,8 @@
                                 <option value="0" selected disabled>Pais...</option>
                             </select>
                         </div>
-                        <div class="pt-2 col-7">
-                            <label for="inputEstado">Estado/Provincia del Centro de Salud</label>
+                        <div class="pt-2 col-7" id="divEstado">
+                            <label for="inputEstado" id="ellabel" >Estado/Provincia del Centro de Salud</label>
                             <select name="estado" id="inputEstado" class="form-select" disabled>
                                 <option value="0" selected disabled>Estado...</option>
                             </select>
@@ -81,7 +81,7 @@
                             </select>
                         </div>
                         <div class="divBotones">
-                            <button class="btn btn-success" id="botonanadir" type="submit">Añadir</button>
+                            <button class="btn btn-success" id="botonanadir" onclick="habilitaranadirCentro();" type="submit">Añadir</button>
                             <button class="btn btn-danger"  id="botonborrar" onclick="borraCentro();" type="submit" disabled>Borrar</button>
                             <button class="btn btn-warning" id="botoneditar" onclick="editarCentro();" type="submit"disabled>Editar</button>
                             <button class="btn btn-primary" id="botonguardar" type="submit" onclick="GuardarEditarCentro()" disabled>Guardar</button>

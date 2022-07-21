@@ -241,19 +241,25 @@ router.get('/buscadoctores/:codcentro', async(req, res, next) => {
         res.json(Query3);
 });
 
+router.get('/buscadoctoresv2/:codestado', async(req, res, next) => {
+    const codestado=req.params.codestado;
+    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m, reside as r where p.docidentidad=m.docidentidad and p.docidentidad=r.docidentidad and r.codestado=?",[codestado]);
+    if (Query3)
+        res.json(Query3);
+});
+
 //PARA BORRAR UN CENTRO DE SALUD 
-router.post('/borrarCentro', async(req, res, next) => {
-    const varr = req.body;
-    console.log(varr);
-    /*
-    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[parseInt(varr.codcentro)]);
+router.post('/borrarCentro/', async(req, res, next) => {
+    const codcentro = req.body;
+    var codigo=parseInt(codcentro.codcentro);
+    console.log("entro");
+    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codigo]);
     if((Object.keys(Query1).length)== 0){
-        await pool.query("update centro_hospitalizacion set set ? where codcentro=?",[Datos,codcentro]);
+        await pool.query("update centro_hospitalizacion set `borrado` =1 where codcentro=?",[codigo]);
     }else{
-        await pool.query("update centro_vacunacion set ? where codcentro=?",[Datos,codcentro]);
+        await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=?",[codigo]);
     }
-    await pool.query("update centro_salud set set ? where codcentro = ? ",[Datos,codcentro]);
-    //res.render('links/controlCentroSalud');*/
+    await pool.query("update centro_salud set `borrado` =1 where codcentro = ? ",[codigo]);
     res.json();
 });
 
@@ -272,11 +278,10 @@ router.post('/GuardarEditarCentro', async(req, res, next) => {
     }
     console.log((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length));
     console.log((varr.tipo)=='Vacunacion');
-    /*
+    
     if((varr.tipo)=='Vacunacion'){
-        console.log("ENTRO AL PRIMERO");
         if((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length)==0){
-            await pool.query("delete from centro_hospitalizacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
+            await pool.query("update centro_hospitalizacion set `borrado` =1  where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
             await pool.query("insert into centro_vacunacion set ?",{
                 codcentro:Datos.codcentro,
                 codestado:Datos.codestado,
@@ -284,9 +289,8 @@ router.post('/GuardarEditarCentro', async(req, res, next) => {
             });
         }
     }else{
-        console.log("ENTRO AL SEGUNDO");
         if((Object.keys(await pool.query("select * from centro_hospitalizacion where codcentro=? and codestado=? and codpais=?",[parseInt(varr.codcentro),parseInt(varr.codestado),parseInt(varr.codpais)])).length)==0){
-            await pool.query("delete from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
+            await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
             await pool.query("insert into centro_Hospitalizacion set ?",{
                 codcentro:Datos.codcentro,
                 codestado:Datos.codestado,
@@ -294,18 +298,31 @@ router.post('/GuardarEditarCentro', async(req, res, next) => {
             });
         }
     }
-    await pool.query("update centro_salud set ? where codcentro=?",[Datos,Datos.codcentro]);*/
+    await pool.query("update centro_salud set ? where codcentro=?",[Datos,Datos.codcentro]);
     res.json();
 });
 
-/*----------------------------------------------PERSONAL DE SALUD-------------------------------------------------------------*/
+router.get('/buscamepaises', async(req, res, next) => {
+    const Query3= await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais");
+    console.log(Query3);
+    if (Query3)
+        res.json(Query3);
+});
+
+
+router.post('/anadirCentro/', async(req, res, next) => {
+    const codcentro = req.body;
+    await pool.query("insert into centro_salud set ? ",{
+
+    });
+    res.json();
+});
+
 router.get('/controlPersonalSalud', (req, res) => {
     res.render("links/controlPersonalSalud");
 });
 
-router.post('/controlPersonalSalud', async(req, res, next) => {
-    res.render("links/controlPersonalSalud");
-});
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 
 
