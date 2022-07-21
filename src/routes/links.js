@@ -266,7 +266,6 @@ router.post('/borrarCentro/', async(req, res, next) => {
 
 router.post('/GuardarEditarCentro', async(req, res, next) => {
     const varr = req.body;
-    console.log(varr);
     const Datos ={
         codcentro:parseInt(varr.codcentro),
         nombrecentro:varr.nombrecentro,
@@ -276,9 +275,6 @@ router.post('/GuardarEditarCentro', async(req, res, next) => {
         docidentidad:varr.docidentidad,
         fechaEncargado:varr.fechaEncargado,
     }
-    console.log((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length));
-    console.log((varr.tipo)=='Vacunacion');
-    
     if((varr.tipo)=='Vacunacion'){
         if((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length)==0){
             await pool.query("update centro_hospitalizacion set `borrado` =1  where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
@@ -304,17 +300,37 @@ router.post('/GuardarEditarCentro', async(req, res, next) => {
 
 router.get('/buscamepaises', async(req, res, next) => {
     const Query3= await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais");
-    console.log(Query3);
     if (Query3)
         res.json(Query3);
 });
 
 
 router.post('/anadirCentro/', async(req, res, next) => {
-    const codcentro = req.body;
-    await pool.query("insert into centro_salud set ? ",{
-
-    });
+    const varr = req.body;
+    const Datos ={
+        nombrecentro:varr.nombrecentro,
+        direccion:varr.direccion,
+        codestado:parseInt(varr.codestado),
+        codpais:parseInt(varr.codpais),
+        docidentidad:varr.docidentidad,
+        fechaEncargado:varr.fechaEncargado,
+    }
+    await pool.query("insert into centro_salud set ? ",[Datos]);
+    if((varr.tipo)=='Vacunacion'){
+        const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
+        await pool.query("insert into centro_vacunacion set ? ",{
+            codcentro:Query[0],
+            codestado:Datos.codestado,
+            codpais:Datos.codpais
+        });
+    }else{
+        const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
+        await pool.query("insert into centro_hospitalizacion set ? ",{
+            codcentro:Query[0],
+            codestado:Datos.codestado,
+            codpais:Datos.codpais
+        });
+    }
     res.json();
 });
 
@@ -323,9 +339,5 @@ router.get('/controlPersonalSalud', (req, res) => {
 });
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-
 
 module.exports = router;
