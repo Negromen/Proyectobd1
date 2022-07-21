@@ -82,7 +82,7 @@ async function elegirMunicipio() {
 };
 
 
-/*-----------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/ 
+/*-----------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/
 //PARA BUSCAR CENTROS EN LA INTERFAZ DE CONTROL DE CENTROS
 async function buscarCentro() {
     let centro = document.getElementById('buscarCodigo');
@@ -99,7 +99,7 @@ async function buscarCentro() {
     document.getElementById('medico').options[0].text = response2[0].nombreper + ' ' + response2[0].apellidoper;
     document.getElementById('medico').options[0].value = response2[0].docidentidad;
     document.getElementById('tipoCentro').options[0].text = response2[0].tipo;
-    document.getElementById('tipoCentro').options[0].value= response2[0].tipo;
+    document.getElementById('tipoCentro').options[0].value = response2[0].tipo;
     document.getElementById('botonborrar').disabled = false;
     document.getElementById('botoneditar').disabled = false;
 };
@@ -107,8 +107,8 @@ async function buscarCentro() {
 async function editarCentro() {
     document.getElementById('botonBuscar').disabled = true;
     document.getElementById('botoneditar').disabled = true;
-    document.getElementById('botonanadir').disabled =true;
-    document.getElementById('botonborrar').disabled =true;
+    document.getElementById('botonanadir').disabled = true;
+    document.getElementById('botonborrar').disabled = true;
     document.getElementById('inputNombreC').disabled = false;
     document.getElementById('inputDireccionC').disabled = false;
     document.getElementById('tipoCentro').disabled = false;
@@ -130,43 +130,43 @@ async function editarCentro() {
     }
 };
 
-async function GuardarEditarCentro(){
-    var centro={
-        codcentro:document.getElementById('buscarCodigo').value,
-        nombrecentro:document.getElementById('inputNombreC').value,
-        direccion:document.getElementById('inputDireccionC').value,
-        codestado:document.getElementById('inputEstado').options[0].value,
-        codpais:document.getElementById('inputPais').options[0].value,
-        docidentidad:document.getElementById('medico').options[0].value,
-        fechaEncargado:document.getElementById('fechaEncargado').value,
-        tipo:document.getElementById('tipoCentro').value
+async function GuardarEditarCentro() {
+    var centro = {
+        codcentro: document.getElementById('buscarCodigo').value,
+        nombrecentro: document.getElementById('inputNombreC').value,
+        direccion: document.getElementById('inputDireccionC').value,
+        codestado: document.getElementById('inputEstado').options[0].value,
+        codpais: document.getElementById('inputPais').options[0].value,
+        docidentidad: document.getElementById('medico').options[0].value,
+        fechaEncargado: document.getElementById('fechaEncargado').value,
+        tipo: document.getElementById('tipoCentro').value
     };
-    await fetch(`http://localhost:4000/links/GuardarEditarCentro/`,{
-        method:'POST',
-        body:JSON.stringify(centro),
-        headers:{
-            "Content-type":"application/json"
+    await fetch(`http://localhost:4000/links/GuardarEditarCentro/`, {
+        method: 'POST',
+        body: JSON.stringify(centro),
+        headers: {
+            "Content-type": "application/json"
         }
     });
     window.location = "http://localhost:4000/links/controlCentroSalud"
-    /*
-    document.getElementById('inputNombreC').disabled = true;
-    document.getElementById('inputDireccionC').disabled = true;
-    document.getElementById('tipoCentro').disabled = true;
-    document.getElementById('medico').disabled = true;
-    document.getElementById('botonguardar').disabled = true;
-    document.getElementById('botonBuscar').disabled = false;*/
+        /*
+        document.getElementById('inputNombreC').disabled = true;
+        document.getElementById('inputDireccionC').disabled = true;
+        document.getElementById('tipoCentro').disabled = true;
+        document.getElementById('medico').disabled = true;
+        document.getElementById('botonguardar').disabled = true;
+        document.getElementById('botonBuscar').disabled = false;*/
 };
 
-async function borraCentro(){
-    centro={
-        codcentro:document.getElementById('buscarCodigo').value
+async function borraCentro() {
+    centro = {
+        codcentro: document.getElementById('buscarCodigo').value
     }
-    await fetch(`http://localhost:4000/links/borrarCentro/`,{
-        method:'POST',
-        body:JSON.stringify(centro),
-        headers:{
-            "Content-type":"application/json"
+    await fetch(`http://localhost:4000/links/borrarCentro/`, {
+        method: 'POST',
+        body: JSON.stringify(centro),
+        headers: {
+            "Content-type": "application/json"
         }
     });
     //await fetch(`http://localhost:4000/links/buscadoctores/${codcentro}`);
@@ -175,18 +175,16 @@ async function borraCentro(){
 };
 
 
-async function habilitaranadirCentro(){
+async function habilitaranadirCentro() {
     console.log("ENTRANDO");
     document.getElementById('botonBuscar').disabled = true;
-    document.getElementById('botonguardar').disabled =true;
-    document.getElementById('botonborrar').disabled =true;
-    document.getElementById('botonanadir').disabled =true;
+    document.getElementById('botonguardar').disabled = true;
+    document.getElementById('botonborrar').disabled = true;
+    document.getElementById('botonanadir').disabled = true;
     document.getElementById('inputNombreC').disabled = false;
     document.getElementById('inputDireccionC').disabled = false;
     document.getElementById('inputPais').disabled = false;
-    //document.getElementById('inputEstado').style.visibility = "hidden";
-    document.getElementById('inputEstado').style.display = 'none';
-    document.getElementById('ellabel').style.display = 'none';
+    document.getElementById('divEstado').style.display = 'none';
     document.getElementById('tipoCentro').disabled = false;
     document.getElementById('medico').disabled = false;
     let response = await fetch(`http://localhost:4000/links/buscamepaises/`);
@@ -212,7 +210,7 @@ async function habilitaranadirCentro(){
     }*/
 };
 
-async function anadirCentro(){
+async function anadirCentro() {
 
 };
 
