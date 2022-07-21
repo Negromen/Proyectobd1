@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 const moment = require('moment');
+const { json } = require('express');
 
 ////-------------------------------------------REDIRECCCIONAMIENTO REGISTRO VACUNA--------------------------------------------------
 
 //PROCEDIMIENTO PARA ABRIR LA INTERFAZ DE REGISTRAR PERSONA Y SU VACUNA POR PRIMERA VEZ
 router.get('/registrarVacuna', async(req, res, next) => {
     const Query = await pool.query("select idvacuna,nombrevacuna from vacuna");
-    const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
+    const Query2 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais and cv.borrado=0 ");
     const Query3 = await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais;");
     if ((Query) && (Query2) && (Query3))
         res.render("links/registrarVacuna", { Query, Query2, Query3 });
@@ -110,7 +111,7 @@ router.get('/buscamunicipio/:estado', async(req, res, next) => {
         res.json(Query3);
 });
 
-////----------------------------------------------------------RENDERS----------------------------------------------------------------------
+////------------------------------------------REDIRECCCIONAMIENTO VERIFICAR REGISTRO----------------------------------------------------------------------
 
 router.get('/verificarRegistro', (req, res) => {
     res.render("links/verificarRegistro");
@@ -119,6 +120,8 @@ router.get('/verificarRegistro', (req, res) => {
 router.post('/verificarRegistro', async(req, res, next) => {
     res.render("links/verificarRegistro");
 });
+
+////-------------------------------------------REDIRECCCIONAMIENTO REGISTRO SOLO VACUNA--------------------------------------------------
 
 //PARA PINTAR DATOS EN LA INTERFAZ QUE PERMITE AGREGAR UNA VACUNACION
 router.get('/registrarSoloVacuna', async(req, res) => {
@@ -140,7 +143,7 @@ router.get('/registrarSoloVacuna', async(req, res) => {
         const Query3 = await pool.query("SELECT e.codestado,e.nombreestado,e.codpais FROM estado_provincia as e WHERE e.codestado= ? and e.codpais= ? ", [Query2[0].codestado, Query2[0].codpais]);
         const Query4 = await pool.query("select p.codpais,p.nombrepais from pais as p where p.codpais= ?", [Query3[0].codpais]);
         const Query5 = await pool.query("select idvacuna,nombrevacuna from vacuna");
-        const Query6 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais");
+        const Query6 = await pool.query("select cs.codcentro ,cs.nombrecentro from centro_salud as cs, centro_vacunacion as cv where cs.codcentro = cv.codcentro and cs.codestado =cv.codestado and cs.codpais = cv.codpais and cv.borrado=0");
         const Query7 = await pool.query("select * from vacunada where docidentidad = ?", [docidentidad]);
         var listica = [];
         for (let i = 0; i <= ((Object.keys(Query7).length) - 1); i++) {
@@ -207,22 +210,15 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
 
 /*----------------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/
 
-router.get('/controlCentroSalud', (req, res) => {
-    // const Query = await pool.query("select codcentro from centro_salud");
-    res.render("links/controlCentroSalud");
+router.get('/controlCentroSalud', async(req, res) => {
+    const Query = await pool.query("select codcentro from centro_salud where borrado=0");
+    res.render("links/controlCentroSalud",{Query});
 });
-
-
-router.post('/controlCentroSalud', async(req, res, next) => {
-    res.render("links/controlCentroSalud");
-});
-
 
 //BUSCA EL CENTRO A TRAVES DE UN CODIGO DE CENTRO Y MANDA LA INFORMACION NECESARIA
 router.get('/buscamecentro/:codcentro', async(req, res, next) => {
     var codcentro = req.params.codcentro;
-    console.log(codcentro);
-    const Query3 = await pool.query("select * from centro_salud where codcentro = ? ", [codcentro]);
+    const Query3 = await pool.query("select * from centro_salud where codcentro = ?", [codcentro]);
     const Query4 = await pool.query("select nombreestado from estado_provincia where codestado = ? and codpais = ?", [Query3[0].codestado, Query3[0].codpais]);
     const Query5 = await pool.query("select nombrepais from pais where codpais = ?", [Query3[0].codpais]);
     const Query6 = await pool.query("select nombreper,apellidoper from persona where docidentidad =?", [Query3[0].docidentidad]);
@@ -234,7 +230,6 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
     Query3[0] = Object.assign(Query3[0], Query5[0]);
     Query3[0] = Object.assign(Query3[0], Query6[0]);
     Query3[0] = Object.assign(Query3[0], centro);
-    console.log(Query3);
     if (Query3)
         res.json(Query3);
 });
@@ -242,36 +237,92 @@ router.get('/buscamecentro/:codcentro', async(req, res, next) => {
 router.get('/buscadoctores/:codcentro', async(req, res, next) => {
     var codcentro = req.params.codcentro;
     const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m,asignado as a where p.docidentidad=a.docidentidad and p.docidentidad=m.docidentidad and a.codcentro=?", [codcentro]);
+    if (Query3)
+        res.json(Query3);
+});
+
+router.get('/buscadoctoresv2/:codestado', async(req, res, next) => {
+    const codestado=req.params.codestado;
+    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m, reside as r where p.docidentidad=m.docidentidad and p.docidentidad=r.docidentidad and r.codestado=?",[codestado]);
+    if (Query3)
+        res.json(Query3);
+});
+
+//PARA BORRAR UN CENTRO DE SALUD 
+router.post('/borrarCentro/', async(req, res, next) => {
+    const codcentro = req.body;
+    var codigo=parseInt(codcentro.codcentro);
+    console.log("entro");
+    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codigo]);
+    if((Object.keys(Query1).length)== 0){
+        await pool.query("update centro_hospitalizacion set `borrado` =1 where codcentro=?",[codigo]);
+    }else{
+        await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=?",[codigo]);
+    }
+    await pool.query("update centro_salud set `borrado` =1 where codcentro = ? ",[codigo]);
+    res.json();
+});
+
+
+router.post('/GuardarEditarCentro', async(req, res, next) => {
+    const varr = req.body;
+    console.log(varr);
+    const Datos ={
+        codcentro:parseInt(varr.codcentro),
+        nombrecentro:varr.nombrecentro,
+        direccion:varr.direccion,
+        codestado:parseInt(varr.codestado),
+        codpais:parseInt(varr.codpais),
+        docidentidad:varr.docidentidad,
+        fechaEncargado:varr.fechaEncargado,
+    }
+    console.log((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length));
+    console.log((varr.tipo)=='Vacunacion');
+    
+    if((varr.tipo)=='Vacunacion'){
+        if((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length)==0){
+            await pool.query("update centro_hospitalizacion set `borrado` =1  where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
+            await pool.query("insert into centro_vacunacion set ?",{
+                codcentro:Datos.codcentro,
+                codestado:Datos.codestado,
+                codpais:Datos.codpais
+            });
+        }
+    }else{
+        if((Object.keys(await pool.query("select * from centro_hospitalizacion where codcentro=? and codestado=? and codpais=?",[parseInt(varr.codcentro),parseInt(varr.codestado),parseInt(varr.codpais)])).length)==0){
+            await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
+            await pool.query("insert into centro_Hospitalizacion set ?",{
+                codcentro:Datos.codcentro,
+                codestado:Datos.codestado,
+                codpais:Datos.codpais
+            });
+        }
+    }
+    await pool.query("update centro_salud set ? where codcentro=?",[Datos,Datos.codcentro]);
+    res.json();
+});
+
+router.get('/buscamepaises', async(req, res, next) => {
+    const Query3= await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais");
     console.log(Query3);
     if (Query3)
         res.json(Query3);
 });
 
-/*PARA BORRAR UN CENTRO DE SALUD 
-router.post('/borrarCentro/:codcentro', async(req, res, next) => {
-    const codcentro = req.params.codcentro;
-    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codcentro]);
-    if((Object.keys(Query1).length)== 0){
-        await pool.query("delete from centro_hospitalizacion where codcentro=?",[codcentro]);
-    }
-    await pool.query("delete from centro_salud where codcentro = ? ",[codcentro]);
-    res.render('links/controlCentroSalud');
-});
-*/
 
-router.post('/GuardarEditarCentro/:Centro', async(req, res, next) => {
-    const DatosC = req.params.Centro;
-    console.log(DatosC);
+router.post('/anadirCentro/', async(req, res, next) => {
+    const codcentro = req.body;
+    await pool.query("insert into centro_salud set ? ",{
+
+    });
+    res.json();
 });
 
-/*----------------------------------------------PERSONAL DE SALUD-------------------------------------------------------------*/
 router.get('/controlPersonalSalud', (req, res) => {
     res.render("links/controlPersonalSalud");
 });
 
-router.post('/controlPersonalSalud', async(req, res, next) => {
-    res.render("links/controlPersonalSalud");
-});
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 
 

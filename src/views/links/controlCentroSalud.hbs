@@ -34,9 +34,12 @@
                 <div class="col-4 pt-3" style="background-color: rgb(135, 194, 234)">
                     {{!-- <input type="number" class="form-control" placeholder="Codigo de Centro de Salud" min="0" style="width: 300px;" id="buscarCodigo"> --}}
                     <select class="form-select" name="buscarCodigo" id="buscarCodigo">
-                                <option value="" selected disabled>Elegir Centro de Salud...</option>
-                            </select>
-                    <button class="btn btn-primary mt-2" onclick="buscarCentro();" type="submit">Buscar</button>
+                        <option value="" selected disabled>Elegir Centro de Salud...</option>
+                        {{#each Query}}
+                            <option value="{{codcentro}}">{{codcentro}}</option>
+                        {{/each}}
+                    </select>
+                    <button class="btn btn-primary mt-2" id="botonBuscar" onclick="buscarCentro();"  type="submit">Buscar</button>
                 </div>
                 <div class="col py-2" style="background-color: rgb(196, 229, 252);">
                     <div>
@@ -55,13 +58,10 @@
                             <label for="inputPais">Pais del Centro de Salud</label>
                             <select name="pais" id="inputPais" onchange="elegirEstado();" class="form-select" disabled>
                                 <option value="0" selected disabled>Pais...</option>
-                                {{#each Query}}
-                                <option value="{{codpais}}" readonly>{{nombrepais}}</option>
-                                {{/each}}
                             </select>
                         </div>
-                        <div class="pt-2 col-7">
-                            <label for="inputEstado">Estado/Provincia del Centro de Salud</label>
+                        <div class="pt-2 col-7" id="divEstado">
+                            <label for="inputEstado" id="ellabel" >Estado/Provincia del Centro de Salud</label>
                             <select name="estado" id="inputEstado" class="form-select" disabled>
                                 <option value="0" selected disabled>Estado...</option>
                             </select>
@@ -70,9 +70,6 @@
                             <label for="medico">Médico Encargado del Centro de Salud</label>
                             <select class="form-select" name="medico" id="medico" onchange="editarfechaEncargado()" disabled>
                                 <option value="0" disabled selected>Medico encargado...</option>
-                                {{#each Query}}
-                                <option value="{{docidentidad}}" readonly>{{nombreper}}</option>
-                                {{/each}}
                             </select>
                         </div>
                         <div class="pt-2 col-7">
@@ -83,15 +80,15 @@
                             <label for="tipoCentro">Tipo de Centro de Salud</label>
                             <select class="form-select" name="tipoCentro" id="tipoCentro" disabled>
                                 <option value="0" disabled selected>Tipo de centro...</option>
-                                <option value="H" >Hospitalizacion</option>
-                                <option value="V" >Vacunacion</option>
+                                <option value="Hospitalizacion" >Hospitalizacion</option>
+                                <option value="Vacunacion" >Vacunacion</option>
                             </select>
                         </div>
                         <div class="divBotones">
-                            <button class="btn btn-primary" type="submit">Guardar</button>
-                            <button class="btn btn-success" type="submit">Añadir</button>
-                            <button class="btn btn-danger" id="botonborrar"  type="submit" disabled>Borrar</button>
+                            <button class="btn btn-success" id="botonanadir" onclick="habilitaranadirCentro();" type="submit">Añadir</button>
+                            <button class="btn btn-danger"  id="botonborrar" onclick="borraCentro();" type="submit" disabled>Borrar</button>
                             <button class="btn btn-warning" id="botoneditar" onclick="editarCentro();" type="submit"disabled>Editar</button>
+                            <button class="btn btn-primary" id="botonguardar" type="submit" onclick="GuardarEditarCentro()" disabled>Guardar</button>
                         </div>
                     {{!-- {{else}} --}}
                         {{!-- <div class="col-7">
