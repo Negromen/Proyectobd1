@@ -307,6 +307,7 @@ router.get('/buscamepaises', async(req, res, next) => {
 
 router.post('/anadirCentro/', async(req, res, next) => {
     const varr = req.body;
+    console.log(varr);
     const Datos ={
         nombrecentro:varr.nombrecentro,
         direccion:varr.direccion,
@@ -319,14 +320,14 @@ router.post('/anadirCentro/', async(req, res, next) => {
     if((varr.tipo)=='Vacunacion'){
         const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
         await pool.query("insert into centro_vacunacion set ? ",{
-            codcentro:Query[0],
+            codcentro:Query[0].codcentro,
             codestado:Datos.codestado,
             codpais:Datos.codpais
         });
     }else{
         const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
         await pool.query("insert into centro_hospitalizacion set ? ",{
-            codcentro:Query[0],
+            codcentro:Query[0].codcentro,
             codestado:Datos.codestado,
             codpais:Datos.codpais
         });

@@ -149,24 +149,27 @@ async function GuardarEditarCentro() {
         }
     });
     window.location = "http://localhost:4000/links/controlCentroSalud"
-        /*
-        var centro = {
-            nombrecentro: document.getElementById('inputNombreC').value,
-            direccion: document.getElementById('inputDireccionC').value,
-            codestado: document.getElementById('inputEstado').options[0].value,
-            codpais: document.getElementById('inputPais').options[0].value,
-            docidentidad: document.getElementById('medico').options[0].value,
-            fechaEncargado: document.getElementById('fechaEncargado').value,
-            tipo: document.getElementById('tipoCentro').value
-        };
-        await fetch(`http://localhost:4000/links/anadirCentro/`, {
-            method: 'POST',
-            body: JSON.stringify(centro),
-            headers: {
-                "Content-type": "application/json"
-            }
-        });
-        window.location = "http://localhost:4000/links/controlCentroSalud"*/
+};
+
+async function GuardarAnadirCentro(){
+    var centro = {
+        nombrecentro: document.getElementById('inputNombreC').value,
+        direccion: document.getElementById('inputDireccionC').value,
+        codestado: document.getElementById('inputEstado').value,
+        codpais: document.getElementById('inputPais').value,
+        docidentidad: document.getElementById('medico').value,
+        fechaEncargado: document.getElementById('fechaEncargado').value,
+        tipo: document.getElementById('tipoCentro').value
+    };
+    console.log(centro);
+    await fetch(`http://localhost:4000/links/anadirCentro/`, {
+        method: 'POST',
+        body: JSON.stringify(centro),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+    window.location = "http://localhost:4000/links/controlCentroSalud"
 };
 
 async function borraCentro() {
@@ -180,17 +183,15 @@ async function borraCentro() {
             "Content-type": "application/json"
         }
     });
-    //await fetch(`http://localhost:4000/links/buscadoctores/${codcentro}`);
-    console.log("salio del fetch que borra");
     window.location = "http://localhost:4000/links/controlCentroSalud"
 };
-
 
 async function habilitaranadirCentro() {
     document.getElementById('botonBuscar').disabled = true;
     document.getElementById('botonguardar').disabled = false;
     document.getElementById('botonborrar').disabled = true;
     document.getElementById('botonanadir').disabled = true;
+    document.getElementById('botonguardar2').disabled = false;
     document.getElementById('inputNombreC').disabled = false;
     document.getElementById('inputDireccionC').disabled = false;
     document.getElementById('inputPais').disabled = false;
@@ -202,6 +203,7 @@ async function habilitaranadirCentro() {
     document.getElementById('botonguardar2').style.display = 'block';
     let response = await fetch(`http://localhost:4000/links/buscamepaises/`);
     let response2 = await response.json();
+    console.log("los paises",response2);
     const valor = Object.keys(response2).length;
     const select = document.getElementById('inputPais');
     for (i = 1; i <= valor; i++) {
@@ -210,7 +212,6 @@ async function habilitaranadirCentro() {
         option.text = response2[i - 1].nombrepais;
         select.appendChild(option);
     }
-    console.log("HACE TODO");
 };
 
 async function palosMedicos() {
@@ -219,14 +220,14 @@ async function palosMedicos() {
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
     const select = document.getElementById('medico');
+    console.log(response2);
     for (i = 1; i <= valor; i++) {
         const option = document.createElement('option');
-        option.value = response2[i - 1].docidentidad;
+        option.value =response2[i - 1].docidentidad;
         option.text = response2[i - 1].nombreper + " " + response2[i - 1].apellidoper;
         select.appendChild(option);
     }
 }
-
 
 function editarfechaEncargado() {
     let date = new Date();
