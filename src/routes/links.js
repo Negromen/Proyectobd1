@@ -213,7 +213,7 @@ router.post('/registrarSoloVacuna', async(req, res, next) => {
 
 router.get('/controlCentroSalud', async(req, res) => {
     const Query = await pool.query("select codcentro from centro_salud where borrado=0");
-    res.render("links/controlCentroSalud",{Query});
+    res.render("links/controlCentroSalud", { Query });
 });
 
 //BUSCA EL CENTRO A TRAVES DE UN CODIGO DE CENTRO Y MANDA LA INFORMACION NECESARIA
@@ -243,8 +243,8 @@ router.get('/buscadoctores/:codcentro', async(req, res, next) => {
 });
 
 router.get('/buscadoctoresv2/:codestado', async(req, res, next) => {
-    const codestado=req.params.codestado;
-    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m, reside as r where p.docidentidad=m.docidentidad and p.docidentidad=r.docidentidad and r.codestado=? and p.borrado=0",[codestado]);
+    const codestado = req.params.codestado;
+    const Query3 = await pool.query("select p.docidentidad, p.nombreper,p.apellidoper from persona as p,medico as m, reside as r where p.docidentidad=m.docidentidad and p.docidentidad=r.docidentidad and r.codestado=? and p.borrado=0", [codestado]);
     if (Query3)
         res.json(Query3);
 });
@@ -252,53 +252,53 @@ router.get('/buscadoctoresv2/:codestado', async(req, res, next) => {
 //PARA BORRAR UN CENTRO DE SALUD 
 router.post('/borrarCentro/', async(req, res, next) => {
     const codcentro = req.body;
-    var codigo=parseInt(codcentro.codcentro);
-    const Query1= await pool.query("select * from centro_vacunacion where codcentro =?",[codigo]);
-    if((Object.keys(Query1).length)== 0){
-        await pool.query("update centro_hospitalizacion set `borrado` =1 where codcentro=?",[codigo]);
-    }else{
-        await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=?",[codigo]);
+    var codigo = parseInt(codcentro.codcentro);
+    const Query1 = await pool.query("select * from centro_vacunacion where codcentro =?", [codigo]);
+    if ((Object.keys(Query1).length) == 0) {
+        await pool.query("update centro_hospitalizacion set `borrado` =1 where codcentro=?", [codigo]);
+    } else {
+        await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=?", [codigo]);
     }
-    await pool.query("update centro_salud set `borrado` =1 where codcentro = ? ",[codigo]);
+    await pool.query("update centro_salud set `borrado` =1 where codcentro = ? ", [codigo]);
     res.json();
 });
 
 router.post('/GuardarEditarCentro', async(req, res, next) => {
     const varr = req.body;
-    const Datos ={
-        codcentro:parseInt(varr.codcentro),
-        nombrecentro:varr.nombrecentro,
-        direccion:varr.direccion,
-        codestado:parseInt(varr.codestado),
-        codpais:parseInt(varr.codpais),
-        docidentidad:varr.docidentidad,
-        fechaEncargado:varr.fechaEncargado,
+    const Datos = {
+        codcentro: parseInt(varr.codcentro),
+        nombrecentro: varr.nombrecentro,
+        direccion: varr.direccion,
+        codestado: parseInt(varr.codestado),
+        codpais: parseInt(varr.codpais),
+        docidentidad: varr.docidentidad,
+        fechaEncargado: varr.fechaEncargado,
     }
-    if((varr.tipo)=='Vacunacion'){
-        if((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais])).length)==0){
-            await pool.query("update centro_hospitalizacion set `borrado` =1  where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
-            await pool.query("insert into centro_vacunacion set ?",{
-                codcentro:Datos.codcentro,
-                codestado:Datos.codestado,
-                codpais:Datos.codpais
+    if ((varr.tipo) == 'Vacunacion') {
+        if ((Object.keys(await pool.query("select * from centro_vacunacion where codcentro=? and codestado=? and codpais=?", [Datos.codcentro, Datos.codestado, Datos.codpais])).length) == 0) {
+            await pool.query("update centro_hospitalizacion set `borrado` =1  where codcentro=? and codestado=? and codpais=?", [Datos.codcentro, Datos.codestado, Datos.codpais]);
+            await pool.query("insert into centro_vacunacion set ?", {
+                codcentro: Datos.codcentro,
+                codestado: Datos.codestado,
+                codpais: Datos.codpais
             });
         }
-    }else{
-        if((Object.keys(await pool.query("select * from centro_hospitalizacion where codcentro=? and codestado=? and codpais=?",[parseInt(varr.codcentro),parseInt(varr.codestado),parseInt(varr.codpais)])).length)==0){
-            await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=? and codestado=? and codpais=?",[Datos.codcentro,Datos.codestado,Datos.codpais]);
-            await pool.query("insert into centro_Hospitalizacion set ?",{
-                codcentro:Datos.codcentro,
-                codestado:Datos.codestado,
-                codpais:Datos.codpais
+    } else {
+        if ((Object.keys(await pool.query("select * from centro_hospitalizacion where codcentro=? and codestado=? and codpais=?", [parseInt(varr.codcentro), parseInt(varr.codestado), parseInt(varr.codpais)])).length) == 0) {
+            await pool.query("update centro_vacunacion set `borrado` =1 where codcentro=? and codestado=? and codpais=?", [Datos.codcentro, Datos.codestado, Datos.codpais]);
+            await pool.query("insert into centro_Hospitalizacion set ?", {
+                codcentro: Datos.codcentro,
+                codestado: Datos.codestado,
+                codpais: Datos.codpais
             });
         }
     }
-    await pool.query("update centro_salud set ? where codcentro=?",[Datos,Datos.codcentro]);
+    await pool.query("update centro_salud set ? where codcentro=?", [Datos, Datos.codcentro]);
     res.json();
 });
 
 router.get('/buscamepaises', async(req, res, next) => {
-    const Query3= await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais");
+    const Query3 = await pool.query("select DISTINCT p.codpais,p.nombrepais from pais as p,estado_provincia as e where p.codpais=e.codpais");
     if (Query3)
         res.json(Query3);
 });
@@ -307,28 +307,28 @@ router.get('/buscamepaises', async(req, res, next) => {
 router.post('/anadirCentro/', async(req, res, next) => {
     const varr = req.body;
     console.log(varr);
-    const Datos ={
-        nombrecentro:varr.nombrecentro,
-        direccion:varr.direccion,
-        codestado:parseInt(varr.codestado),
-        codpais:parseInt(varr.codpais),
-        docidentidad:varr.docidentidad,
-        fechaEncargado:varr.fechaEncargado,
+    const Datos = {
+        nombrecentro: varr.nombrecentro,
+        direccion: varr.direccion,
+        codestado: parseInt(varr.codestado),
+        codpais: parseInt(varr.codpais),
+        docidentidad: varr.docidentidad,
+        fechaEncargado: varr.fechaEncargado,
     }
-    await pool.query("insert into centro_salud set ? ",[Datos]);
-    if((varr.tipo)=='Vacunacion'){
-        const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
-        await pool.query("insert into centro_vacunacion set ? ",{
-            codcentro:Query[0].codcentro,
-            codestado:Datos.codestado,
-            codpais:Datos.codpais
+    await pool.query("insert into centro_salud set ? ", [Datos]);
+    if ((varr.tipo) == 'Vacunacion') {
+        const Query = await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?", [Datos.nombrecentro, Datos.direccion]);
+        await pool.query("insert into centro_vacunacion set ? ", {
+            codcentro: Query[0].codcentro,
+            codestado: Datos.codestado,
+            codpais: Datos.codpais
         });
-    }else{
-        const Query=await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?",[Datos.nombrecentro,Datos.direccion]);
-        await pool.query("insert into centro_hospitalizacion set ? ",{
-            codcentro:Query[0].codcentro,
-            codestado:Datos.codestado,
-            codpais:Datos.codpais
+    } else {
+        const Query = await pool.query("select codcentro from centro_salud where nombrecentro=? and direccion=?", [Datos.nombrecentro, Datos.direccion]);
+        await pool.query("insert into centro_hospitalizacion set ? ", {
+            codcentro: Query[0].codcentro,
+            codestado: Datos.codestado,
+            codpais: Datos.codpais
         });
     }
     res.json();
@@ -339,40 +339,39 @@ router.post('/anadirCentro/', async(req, res, next) => {
 /*----------------------------------------------PERSONAL DE SALUD-------------------------------------------------------------*/
 
 router.get('/controlPersonalSalud', async(req, res) => {
-    const Query=await pool.query("select p.docidentidad from persona as p,personal_salud as ps where p.docidentidad=ps.docidentidad and p.borrado=0");
-    res.render("links/controlPersonalSalud",{Query});
+    const Query = await pool.query("select p.docidentidad from persona as p,personal_salud as ps where p.docidentidad=ps.docidentidad and p.borrado=0");
+    res.render("links/controlPersonalSalud", { Query });
 });
 
 router.get('/buscaPersonalSalud/:docidentidad', async(req, res) => {
-    const docidentidad=req.params.docidentidad;
-    const Query =await pool.query("select * from persona where docidentidad = ?",[docidentidad]);
-    Query[0].fechanacimiento=moment(Query[0].fechanacimiento).format('YYYY-MM-DD');
-    const Query2 =await pool.query("select r.codmunicipio,m.nombremunicipio,r.codestado,e.nombreestado,r.codpais,p.nombrepais from reside as r,municipio as m,estado_provincia as e,pais as p where r.docidentidad=? and m.codmunicipio=r.codmunicipio and e.codestado=r.codestado and p.codpais=r.codpais;",[docidentidad]);
-    const Query3 =await pool.query("select c.codcentro,c.nombrecentro,a.fechaasignado from asignado as a,centro_salud as c where a.docidentidad=? and c.codcentro=a.codcentro",[docidentidad]);
-    Query3[0].fechaasignado=moment(Query3[0].fechaasignado).format('YYYY-MM-DD');
-    if(Object.keys(Query3).length==1){
+    const docidentidad = req.params.docidentidad;
+    const Query = await pool.query("select * from persona where docidentidad = ?", [docidentidad]);
+    Query[0].fechanacimiento = moment(Query[0].fechanacimiento).format('YYYY-MM-DD');
+    const Query2 = await pool.query("select r.codmunicipio,m.nombremunicipio,r.codestado,e.nombreestado,r.codpais,p.nombrepais from reside as r,municipio as m,estado_provincia as e,pais as p where r.docidentidad=? and m.codmunicipio=r.codmunicipio and e.codestado=r.codestado and p.codpais=r.codpais;", [docidentidad]);
+    const Query3 = await pool.query("select c.codcentro,c.nombrecentro,a.fechaasignado from asignado as a,centro_salud as c where a.docidentidad=? and c.codcentro=a.codcentro", [docidentidad]);
+    Query3[0].fechaasignado = moment(Query3[0].fechaasignado).format('YYYY-MM-DD');
+    if (Object.keys(Query3).length == 1) {
         Query.push(Query2[0]);
         Query.push(Query3[0]);
-        const Query4=await pool.query("select * from medico where docidentidad=?",[docidentidad]);
-        const Query5=await pool.query("select * from enfermeria where docidentidad=?",[docidentidad]);
-        const Query6=await pool.query("select * from asistente_medico where docidentidad=?",[docidentidad]);
-        console.log("el querito",Query6);
-        if(Object.keys(Query4).length>0){
-            medico={tipo:"Medico"}
-            Query[0]=Object.assign(Query[0],medico);
-        }
-        else if(Object.keys(Query5).length>0){
-            medico={tipo:"Enfermero"}
-            Query[0]=Object.assign(Query[0],medico);
-        }else{
+        const Query4 = await pool.query("select * from medico where docidentidad=?", [docidentidad]);
+        const Query5 = await pool.query("select * from enfermeria where docidentidad=?", [docidentidad]);
+        const Query6 = await pool.query("select * from asistente_medico where docidentidad=?", [docidentidad]);
+        console.log("el querito", Query6);
+        if (Object.keys(Query4).length > 0) {
+            medico = { tipo: "Medico" }
+            Query[0] = Object.assign(Query[0], medico);
+        } else if (Object.keys(Query5).length > 0) {
+            medico = { tipo: "Enfermero" }
+            Query[0] = Object.assign(Query[0], medico);
+        } else {
             console.log("ENTRO ");
-            medico={tipo:"asistente"}
-            Query[0]=Object.assign(Query[0],medico);
+            medico = { tipo: "asistente" }
+            Query[0] = Object.assign(Query[0], medico);
         }
         res.json(Query);
-    }else{
+    } else {
         Query.push(Query2[0]);
-        for(let i=0;i<=Object.keys(Query3).length;i++){
+        for (let i = 0; i <= Object.keys(Query3).length; i++) {
             Query.push(Query3[i]);
         }
         res.json(Query);
@@ -382,76 +381,76 @@ router.get('/buscaPersonalSalud/:docidentidad', async(req, res) => {
 router.post('/borrarPS/', async(req, res, next) => {
     const varr = req.body;
     console.log(varr);
-    const Query=await pool.query("select * from medico where docidentidad=?",[varr.docidentidad]);
-    const Query1=await pool.query("select * from enfermeria where docidentidad=?",[varr.docidentidad]);
-    const Query2=await pool.query("select * from asistente_medico where docidentidad=?",[varr.docidentidad]);
-    if(Object.keys(Query).length>0)await pool.query("update medico set `borrado` =1 where docidentidad=?",[varr.docidentidad]);
-    if(Object.keys(Query1).length>0)await pool.query("update enfermeria set `borrado` =1 where docidentidad=?",[varr.docidentidad]);
-    if(Object.keys(Query2).length>0)await pool.query("update asistente_medico set `borrado` =1 where docidentidad=?",[varr.docidentidad]);
-    await pool.query("update persona set `borrado` =1 where docidentidad=?",[varr.docidentidad]);
+    const Query = await pool.query("select * from medico where docidentidad=?", [varr.docidentidad]);
+    const Query1 = await pool.query("select * from enfermeria where docidentidad=?", [varr.docidentidad]);
+    const Query2 = await pool.query("select * from asistente_medico where docidentidad=?", [varr.docidentidad]);
+    if (Object.keys(Query).length > 0) await pool.query("update medico set `borrado` =1 where docidentidad=?", [varr.docidentidad]);
+    if (Object.keys(Query1).length > 0) await pool.query("update enfermeria set `borrado` =1 where docidentidad=?", [varr.docidentidad]);
+    if (Object.keys(Query2).length > 0) await pool.query("update asistente_medico set `borrado` =1 where docidentidad=?", [varr.docidentidad]);
+    await pool.query("update persona set `borrado` =1 where docidentidad=?", [varr.docidentidad]);
     res.json();
 });
 
 router.post('/anadirPS/', async(req, res, next) => {
     const varr = req.body;
-    varr.codpais=parseInt(varr.codpais);
-    varr.codestado=parseInt(varr.codestado);
-    varr.codmunicipio=parseInt(varr.codmunicipio);
-    varr.codcentro=parseInt(varr.codcentro);
+    varr.codpais = parseInt(varr.codpais);
+    varr.codestado = parseInt(varr.codestado);
+    varr.codmunicipio = parseInt(varr.codmunicipio);
+    varr.codcentro = parseInt(varr.codcentro);
     console.log(varr);
     var actual = new Date();
     var recibido = new Date(varr.fechanacimiento);
     if ((actual.getFullYear() - recibido.getFullYear()) >= 60) varr.riesgo = true;
     const Query = await pool.query("select docidentidad from persona where docidentidad = ? ", [varr.docidentidad]);
-    if (Object.keys(Query).length == 0){
-        await pool.query("INSERT INTO persona set ? ",{
-            docidentidad:varr.docidentidad,
-            nombreper:varr.nombreper,
-            apellidoper:varr.apellidoper,
-            fechanacimiento:varr.fechanacimiento,
-            sexo:varr.sexo,
-            altoriesgo:varr.altoriesgo
+    if (Object.keys(Query).length == 0) {
+        await pool.query("INSERT INTO persona set ? ", {
+            docidentidad: varr.docidentidad,
+            nombreper: varr.nombreper,
+            apellidoper: varr.apellidoper,
+            fechanacimiento: varr.fechanacimiento,
+            sexo: varr.sexo,
+            altoriesgo: varr.altoriesgo
         });
-        await pool.query("INSERT INTO personal_salud set ? ",{
-            docidentidad:varr.docidentidad
+        await pool.query("INSERT INTO personal_salud set ? ", {
+            docidentidad: varr.docidentidad
         });
-        await pool.query("INSERT INTO reside set ? ",{
-            docidentidad:varr.docidentidad,
-            codmunicipio:varr.codmunicipio,
-            codestado:varr.codestado,
-            codpais:varr.codpais,
-            fecharesidencia:varr.fechaAsignado
+        await pool.query("INSERT INTO reside set ? ", {
+            docidentidad: varr.docidentidad,
+            codmunicipio: varr.codmunicipio,
+            codestado: varr.codestado,
+            codpais: varr.codpais,
+            fecharesidencia: varr.fechaAsignado
         });
-        await pool.query("INSERT INTO asignado set ?",{
-            codcentro:varr.codcentro,
-            codestado:varr.codestado,
-            codpais:varr.codpais,
-            docidentidad:varr.docidentidad,
-            fechaasignado:varr.fechaAsignado
+        await pool.query("INSERT INTO asignado set ?", {
+            codcentro: varr.codcentro,
+            codestado: varr.codestado,
+            codpais: varr.codpais,
+            docidentidad: varr.docidentidad,
+            fechaasignado: varr.fechaAsignado
         });
-        if(varr.tipo=='Medico'){
-            await pool.query("INSERT INTO medico set ?",{
-                docidentidad:varr.docidentidad
+        if (varr.tipo == 'Medico') {
+            await pool.query("INSERT INTO medico set ?", {
+                docidentidad: varr.docidentidad
             });
-        }else
-            if(varr.tipo=='Enfermero'){
-                await pool.query("INSERT INTO enfemeria set ?",{
-                    docidentidad:varr.docidentidad
-                });
-            }else{
-                await pool.query("INSERT INTO asistente_medico set ?",{
-                    docidentidad:varr.docidentidad
-                });
-            }
+        } else
+        if (varr.tipo == 'Enfermero') {
+            await pool.query("INSERT INTO enfemeria set ?", {
+                docidentidad: varr.docidentidad
+            });
+        } else {
+            await pool.query("INSERT INTO asistente_medico set ?", {
+                docidentidad: varr.docidentidad
+            });
+        }
     }
     res.json();
 });
 
 router.get('/buscameloscentros/:codestado', async(req, res) => {
-    const codestado=req.params.codestado;
-    const Query = await pool.query("select codcentro,nombrecentro from centro_salud where codestado=?",[codestado]);
+    const codestado = req.params.codestado;
+    const Query = await pool.query("select codcentro,nombrecentro from centro_salud where codestado=?", [codestado]);
     console.log(Query);
-    if(Query)
+    if (Query)
         res.json(Query);
 });
 
