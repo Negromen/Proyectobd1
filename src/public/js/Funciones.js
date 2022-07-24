@@ -96,13 +96,14 @@ async function habilitaranadirPersonal(){
     document.getElementById('tipoPersonal').disabled=false;
     document.getElementById('tipoCentro').disabled=false;
     document.getElementById('buscarTipoCedula').disabled=true;
-    document.getElementById('lacedula').disabled=true;
+    //document.getElementById('lacedula').disabled=true;
     document.getElementById('botonGuardar').style.display = 'none';
     document.getElementById('botonGuardar2').style.display = 'block';
     document.getElementById('botonGuardar2').disabled=false;
     document.getElementById('botonanadir').disabled=true;
     document.getElementById('botonbuscar').disabled=true;
     let response = await fetch(`http://localhost:4000/links/buscamepaises/`);
+    console.log("SALIO DEL FETCH");
     let response2 = await response.json();
     var valor = Object.keys(response2).length;
     const select = document.getElementById('inputPais');
