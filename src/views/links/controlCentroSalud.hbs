@@ -46,9 +46,10 @@
                         <h1>Control de Centro de Salud</h1>
                     </div>
                     {{!-- {{#if Query}} --}}
+                    <form class="needs-validation" novalidate>
                         <div class="col-7">
                             <label for="inputNombreC">Nombre de Centro de Salud</label>
-                            <input type="text" name="inputNombreC" id="inputNombreC" class="form-control" placeholder="Nombre de Centro de Salud" disabled>     
+                            <input type="text" name="inputNombreC" id="inputNombreC" class="form-control" placeholder="Nombre de Centro de Salud" disabled required>     
                         </div>
                         <div class="pt-2 col-7">
                             <label for="inputDireccionC">Dirección de Centro de Salud</label>
@@ -84,6 +85,7 @@
                                 <option value="Vacunacion" >Vacunacion</option>
                             </select>
                         </div>
+                    </form>
                         <div class="divBotones">
                             <button class="btn btn-success" id="botonanadir" onclick="habilitaranadirCentro();" type="submit">Añadir</button>
                             <button class="btn btn-danger"  id="botonborrar" onclick="borraCentro();" type="submit" disabled>Borrar</button>
