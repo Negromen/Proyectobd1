@@ -456,4 +456,12 @@ router.get('/buscameloscentros/:codestado', async(req, res) => {
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
+router.post('/registrarContagio', async(req, res, next) => {
+    res.render("links/registrarContagio");
+});
+
+router.get('/registrarContagio', async(req, res) => {
+    res.render("links/registrarContagio");
+});
+
 module.exports = router;
