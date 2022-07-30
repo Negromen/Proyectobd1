@@ -1,0 +1,125 @@
+ <!-- NAVBAR -->
+    <div id="navBar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <h5>MEDICLAB</h5>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" disabled>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Registrar contagio y tratamiento</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    {{!-- CONTENIDO----------------------------------}}
+
+    <div class="container-fluid" id="backgroundRegistro">
+        <div class="container" style="background-color: rgb(135, 194, 234);" id="fondoContainerContagio">
+            <div class="tituloContagio">
+                <div id="imagenContagio">
+                    <img src="/img/contagio.png" width="150px">
+                </div>
+                <div class="textoContagio">
+                    <h2>Registrar Contagio</h2>
+                </div>
+            </div>
+            {{!-- CONTAGIO----------------------------------}}
+            <form class="row">
+                <div class="col-md-6 pt-2">
+                    <label for="inputCedula" class="form-label">Cédula</label>
+                    <div class="input-group">
+                        <span>
+                            <select name="tipoCedula" id="tipoCedula" class="form-select">
+                                <option value="" selected disabled>X</option>
+                                <option value="">V</option>
+                                <option value="">E</option>
+                            </select>
+                        </span>
+                        <input type="text" class="form-control" id="inputCedula" placeholder="Ej: 00000000"> 
+                    </div>
+                </div>
+
+                <div class="col-md-6 pt-2">
+                    <label for="virus" class="form-label">Virus</label>
+                    <select name="virus" id="virus" class="form-select">
+                        <option value="" selected disabled>Virus...</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 pt-2">
+                    <label for="fechaContagio">Fecha de Contagio</label>
+                    <input type="date" name="fechaContagio" id="fechaContagio" class="form-control">
+                </div>
+                
+                <div class="col-md-6 pt-2">
+                    <label for="tiempoReposo">Tiempo de Reposo</label>
+                    <input type="number" min="0" class="form-control" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10">
+                </div>
+
+                <div class="col-md-6 pt-2">
+                    <label for="hospitalizado">Lugar de Hospitalización</label>
+                    <select name="hospitalizado" id="hospitalizado" class="form-select">
+                        <option value="" selected disabled>Lugar de Hospitalización...</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 pt-2">
+                    <label for="tratamiento">Tratamiento</label>
+                    <select name="tratamiento" id="tratamiento" class="form-select">
+                        <option value="" selected disabled>Tratamiento...</option>
+                    </select>
+                </div>
+
+                <div class="col-12 py-2">
+                    <button type="submit" class="btn btn-primary">Registrar Contagio</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div style="background-color: rgb(135, 194, 234);">
+        <footer>
+            <div id="footer" class="row-auto py-3">
+                <div class="col" id="contenidoFooter">
+                    <h6>© 2022 De Gouveia - Garofalo</h6>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+        <style>
+    @media (max-width: 1920px) {
+        #backgroundRegistro {
+            max-height: 1080px;
+            padding-bottom: 207px;
+            padding-top: 207px;
+        }
+        #footer {
+            margin-top: 0px;
+        }
+    }
+
+    @media (max-width: 1600px){
+        #backgroundRegistro{
+            max-height: 650px;
+            padding-bottom: 88px;
+            padding-top: 110px;
+        }
+        #footer{
+            margin-top: 0px;
+        }
+    }
+    </style>
