@@ -1,37 +1,180 @@
-
-
-
-
-
-
-
-
-{{!-- TRATAMIENTO---------------------------------}}
-            <div id="fondoTratamiento">
-                <div class="tituloContagio">
-                    <div id="imagenContagio">
-                        <img src="/img/tratamiento.png" width="150px">
-                    </div>
-                    <div class="textoContagio">
-                        <h2>Registrar Tratamiento</h2>
-                    </div>
-                </div>
-                {{!-- INPUTS--------------------}}
-                <div class="container">
-                    <form action="" class="row">
-                        <div class="col-md-6 pt-2">
-                            <label for="inputCedula" class="form-label">Cédula</label>
-                        <div class="input-group">
-                            <span>
-                                <select name="tipoCedula" id="tipoCedula" class="form-select">
-                                    <option value="" selected disabled>X</option>
-                                    <option value="">V</option>
-                                    <option value="">E</option>
-                                </select>
-                            </span>
-                            <input type="text" class="form-control" id="inputCedula" placeholder="Ej: 00000000"> 
-                        </div>
-                        </div>
-                    </form>
+<!-- NAVBAR -->
+    <div id="navBar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <h5>MEDICLAB</h5>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" disabled>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/links/desicionContagioTratamiento">Registrar contagio y tratamiento</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+    </div>
+
+{{!-- TRATAMIENTO---------------------------------}}
+
+<div class="container-fluid" id="fondoContainerTratamiento">
+    <div class="container" style="background-color: rgb(135, 194, 234);" id="fondoTratamiento">
+        <div class="tituloContagio">
+            <div id="imagenContagio">
+                <img src="/img/tratamiento.png" width="150px">
+            </div>
+            <div class="textoContagio">
+                <h2>Registrar Tratamiento</h2>
+            </div>
+        </div>
+        <form action="" class="row py-3">
+            <div class="col-md-4">
+                <select class="form-select"name="codigoTrat" id="codigoTrat">
+                    <option value="" disabled selected>Seleccionar codigo...</option>
+                </select>
+            </div>
+            <span class="dropdown-divider"></span>
+            <div class="tituloContagio" style="margin-top: -80px;">
+                <div class="textoContagio" style="margin-bottom: 10px;">
+                    <h2>Medicamentos</h2>
+                </div>
+            </div>
+            <div class="col-auto" id="medicamentos">
+                <div class="col">
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Dexametasona
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Stromectol
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Plaquenil
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Nirmatrelvir
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Remdesivir
+                            </label>
+                        </div>
+                   </div>
+                </div>
+                <div class="col ms-5">
+                    <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Bebtelovimab
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Molnupiravir
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Atamel
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Olumiant
+                            </label>
+                        </div>
+                   </div>
+                   <div class="row checkMedicamentos">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Actemra
+                            </label>
+                        </div>
+                   </div>
+                </div>   
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-4">
+                    <label for="frecuencia" class="form-label">Frecuencia</label>
+                    <input type="text" id="frecuencia" class="form-control" placeholder="Ej: Cada 10 dias">
+                </div>
+                <div class="col-md-4">
+                    <label for="dosis" class="form-label">Dosis</label>
+                    <input type="text" id="dosis" class="form-control" placeholder="Ej: 10">
+                </div>
+                <div class="col-md-4">
+                    <label for="cantDias" class="form-label">Cantidad de dias</label>
+                    <input type="text" id="cantDias" class="form-control" placeholder="Ej: 3">
+                </div>
+            </div>
+            <div class="divBotones pt-2">
+                <button class="btn btn-success" id="buttonAnadir" type="submit">Añadir</button>
+                <button class="btn btn-danger" id="buttonBorrar" type="submit" >Borrar</button>
+                <button class="btn btn-warning" id="buttonEditar"type="submit" >Editar</button>
+                <button class="btn btn-primary" id="buttonGuardar" type="submit" >Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="background-color: rgb(135, 194, 234);">
+        <footer>
+            <div id="footer" class="row-auto py-3">
+                <div class="col" id="contenidoFooter">
+                    <h6>© 2022 De Gouveia - Garofalo</h6>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <style>
+    @media (max-width: 1920px) {
+        #fondoContainerTratamiento{
+            padding-top: 137px;
+            padding-bottom: 117px;
+        }
+        #footer{
+            margin-top: 0px;
+        }
+
+    }
+    </style>

@@ -553,4 +553,20 @@ router.get('/verificarContagio', async(req, res) => {
     res.render("links/verificarContagio");
 });
 
+// router.post('/verificarTratamiento', async(req, res, next) => {
+//     res.render("links/verificarTratamiento");
+// });
+
+// router.get('/verificarTratamiento', async(req, res) => {
+//     res.render("links/verificarTratamiento");
+// });
+
+router.post('/registrarTratamiento', async(req, res, next) => {
+    res.render("links/registrarTratamiento");
+});
+
+router.get('/registrarTratamiento', async(req, res) => {
+    res.render("links/registrarTratamiento");
+});
+
 module.exports = router;

@@ -11,7 +11,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" disabled>
-                            <a class="nav-link active" aria-current="page" href="#">Registrar vacunación</a>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/links/desicionContagioTratamiento">Registrar contagio y tratamiento</a>
@@ -22,14 +22,18 @@
         </nav>
     </div>
 
-    <div class="container-fluid" id="backgroundRegistro">
+{{!-- CONTENIDO------------------------}}
+
+ <div class="container-fluid" id="backgroundRegistro">
         <div class="container containerRegistro">
             <div class="cajaRegistro">
                 <div class="logoRegistro">
-                    <img src="/img/VaccineCard.png" alt="" width="200px">
+                    <img src="/img/tratamiento.png" alt="" width="200px">
                 </div>
                 <form class="needs-validation" action="/links/registrarSoloVacuna" method="GET" novalidate>
-                    <h1>Si ha registrado sus datos anteriormente, por favor introduzca su cédula</h1>
+                    <h1>Si ha registrado algun tratamiento anteriormente, por favor introduzca su cédula</h1>
+                    
+                    {{!-- ERROR QUE SE MODIFICARA PARA LAS VALIDACIONES --}}
                     {{#if mensaje}}
                         <script type="text/javascript">
                             function cedulaError() {
@@ -58,7 +62,7 @@
                         </button>
                     </div>
                 </form>
-                <h1>Primera vez por aqui? <a href="/links/registrarVacuna">Click aqui</a> para registrar sus datos de vacunación</h1>               
+                <h1>Si es primera vez, por favor haga <a href="/links/registrarTratamiento">Click aqui</a> para registrar sus datos de vacunación</h1>               
                 <h6>© MedicLab</h6>
             </div>
         </div>
@@ -99,5 +103,3 @@
         }
     }
     </style>
-
-  
