@@ -559,6 +559,15 @@ function editarfechaEncargado() {
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+function datosContagio(){
+    document.getElementById('divBtnregistrar').style.display = 'block';
+    document.getElementById('divVirus').style.display = 'block';
+    document.getElementById('divFechacontagio').style.display = 'block';
+    document.getElementById('divReposo').style.display = 'block';
+    document.getElementById('divTratamiento').style.display = 'block';
+    document.getElementById('divHospital').style.display = 'block';
+}
+
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
 function datosVacuna() {
     document.getElementById('divVacuna').style.display = 'block';
