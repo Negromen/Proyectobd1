@@ -137,11 +137,11 @@
                     <label for="frecuencia" class="form-label">Frecuencia</label>
                     <input type="text" id="frecuencia" class="form-control" placeholder="Ej: Cada 10 dias">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display: none;">
                     <label for="dosis" class="form-label">Dosis</label>
                     <input type="text" id="dosis" class="form-control" placeholder="Ej: 10">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display: none;">
                     <label for="cantDias" class="form-label">Cantidad de dias</label>
                     <input type="text" id="cantDias" class="form-control" placeholder="Ej: 3">
                 </div>
@@ -173,10 +173,11 @@
                 <a href="#footer"><button class="btn btn-primary" type="submit" onclick="return añadirMedicamento();">Añadir medicamento</button></a>
             </div>
             <div class="divBotones pt-2">
-                <button class="btn btn-success" id="buttonAnadir" type="submit">Añadir</button>
-                <button class="btn btn-danger" id="buttonBorrar" type="submit" >Borrar</button>
-                <button class="btn btn-warning" id="buttonEditar"type="submit" >Editar</button>
-                <button class="btn btn-primary" id="buttonGuardar" type="submit" >Guardar</button>
+                <button class="btn btn-success" id="botonAnadir" type="submit">Añadir</button>
+                <button class="btn btn-danger" id="botonBorrar" type="submit" >Borrar</button>
+                <button class="btn btn-warning" id="botonEditar"type="submit" >Editar</button>
+                <button class="btn btn-primary" id="botonGuardar" type="submit" >Guardar</button>
+                <button class="btn btn-primary" id="botonGuardar2" type="submit" style="display: none;">Guardar</button>
             </div>
         </form>
     </div>

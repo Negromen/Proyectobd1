@@ -177,7 +177,7 @@ router.get('/registrarSoloVacuna', async(req, res) => {
             res.render("links/registrarSoloVacuna", { Query, Query5, Query6, listica });
         else
             res.render("links/registrarSoloVacuna");
-    } else {
+    }else {
         const mensaje = true;
         res.render("links/verificarRegistro", { mensaje });
     }
@@ -520,7 +520,6 @@ router.post('/registrarContagio', async(req, res, next) => {
     res.render("links/registrarContagio", { Query, Query2, Query3, Query4 });
 });
 
-
 router.get('/registrarContagio', async(req, res) => {
     const Query = await pool.query("select docidentidad from persona where borrado=0");
     const Query2 = await pool.query("select v.denomoms,v.pais_origen from virus_variante as v");
@@ -529,41 +528,71 @@ router.get('/registrarContagio', async(req, res) => {
     res.render("links/registrarContagio", { Query, Query2, Query3, Query4 });
 });
 
+
 router.post('/registrarSoloContagio', async(req, res, next) => {
-    res.render("links/registrarSoloContagio");
+    res.json();
 });
+
 
 router.get('/registrarSoloContagio', async(req, res) => {
-    res.render("links/registrarSoloContagio");
-});
-
-router.post('/desicionContagioTratamiento', async(req, res, next) => {
-    res.render("links/desicionContagioTratamiento");
-});
-
-router.get('/desicionContagioTratamiento', async(req, res) => {
-    res.render("links/desicionContagioTratamiento");
-});
-
-router.post('/verificarContagio', async(req, res, next) => {
-    res.render("links/verificarContagio");
+    const varr = req.query;
+    var docidentidad = varr.buscarTipoCedula + "-" + varr.buscarCedula;
+    const Query = await pool.query("select * from persona where docidentidad = ? ", [docidentidad]);
+    if (Object.keys(Query).length !== 0) {
+        if (Query[0].sexo == 'M')
+            Query[0].sexo = 'Masculino';
+        else
+        if (Query[0].sexo == 'F')
+            Query[0].sexo = 'Femenino';
+        else
+        if ((Query[0].sexo !== 'F') && (Query[0].sexo !== 'M'))
+            Query[0].sexo = 'No aplica';
+        Query[0].fechanacimiento = moment(Query[0].fechanacimiento).format('YYYY-MM-DD');
+        const Query2 = await pool.query("SELECT r.codmunicipio,r.codestado,r.codpais,m.nombremunicipio,e.nombreestado,p.nombrepais FROM municipio as m,reside as r,estado_provincia as e,pais as p WHERE m.codmunicipio=r.codmunicipio and e.codestado=r.codestado and p.codpais=r.codpais and r.docidentidad= ? ", [docidentidad]);
+        const Query3 = await pool.query("select v.denomoms,v.pais_origen from virus_variante as v");
+        const Query4 = await pool.query("select t.codtrat,t.descriptratamiento from tratamiento as t");
+        const Query5 = await pool.query("select cs.codcentro,cs.nombrecentro from centro_salud as cs,centro_hospitalizacion as ch where cs.codcentro=ch.codcentro and ch.borrado=0");
+        const Query7 = await pool.query("select * from contagio where docidentidad = ?", [docidentidad]);
+        if((Object.keys(Query7).length)>0){
+            var contagio = [];
+            for (let i = 0; i <= ((Object.keys(Query7).length) - 1); i++) {
+                Query7[i].fechacontagio=moment(Query7[i].fechacontagio).format('YYYY-MM-DD');
+                const Query6=await pool.query("select t.descriptratamiento from tratamiento as t,requiere as r where t.codtrat=r.codtrat and r.fecha= ?",[Query7[i].fechacontagio]);
+                let objeto = {
+                    tratamiento:Query6[0].descriptratamiento,
+                    centrohospitalizado:'En casa'
+                };
+                if(Query7[i].casahospitalizado==0){
+                    var Query8 = await pool.query("select cs.nombrecentro from hospitalizado as h,centro_salud as cs,centro_hospitalizacion as ch where ch.codcentro=h.codcentro and cs.codcentro=ch.codcentro and h.fechahospitalizado=?",[Query7[i].fechacontagio]);
+                    objeto.centrohospitalizado = Query8[0].nombrecentro;
+                }
+                objeto = Object.assign(objeto, Query7[i]);
+                contagio.push(objeto);
+            };
+        }
+        Query[0] = Object.assign(Query[0], Query2[0]);
+        console.log("Los contagios",contagio);
+        if ((Query) && (Query3) && (Query4)&& (Query5))
+            res.render("links/registrarSoloContagio", {Query, Query3, Query4,Query5,contagio});
+    }
+    //res.render("links/registrarSoloContagio");
 });
 
 router.get('/verificarContagio', async(req, res) => {
     res.render("links/verificarContagio");
 });
 
-// router.post('/verificarTratamiento', async(req, res, next) => {
-//     res.render("links/verificarTratamiento");
-// });
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
-// router.get('/verificarTratamiento', async(req, res) => {
-//     res.render("links/verificarTratamiento");
-// });
+router.get('/desicionContagioTratamiento', async(req, res) => {
+    res.render("links/desicionContagioTratamiento");
+});
 
+/*
 router.post('/registrarTratamiento', async(req, res, next) => {
     res.render("links/registrarTratamiento");
 });
+*/
 
 router.get('/registrarTratamiento', async(req, res) => {
     res.render("links/registrarTratamiento");
