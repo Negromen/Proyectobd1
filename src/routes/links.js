@@ -529,6 +529,14 @@ router.get('/registrarContagio', async(req, res) => {
     res.render("links/registrarContagio", { Query, Query2, Query3, Query4 });
 });
 
+router.post('/registrarSoloContagio', async(req, res, next) => {
+    res.render("links/registrarSoloContagio");
+});
+
+router.get('/registrarSoloContagio', async(req, res) => {
+    res.render("links/registrarSoloContagio");
+});
+
 router.post('/desicionContagioTratamiento', async(req, res, next) => {
     res.render("links/desicionContagioTratamiento");
 });

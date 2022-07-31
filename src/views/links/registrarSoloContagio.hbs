@@ -35,58 +35,46 @@
                 </div>
             </div>
             {{!-- CONTAGIO----------------------------------}}
-            <form class="row" action="/links/registrarContagio" method="POST">
+            <form class="row" action="" method="POST">
                 <div class="col-md-6 pt-2">
                     <label for="inputCedula" class="form-label">Cédula</label>
                     <div class="input-group">
-                            <select name="tipoCedula" id="tipoCedula" class="form-select">
+                            <select name="tipoCedula" id="tipoCedula" class="form-select" disabled>
                                 <option value="" selected disabled>Escoja su cedula</option>
-                                {{#each Query}}
-                                    <option value="{{docidentidad}}">{{docidentidad}}</option>
-                                {{/each}}
                             </select>
                     </div>
                 </div>
 
                 <div class="col-md-6 pt-2">
                     <label for="virus" class="form-label">Virus</label>
-                    <select name="virus" id="virus" class="form-select">
+                    <select name="virus" id="virus" class="form-select" disabled>
                         <option value="" selected disabled>Virus...</option>
-                        {{#each Query2}}
-                            <option value="{{denomoms}}">{{denomoms}}</option>
-                        {{/each}}
                     </select>
                 </div>
 
                 <div class="col-md-6 pt-2">
                     <label for="fechaContagio">Fecha de Contagio</label>
-                    <input type="date" name="fechaContagio" id="fechaContagio" class="form-control">
+                    <input type="date" name="fechaContagio" id="fechaContagio" class="form-control" readonly>
                 </div>
                 
                 <div class="col-md-6 pt-2">
                     <label for="tiempoReposo">Tiempo de Reposo</label>
-                    <input type="number" min="0" class="form-control" name="tiemporeposo" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10">
+                    <input type="number" min="0" class="form-control" name="tiemporeposo" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10" readonly>
                 </div>
 
                 <div class="col-md-6 pt-2">
                     <label for="hospitalizado">Lugar de Hospitalización</label>
-                    <select name="hospitalizado" id="hospitalizado" class="form-select">
+                    <select name="hospitalizado" id="hospitalizado" class="form-select" disabled>
                         <option value="" selected disabled>Lugar de Hospitalización...</option>
                         <option value="0">En casa</option>
-                        {{#each Query4}}
-                            <option value="{{codcentro}}">{{nombrecentro}}</option>
-                        {{/each}}
                     </select>
                     </select>
                 </div>
 
                 <div class="col-md-6 pt-2">
                     <label for="tratamiento">Tratamiento</label>
-                    <select name="tratamiento" id="tratamiento" class="form-select">
+                    <select name="tratamiento" id="tratamiento" class="form-select" disabled>
                         <option value="" selected disabled>Tratamiento...</option>
-                        {{#each Query3}}
-                            <option value="{{codtrat}}">{{descriptratamiento}}</option>
-                        {{/each}}
                     </select>
                 </div>
 
@@ -98,6 +86,28 @@
                     </form>
                 </div>
             </form>
+            <div class="tituloContagio" style="margin-top: -80px;">
+                <div class="textoContagio" style="padding-bottom:20px;">
+                    <h2>Registrar Contagio</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 py-3" id="divCard">
+                    <div class="card" style="width: 18rem;">
+                        <button style="display:none" id="botonBorrar" class="btn btn-danger"><img src="/img/borrar.png" width="20px"></button>
+                        <div class="card-body">
+                            <h5 class="card-title">Virus</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Tratamiento</h6>
+                            <h6>Fecha de Contagio:</h6>
+                            <h6>Tiempo de reposo:</h6>
+                            <h6>Lugar de Hospitalización</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <a href="#divEncabezado1"><button type="submit" class="btn btn-primary mb-2" onclick="datosVacuna();">Agregar Contagio</button></a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -128,7 +138,7 @@
     @media (max-width: 1600px){
         #backgroundRegistro{
             max-height: 650px;
-            padding-bottom: 88px;
+            padding-bottom: 700px;
             padding-top: 110px;
         }
         #footer{
