@@ -24,6 +24,7 @@
 
     {{!-- CONTENIDO----------------------------------}}
 
+    <div id="arriba"></div>
     <div class="container-fluid" id="backgroundRegistro">
         <div class="container" style="background-color: rgb(135, 194, 234);" id="fondoContainerContagio">
             <div class="tituloContagio">
@@ -36,34 +37,69 @@
             </div>
             {{!-- CONTAGIO----------------------------------}}
             <form class="row" action="" method="POST">
-                <div class="col-md-6 pt-2">
-                    <label for="inputCedula" class="form-label">Cédula</label>
-                    <div class="input-group">
-                            <select name="tipoCedula" id="tipoCedula" class="form-select" disabled>
-                                <option value="" selected disabled>Escoja su cedula</option>
-                            </select>
-                    </div>
+                <div class="col-md-6">
+                    <label for="inputNombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Ej: Alberto" value="" readonly required>
                 </div>
-
+                <div class="col-md-6">
+                    <label for="inputApellido">Apellido</label>
+                    <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Ej: Lopez" value="" readonly required>
+                </div>
+                <div class="col-md-4 pt-2">
+                    <label for="inputPais">Pais</label>
+                    <select name="pais" id="inputPais" class="form-select" disabled required>
+                        <option value="" readonly></option>
+                    </select>
+                </div>
+                <div class="col-md-4 pt-2" id="divEstado">
+                    <label for="inputEstado">Estado/Provincia</label>
+                    <select name="estado" id="inputEstado" class="form-select" disabled required>
+                        <option selected value="" readonly></option>
+                    </select>
+                </div>
+                <div class="col-md-4 pt-2" id="divMunicipio">
+                    <label for="inputMunicipio">Municipio</label>
+                    <select name="municipio" id="inputMunicipio" class="form-select" disabled required>
+                        <option selected value="" readonly></option>
+                    </select>
+                </div>
                 <div class="col-md-6 pt-2">
-                    <label for="virus" class="form-label">Virus</label>
+                    <label for="inputCedula">Cédula</label>
+                    <div class="input-group">
+                        <span>
+                            <select name="tipoCedula" id="tipoCedula" class="form-select" disabled required>
+                                <option selected value="" ></option>
+                            </select>
+                        </span>
+                        <input type="text" name="cedula" class="form-control" id="inputCedula" placeholder="Ej: X-0000000" value="" readonly required>
+                    </div>
+                </div>              
+                <div class="col-md-4 pt-2">
+                    <label for="inputDate">Fecha de Nacimiento</label>
+                    <input type="date" name="fechanac" class="form-control" id="inputDate" value="" readonly required>
+                </div>
+                <div class="col-md-2 pt-2">
+                    <label for="inputGenero">Género</label>
+                    <input type="text" name="genero" class="form-control" id="inputGenero" value="" readonly required>
+                </div>
+                <div class="col-md-4 pt-2" style="display: none;">
+                    <label for="virus">Virus</label>
                     <select name="virus" id="virus" class="form-select" disabled>
                         <option value="" selected disabled>Virus...</option>
                     </select>
                 </div>
-
-                <div class="col-md-6 pt-2">
+                <div class="col-md-4 pt-2" style="display: none;">
                     <label for="fechaContagio">Fecha de Contagio</label>
                     <input type="date" name="fechaContagio" id="fechaContagio" class="form-control" readonly>
                 </div>
                 
-                <div class="col-md-6 pt-2">
+                <div class="col-md-4 pt-2" style="display: none;">
                     <label for="tiempoReposo">Tiempo de Reposo</label>
                     <input type="number" min="0" class="form-control" name="tiemporeposo" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10" readonly>
                 </div>
 
-                <div class="col-md-6 pt-2">
-                    <label for="hospitalizado">Lugar de Hospitalización</label>
+                <div class="col-md-6 pt-2" style="display: none;">
+                    <label for="hospitalizado" >Lugar de Hospitalización</label>
                     <select name="hospitalizado" id="hospitalizado" class="form-select" disabled>
                         <option value="" selected disabled>Lugar de Hospitalización...</option>
                         <option value="0">En casa</option>
@@ -71,14 +107,14 @@
                     </select>
                 </div>
 
-                <div class="col-md-6 pt-2">
+                <div class="col-md-6 pt-2" style="display: none;">
                     <label for="tratamiento">Tratamiento</label>
                     <select name="tratamiento" id="tratamiento" class="form-select" disabled>
                         <option value="" selected disabled>Tratamiento...</option>
                     </select>
                 </div>
 
-                <div class="col-12 py-2">
+                <div class="col-12 py-2" style="display: none;">
                     <form action="/links/registrarContagio" method="POST">
                         <button type="submit" class="btn btn-primary">
                             Registrar Contagio
@@ -86,9 +122,10 @@
                     </form>
                 </div>
             </form>
+            <div class="dropdown-divider"></div>
             <div class="tituloContagio" style="margin-top: -80px;">
-                <div class="textoContagio" style="padding-bottom:20px;">
-                    <h2>Registrar Contagio</h2>
+                <div class="textoContagio" style="padding-bottom:10px;">
+                    <h2>Historial de Contagios</h2>
                 </div>
             </div>
             <div class="row">
@@ -105,7 +142,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <a href="#divEncabezado1"><button type="submit" class="btn btn-primary mb-2" onclick="datosVacuna();">Agregar Contagio</button></a>
+                    <a href="#arriba"><button type="submit" class="btn btn-primary mb-2" onclick="datosVacuna();">Agregar Contagio</button></a>
                 </div>
             </div>
         </div>
@@ -128,7 +165,7 @@
         #backgroundRegistro {
             max-height: 1080px;
             padding-bottom: 207px;
-            padding-top: 207px;
+            padding-top: 150px;
         }
         #footer {
             margin-top: 0px;
@@ -138,7 +175,7 @@
     @media (max-width: 1600px){
         #backgroundRegistro{
             max-height: 650px;
-            padding-bottom: 700px;
+            padding-bottom: 850px;
             padding-top: 110px;
         }
         #footer{
