@@ -46,7 +46,7 @@
                     <h2>Medicamentos</h2>
                 </div>
             </div>
-            <div class="col-auto" id="medicamentos">
+            {{!-- <div class="col-auto" id="medicamentos">
                 <div class="col">
                    <div class="row checkMedicamentos">
                         <div class="form-check">
@@ -131,8 +131,8 @@
                         </div>
                    </div>
                 </div>   
-            </div>
-            <div class="row pt-2">
+            </div> --}}
+            {{!-- <div class="row pt-2">
                 <div class="col-md-4">
                     <label for="frecuencia" class="form-label">Frecuencia</label>
                     <input type="text" id="frecuencia" class="form-control" placeholder="Ej: Cada 10 dias">
@@ -145,6 +145,32 @@
                     <label for="cantDias" class="form-label">Cantidad de dias</label>
                     <input type="text" id="cantDias" class="form-control" placeholder="Ej: 3">
                 </div>
+            </div> --}}
+            <div class="row" id="tablaMedicamentos">
+                <div class="row" id="inputsMedicamentos">
+                    <div class="col-md-12" style="padding-right: 856px;">
+                        <label for="medicaments">Medicamentos</label>
+                        <select name="medicaments" id="medicaments" class="form-select" >
+                            <option value="">Seleccionar medicamento...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="frecuencia" >Frecuencia</label>
+                        <input type="text" id="frecuencia" class="form-control" placeholder="Ej: Cada 10 dias">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dosis" >Dosis</label>
+                        <input type="text" id="dosis" class="form-control" placeholder="Ej: 10">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cantDias" >Cantidad de dias</label>
+                        <input type="text" id="cantDias" class="form-control" placeholder="Ej: 3">
+                    </div>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </div>
+            <div class="col-md-12 pt-2">
+                <a href="#footer"><button class="btn btn-primary" type="submit" onclick="return añadirMedicamento();">Añadir medicamento</button></a>
             </div>
             <div class="divBotones pt-2">
                 <button class="btn btn-success" id="buttonAnadir" type="submit">Añadir</button>
