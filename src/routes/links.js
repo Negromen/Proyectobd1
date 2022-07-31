@@ -177,7 +177,7 @@ router.get('/registrarSoloVacuna', async(req, res) => {
             res.render("links/registrarSoloVacuna", { Query, Query5, Query6, listica });
         else
             res.render("links/registrarSoloVacuna");
-    }else {
+    } else {
         const mensaje = true;
         res.render("links/verificarRegistro", { mensaje });
     }
@@ -553,17 +553,17 @@ router.get('/registrarSoloContagio', async(req, res) => {
         const Query4 = await pool.query("select t.codtrat,t.descriptratamiento from tratamiento as t");
         const Query5 = await pool.query("select cs.codcentro,cs.nombrecentro from centro_salud as cs,centro_hospitalizacion as ch where cs.codcentro=ch.codcentro and ch.borrado=0");
         const Query7 = await pool.query("select * from contagio where docidentidad = ?", [docidentidad]);
-        if((Object.keys(Query7).length)>0){
+        if ((Object.keys(Query7).length) > 0) {
             var contagio = [];
             for (let i = 0; i <= ((Object.keys(Query7).length) - 1); i++) {
-                Query7[i].fechacontagio=moment(Query7[i].fechacontagio).format('YYYY-MM-DD');
-                const Query6=await pool.query("select t.descriptratamiento from tratamiento as t,requiere as r where t.codtrat=r.codtrat and r.fecha= ?",[Query7[i].fechacontagio]);
+                Query7[i].fechacontagio = moment(Query7[i].fechacontagio).format('YYYY-MM-DD');
+                const Query6 = await pool.query("select t.descriptratamiento from tratamiento as t,requiere as r where t.codtrat=r.codtrat and r.fecha= ?", [Query7[i].fechacontagio]);
                 let objeto = {
-                    tratamiento:Query6[0].descriptratamiento,
-                    centrohospitalizado:'En casa'
+                    tratamiento: Query6[0].descriptratamiento,
+                    centrohospitalizado: 'En casa'
                 };
-                if(Query7[i].casahospitalizado==0){
-                    var Query8 = await pool.query("select cs.nombrecentro from hospitalizado as h,centro_salud as cs,centro_hospitalizacion as ch where ch.codcentro=h.codcentro and cs.codcentro=ch.codcentro and h.fechahospitalizado=?",[Query7[i].fechacontagio]);
+                if (Query7[i].casahospitalizado == 0) {
+                    var Query8 = await pool.query("select cs.nombrecentro from hospitalizado as h,centro_salud as cs,centro_hospitalizacion as ch where ch.codcentro=h.codcentro and cs.codcentro=ch.codcentro and h.fechahospitalizado=?", [Query7[i].fechacontagio]);
                     objeto.centrohospitalizado = Query8[0].nombrecentro;
                 }
                 objeto = Object.assign(objeto, Query7[i]);
@@ -571,9 +571,9 @@ router.get('/registrarSoloContagio', async(req, res) => {
             };
         }
         Query[0] = Object.assign(Query[0], Query2[0]);
-        console.log("Los contagios",contagio);
-        if ((Query) && (Query3) && (Query4)&& (Query5))
-            res.render("links/registrarSoloContagio", {Query, Query3, Query4,Query5,contagio});
+        console.log("Los contagios", contagio);
+        if ((Query) && (Query3) && (Query4) && (Query5))
+            res.render("links/registrarSoloContagio", { Query, Query3, Query4, Query5, contagio });
     }
     //res.render("links/registrarSoloContagio");
 });
