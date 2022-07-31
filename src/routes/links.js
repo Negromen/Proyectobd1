@@ -335,7 +335,7 @@ router.post('/anadirCentro/', async(req, res, next) => {
     res.json();
 });
 
-/*---------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------PERSONAL DE SALUD-------------------------------------------------------------*/
 
@@ -392,7 +392,6 @@ router.post('/borrarPS/', async(req, res, next) => {
     res.json();
 });
 
-
 router.post('/GuardarEditarPS', async(req, res, next) => {
     const varr = req.body;
     console.log(varr);
@@ -415,7 +414,6 @@ router.post('/GuardarEditarPS', async(req, res, next) => {
     await pool.query("update persona set ? where docidentidad=?",[Datos,varr.docidentidad]);
     res.json();
 });
-
 
 router.post('/anadirPS/', async(req, res, next) => {
     const varr = req.body;
@@ -481,12 +479,55 @@ router.get('/buscameloscentros/:codestado', async(req, res) => {
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
+/*----------------------------------------------CONTAGIO---------------------------------------------------------------------*/
+
 router.post('/registrarContagio', async(req, res, next) => {
-    res.render("links/registrarContagio");
+    const varr=req.body;
+    varr.tiemporeposo=parseInt(varr.tiemporeposo);
+    varr.hospitalizado=parseInt(varr.hospitalizado);
+    varr.tratamiento=parseInt(varr.tratamiento);
+    var hospitalizado=true;
+    var Querito=await pool.query("select codestado,codpais from centro_salud where codcentro=? ",[varr.hospitalizado]);
+    if(varr.hospitalizado !== 0){
+        await pool.query("insert into hospitalizado set ? ",{
+            codcentro:varr.hospitalizado,
+            codestado:Querito[0].codestado,
+            codpais:Querito[0].codpais,
+            docidentidad:varr.tipoCedula,
+            fechahospitalizado:varr.fechaContagio
+        });
+        hospitalizado=false;
+    }
+    Querito= await pool.query("select pais_origen from virus_variante where denomoms=? ",[varr.virus]);
+    await pool.query("insert into contagio set ? ",{
+        docidentidad:varr.tipoCedula,
+        denomoms:varr.virus,
+        pais_origen:Querito[0].pais_origen,
+        fechacontagio:varr.fechaContagio,
+        tiemporeposo:varr.tiemporeposo,
+        casahospitalizado:hospitalizado
+    });
+    await pool.query("insert into requiere set ? ",{
+        codtrat:varr.tratamiento,
+        docidentidad:varr.tipoCedula,
+        fecha:varr.fechaContagio
+    });
+    const Query= await pool.query("select docidentidad from persona where borrado=0");
+    const Query2= await pool.query("select v.denomoms,v.pais_origen from virus_variante as v");
+    const Query3=await pool.query("select t.codtrat,t.descriptratamiento from tratamiento as t");
+    const Query4=await pool.query("select cs.codcentro,cs.nombrecentro from centro_salud as cs,centro_hospitalizacion as ch where cs.codcentro=ch.codcentro");
+    res.render("links/registrarContagio",{Query,Query2,Query3,Query4});
 });
 
+
 router.get('/registrarContagio', async(req, res) => {
-    res.render("links/registrarContagio");
+    const Query= await pool.query("select docidentidad from persona where borrado=0");
+    const Query2= await pool.query("select v.denomoms,v.pais_origen from virus_variante as v");
+    const Query3=await pool.query("select t.codtrat,t.descriptratamiento from tratamiento as t");
+    const Query4=await pool.query("select cs.codcentro,cs.nombrecentro from centro_salud as cs,centro_hospitalizacion as ch where cs.codcentro=ch.codcentro");
+    res.render("links/registrarContagio",{Query,Query2,Query3,Query4});
 });
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 module.exports = router;

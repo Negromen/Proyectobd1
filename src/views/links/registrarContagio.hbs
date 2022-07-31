@@ -35,18 +35,18 @@
                 </div>
             </div>
             {{!-- CONTAGIO----------------------------------}}
-            <form class="row">
+            <form class="row" action="/links/registrarContagio" method="POST">
                 <div class="col-md-6 pt-2">
                     <label for="inputCedula" class="form-label">Cédula</label>
                     <div class="input-group">
                         <span>
                             <select name="tipoCedula" id="tipoCedula" class="form-select">
-                                <option value="" selected disabled>X</option>
-                                <option value="">V</option>
-                                <option value="">E</option>
+                                <option value="" selected disabled>Escoja su cedula</option>
+                                {{#each Query}}
+                                    <option value="{{docidentidad}}">{{docidentidad}}</option>
+                                {{/each}}
                             </select>
-                        </span>
-                        <input type="text" class="form-control" id="inputCedula" placeholder="Ej: 00000000"> 
+                        </span> 
                     </div>
                 </div>
 
@@ -54,6 +54,9 @@
                     <label for="virus" class="form-label">Virus</label>
                     <select name="virus" id="virus" class="form-select">
                         <option value="" selected disabled>Virus...</option>
+                        {{#each Query2}}
+                            <option value="{{denomoms}}">{{denomoms}}</option>
+                        {{/each}}
                     </select>
                 </div>
 
@@ -64,13 +67,18 @@
                 
                 <div class="col-md-6 pt-2">
                     <label for="tiempoReposo">Tiempo de Reposo</label>
-                    <input type="number" min="0" class="form-control" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10">
+                    <input type="number" min="0" class="form-control" name="tiemporeposo" id="tiempoReposo" placeholder="Tiempo de reposo en dias, Ej: 10">
                 </div>
 
                 <div class="col-md-6 pt-2">
                     <label for="hospitalizado">Lugar de Hospitalización</label>
                     <select name="hospitalizado" id="hospitalizado" class="form-select">
                         <option value="" selected disabled>Lugar de Hospitalización...</option>
+                        <option value="0">En casa</option>
+                        {{#each Query4}}
+                            <option value="{{codcentro}}">{{nombrecentro}}</option>
+                        {{/each}}
+                    </select>
                     </select>
                 </div>
 
@@ -78,11 +86,18 @@
                     <label for="tratamiento">Tratamiento</label>
                     <select name="tratamiento" id="tratamiento" class="form-select">
                         <option value="" selected disabled>Tratamiento...</option>
+                        {{#each Query3}}
+                            <option value="{{codtrat}}">{{descriptratamiento}}</option>
+                        {{/each}}
                     </select>
                 </div>
 
                 <div class="col-12 py-2">
-                    <button type="submit" class="btn btn-primary">Registrar Contagio</button>
+                    <form action="/links/registrarContagio" method="POST">
+                        <button type="submit" class="btn btn-primary">
+                            Registrar Contagio
+                        </button>
+                    </form>
                 </div>
             </form>
         </div>
