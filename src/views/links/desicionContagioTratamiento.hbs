@@ -1,0 +1,80 @@
+<!-- NAVBAR -->
+    <div id="navBar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <h5>MEDICLAB</h5>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" disabled>
+                            <a class="nav-link active" aria-current="page" href="/links/verificarRegistro">Registrar vacunación</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Registrar contagio y tratamiento</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    {{!-- CONTENIDO --}}
+
+<div class="container-fluid" id="tablaContainerFluid">
+    <div class="row-auto container" id="tablaContainer">
+        <div class="row-auto tituloDesicion">
+            <h6>Por favor, seleccione que desea registrar.</h6>
+        </div>
+        <div class="row-auto tablaBotonesDesicion">
+            <div class="col-auto botonesDesicion" id="botonContagioDesicion">
+                <a href="/links/verificarContagio">
+                    <img src="/img/contagioBoton.png">
+                    <h1>Contagio</h1>
+                </a>
+            </div>
+            <div class="col-auto botonesDesicion" id="botonTratamientoDesicion">
+                <a href="">
+                    <img src="/img/tratamientoBoton1.png">
+                    <h1>Tratamiento</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="background-color: rgb(135, 194, 234);">
+        <footer>
+            <div id="footer" class="row-auto py-3">
+                <div class="col" id="contenidoFooter">
+                    <h6>© 2022 De Gouveia - Garofalo</h6>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <style>
+    @media (max-width: 1920px) {
+        #tablaContainerFluid{
+            padding-top: 235px;
+            padding-bottom: 235px;
+        }
+        #footer{
+            margin-top: 0px;
+        }
+
+    }
+
+    @media (max-width: 1600px){
+        #tablaContainerFluid{
+            padding-top: 135px;
+            padding-bottom: 120px;
+        }
+        #footer{
+            margin-top: 0px;
+        }
+    }
+    </style>
