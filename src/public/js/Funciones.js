@@ -83,19 +83,132 @@ async function elegirMunicipio() {
 
 /*-----------------------------------------PERSONAL DE SALUD-------------------------------------------------------------*/
 
-async function habilitaranadirPersonal() {
-    document.getElementById('buscarTipoCedulita').disabled = false;
-    document.getElementById('cedula').disabled = false;
+async function buscarPersonalSalud(){
+    var docidentidadcita=document.getElementById('buscarTipoCedula').value;
+    let response = await fetch(`http://localhost:4000/links/buscaPersonalSalud/${docidentidadcita}`);
+    let response2 = await response.json();
+    document.getElementById('botonanadir').disabled=true;
+    document.getElementById('botonborrar').disabled=false;
+    document.getElementById('botoneditar').disabled=false;
+    document.getElementById('divEstado').style.display = 'block';
+    document.getElementById('divMunicipio').style.display = 'block';
+    document.getElementById('buscarTipoCedulita').value=response2[0].docidentidad;
+    document.getElementById('cedula').value=response2[0].docidentidad;
+    document.getElementById('nombrePer').value=response2[0].nombreper;
+    document.getElementById('apellidoPer').value=response2[0].apellidoper;
+    document.getElementById('fechaNac').value=response2[0].fechanacimiento;
+    if((response2[0].sexo)=='M'){
+        document.getElementById('genero').value=response2[0].sexo;
+        document.getElementById('genero').text='Masculino';
+    }else
+        if((response2[0].sexo)=='F'){
+            document.getElementById('genero').value=response2[0].sexo;
+            document.getElementById('genero').text='Femenino';
+        }else{
+            document.getElementById('genero').value=response2[0].sexo;
+            document.getElementById('genero').text='N/A';
+        }
+       
+    document.getElementById('inputPais').options[0].value=response2[1].codpais;
+    document.getElementById('inputPais').options[0].text=response2[1].nombrepais;
+    document.getElementById('inputEstado').options[0].value=response2[1].codestado;
+    document.getElementById('inputEstado').options[0].text=response2[1].nombreestado;
+    document.getElementById('inputMunicipio').options[0].value=response2[1].codmunicipio;
+    document.getElementById('inputMunicipio').options[0].text=response2[1].nombremunicipio;
+    document.getElementById('tipoCentro').options[0].value=response2[2].codcentro;
+    document.getElementById('tipoCentro').options[0].text=response2[2].nombrecentro;
+    //document.getElementById('tipoCentro').disabled=false;
+    document.getElementById('fechaAsig').value=response2[2].fechaasignado;
+    document.getElementById('tipoPersonal').options[0].value=response2[0].tipo;
+    document.getElementById('tipoPersonal').options[0].text=response2[0].tipo;
+};
+
+async function editarPS(){
+    document.getElementById('botonbuscar').disabled = true;
+    document.getElementById('botoneditar').disabled = true;
+    document.getElementById('botonanadir').disabled = true;
+    document.getElementById('botonborrar').disabled = true;
+    document.getElementById('botonGuardar').disabled = false;
     document.getElementById('nombrePer').disabled = false;
     document.getElementById('apellidoPer').disabled = false;
-    document.getElementById('fechaNac').disabled = false;
     document.getElementById('genero').disabled = false;
-    document.getElementById('inputPais').disabled = false;
-    document.getElementById('inputEstado').disabled = false;
-    document.getElementById('inputMunicipio').disabled = false;
     document.getElementById('tipoPersonal').disabled = false;
-    document.getElementById('tipoCentro').disabled = false;
-    document.getElementById('buscarTipoCedula').disabled = true;
+    var codestado=document.getElementById('inputEstado').value;
+    let response = await fetch(`http://localhost:4000/links/buscameloscentros/${codestado}`);
+    let response2 = await response.json()
+    valor = Object.keys(response2).length;
+    const select =document.getElementById('tipoCentro');
+    for (var i = 1; i <= (select.length); i++) {
+        select.remove(i-1);
+    }
+    for (i = 1; i <= valor; i++) {
+        const option = document.createElement('option');
+        option.value = response2[i - 1].codcentro;
+        option.text = response2[i - 1].nombrecentro;
+        select.appendChild(option);
+    }
+};
+
+async function GuardarEditarPS(){
+    var elsexo=document.getElementById('genero');
+    var PS = {
+        docidentidad: document.getElementById('buscarTipoCedula').value,
+        nombreper: document.getElementById('nombrePer').value,
+        apellidoper: document.getElementById('apellidoPer').value,
+        fechanacimiento: document.getElementById('fechaNac').value,
+        sexo: elsexo.options[elsexo.selectedIndex].value,
+        tipo: document.getElementById('tipoPersonal').value
+    };
+    await fetch(`http://localhost:4000/links/GuardarEditarPS/`, {
+        method: 'POST',
+        body: JSON.stringify(PS),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+    window.location = "http://localhost:4000/links/controlPersonalSalud"
+}
+
+async function GuardarAnadirPS(){
+    var docidentidadcita=document.getElementById('buscarTipoCedulita').value + '-' +document.getElementById('cedula').value;
+    console.log(docidentidadcita);
+    personal={
+        docidentidad:docidentidadcita,
+        nombreper:document.getElementById('nombrePer').value,
+        apellidoper:document.getElementById('apellidoPer').value,
+        fechanacimiento:document.getElementById('fechaNac').value,
+        sexo:document.getElementById('genero').value,
+        altoriesgo:false,
+        codpais:document.getElementById('inputPais').value,
+        codestado:document.getElementById('inputEstado').value,
+        codmunicipio:document.getElementById('inputMunicipio').value,
+        tipo:document.getElementById('tipoPersonal').value,
+        codcentro:document.getElementById('tipoCentro').value,
+        fechaAsignado:document.getElementById('fechaAsig').value
+    }
+    await fetch(`http://localhost:4000/links/anadirPS/`, {
+        method: 'POST',
+        body: JSON.stringify(personal),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+    window.location = "http://localhost:4000/links/controlPersonalSalud"
+};
+
+async function habilitaranadirPersonal(){
+    document.getElementById('buscarTipoCedulita').disabled=false;
+    document.getElementById('cedula').disabled=false;
+    document.getElementById('nombrePer').disabled=false;
+    document.getElementById('apellidoPer').disabled=false;
+    document.getElementById('fechaNac').disabled=false;
+    document.getElementById('genero').disabled=false;
+    document.getElementById('inputPais').disabled=false;
+    document.getElementById('inputEstado').disabled=false;
+    document.getElementById('inputMunicipio').disabled=false;
+    document.getElementById('tipoPersonal').disabled=false;
+    document.getElementById('tipoCentro').disabled=false;
+    document.getElementById('buscarTipoCedula').disabled=true;
     //document.getElementById('lacedula').disabled=true;
     document.getElementById('botonGuardar').style.display = 'none';
     document.getElementById('botonGuardar2').style.display = 'block';
@@ -103,7 +216,6 @@ async function habilitaranadirPersonal() {
     document.getElementById('botonanadir').disabled = true;
     document.getElementById('botonbuscar').disabled = true;
     let response = await fetch(`http://localhost:4000/links/buscamepaises/`);
-    console.log("SALIO DEL FETCH");
     let response2 = await response.json();
     var valor = Object.keys(response2).length;
     const select = document.getElementById('inputPais');
@@ -143,7 +255,7 @@ async function elegirMunicipio_Centro() {
         option.text = response2[i - 1].nombrecentro;
         selectdos.appendChild(option);
     }
-}
+};
 
 function fechaAsignado() {
     let date = new Date();
@@ -239,7 +351,7 @@ async function borraPS() {
         }
     });
     window.location = "http://localhost:4000/links/controlCentroSalud"
-}
+};
 
 //-------------------------------------------------------------------------------------------------------------------------
 

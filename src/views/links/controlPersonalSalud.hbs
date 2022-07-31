@@ -35,7 +35,7 @@
                     <div class="input-group col-1">
                         <span>
                             <select name="buscarTipoCedula" id="buscarTipoCedula" class="form-select">
-                                <option selected value="0" disabled>X</option>
+                                <option selected value="0" disabled>CEDULA</option>
                                 {{#each Query}}
                                 <option value="{{docidentidad}}">{{docidentidad}}</option>
                                 {{/each}}
@@ -96,7 +96,7 @@
                     </div>
                     <div class="pt-2 col-7"  style="display:none ;" id="divMunicipio" >
                         <label for="">Municipio del Personal de Salud</label>
-                        <select class="form-select" name="municipo" onchange="pintameCentros();" id="inputMunicipio"disabled>
+                        <select class="form-select" name="municipo" id="inputMunicipio"disabled>
                             <option value="0" selected disabled>Municipio...</option>
                         </select>
                     </div>
@@ -106,7 +106,7 @@
                             <option value="0" selected disabled>Tipo de Personal de Salud...</option>
                             <option value="Medico">Médico</option>
                             <option value="Enfermero">Enfermero</option>
-                            <option value="Asistente medico">Asistente médico</option>
+                            <option value="Asistente Medico">Asistente médico</option>
                         </select>
                     </div>
                     <div class="pt-2 col-7">
@@ -122,8 +122,8 @@
                     <div class="divBotones">
                         <button class="btn btn-success" id="botonanadir" onclick="habilitaranadirPersonal();" type="submit">Añadir</button>
                         <button class="btn btn-danger" id="botonborrar" onclick="borraPS()" type="submit" disabled>Borrar</button>
-                        <button class="btn btn-warning" id="botoneditar" type="submit" disabled>Editar</button>
-                        <button class="btn btn-primary" id="botonGuardar" type="submit" disabled>Guardar</button>
+                        <button class="btn btn-warning" id="botoneditar" onclick="editarPS();" type="submit" disabled>Editar</button>
+                        <button class="btn btn-primary" id="botonGuardar" onclick="GuardarEditarPS();" type="submit" disabled>Guardar</button>
                         <button class="btn btn-primary" id="botonGuardar2" onclick="GuardarAnadirPS();" type="submit" style="display: none;" disabled>Guardar</button>
                     </div>
                 </div>
