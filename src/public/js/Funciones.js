@@ -568,6 +568,10 @@ function datosContagio(){
     document.getElementById('divReposo').style.display = 'block';
     document.getElementById('divTratamiento').style.display = 'block';
     document.getElementById('divHospital').style.display = 'block';
+    /*
+    let date = new Date();
+    let output = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    document.getElementById('fechaContagioso').value = output;*/
 }
 
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA

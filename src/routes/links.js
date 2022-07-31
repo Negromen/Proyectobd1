@@ -530,7 +530,39 @@ router.get('/registrarContagio', async(req, res) => {
 
 
 router.post('/registrarSoloContagio', async(req, res, next) => {
-    res.json();
+    const varr=req.body;
+    varr.tiemporeposo = parseInt(varr.tiemporeposo);
+    varr.hospitalizado = parseInt(varr.hospitalizado);
+    varr.tratamiento = parseInt(varr.tratamiento);
+    console.log(varr);
+    var hospitalizado = true;
+    var Querito = await pool.query("select codestado,codpais from centro_salud where codcentro=? ", [varr.hospitalizado]);
+    if (varr.hospitalizado !== 0) {
+        await pool.query("insert into hospitalizado set ? ", {
+            codcentro: varr.hospitalizado,
+            codestado: Querito[0].codestado,
+            codpais: Querito[0].codpais,
+            docidentidad: varr.cedula,
+            fechahospitalizado: varr.fechaContagio
+        });
+        hospitalizado = false;
+    }
+    Querito = await pool.query("select pais_origen from virus_variante where denomoms=? ", [varr.virus]);
+    await pool.query("insert into contagio set ? ", {
+        docidentidad: varr.cedula,
+        denomoms: varr.virus,
+        pais_origen: Querito[0].pais_origen,
+        fechacontagio: varr.fechaContagio,
+        tiemporeposo: varr.tiemporeposo,
+        casahospitalizado: hospitalizado
+    });
+    await pool.query("insert into requiere set ? ", {
+        codtrat: varr.tratamiento,
+        docidentidad: varr.cedula,
+        fecha: varr.fechaContagio
+    });
+    //res.json();
+    res.render("links/verificarContagio");
 });
 
 
@@ -571,7 +603,6 @@ router.get('/registrarSoloContagio', async(req, res) => {
             };
         }
         Query[0] = Object.assign(Query[0], Query2[0]);
-        console.log("Los contagios", contagio);
         if ((Query) && (Query3) && (Query4) && (Query5))
             res.render("links/registrarSoloContagio", { Query, Query3, Query4, Query5, contagio });
     }
@@ -583,19 +614,20 @@ router.get('/verificarContagio', async(req, res) => {
 });
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------TRATAMIENTO-------------------------------------------------------------------*/
+
+router.get('/registrarTratamiento', async(req, res) => {
+    const Query=await pool.query("select codtrat from tratamiento where borrado=0");
+    res.render("links/registrarTratamiento",{Query});
+});
+
+
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 router.get('/desicionContagioTratamiento', async(req, res) => {
     res.render("links/desicionContagioTratamiento");
 });
 
-/*
-router.post('/registrarTratamiento', async(req, res, next) => {
-    res.render("links/registrarTratamiento");
-});
-*/
-
-router.get('/registrarTratamiento', async(req, res) => {
-    res.render("links/registrarTratamiento");
-});
 
 module.exports = router;
