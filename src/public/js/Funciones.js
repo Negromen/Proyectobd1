@@ -701,8 +701,8 @@ function añadirMedicamento() {
     return false;
 };
 
-async function buscaTrat(){
-    var codtrat=document.getElementById('codigoTrat').value;
+async function buscaTrat() {
+    var codtrat = document.getElementById('codigoTrat').value;
     let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
