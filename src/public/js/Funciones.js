@@ -804,6 +804,75 @@ async function buscaTrat() {
     return false;
 };
 
+async function habilitarEditar(){
+    document.getElementById('buttonGuardar').style.display = 'none';
+    document.getElementById('buttonGuardar2').style.display = 'block';
+    document.getElementById('elbotoncito').style.display = 'block';
+    document.getElementById('buttonAnadir').disabled = true;
+    document.getElementById('buttonEditar').disabled = true;
+    document.getElementById('buttonBorrar').disabled = true;
+    document.getElementById('butoncitobuscar').disabled = true;
+};
+
+async function GuardarEditarTrat(){
+    trat={
+        codtrat:document.getElementById('codigoTrat').value,
+        viejos:[],
+        consiste:[]
+    }
+    var medicamentos=[];
+    var valor=contador-lacuenta;
+    /*
+    console.log("contador",contador);
+    console.log("lacuenta",lacuenta);
+    console.log("elementos totales",valor);
+    console.log("indice parada",valor-1);*/
+    for(var i=1;i<=(valor-1);i++){
+        var indice=i.toString();
+        var medicaments ='medicaments'+indice;
+        var frecuencia ='frecuencia'+indice;
+        var dosis ='dosis'+indice;
+        var cantDias ='cantDias'+indice;
+        consiste={
+            codmedicamento:document.getElementById(medicaments).value,
+            frecuencia:document.getElementById(frecuencia).value,
+            dosis:document.getElementById(dosis).value,
+            cantdias:document.getElementById(cantDias).value
+        }
+        medicamentos.push(consiste);
+    }
+    trat.viejos=medicamentos;
+    medicamentos=[];
+    for(i=valor;i<=(contador-1);i++){
+        var indice=i.toString();
+        var medicaments ='medicaments'+indice;
+        var frecuencia ='frecuencia'+indice;
+        var dosis ='dosis'+indice;
+        var cantDias ='cantDias'+indice;
+        consiste={
+            codmedicamento:document.getElementById(medicaments).value,
+            frecuencia:document.getElementById(frecuencia).value,
+            dosis:document.getElementById(dosis).value,
+            cantdias:document.getElementById(cantDias).value
+        }
+        medicamentos.push(consiste);
+    };
+    trat.consiste=medicamentos;
+    await fetch(`http://localhost:4000/links/GuardarEditarTrat/`, {
+        method: 'POST',
+        body: JSON.stringify(trat),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+    Swal.fire(
+        'Bien hecho!',
+        'Tratamiento editado correctamente!',
+        'success'
+    ).then(Result => {
+        window.location = "http://localhost:4000/links/registrarTratamiento"
+    });
+};
 
 async function GuardaranadirTrat(){
     trat={
@@ -841,7 +910,6 @@ async function GuardaranadirTrat(){
         window.location = "http://localhost:4000/links/registrarTratamiento"
     });
 };
-
 
 async function borrarTrat(){
     trat={codtrat:document.getElementById('codigoTrat').value}

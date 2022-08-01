@@ -664,6 +664,31 @@ router.post('/anadirTrat/', async(req, res, next) => {
     res.json();
 });
 
+router.post('/GuardarEditarTrat/', async(req, res, next) => {
+    const varr = req.body;
+    varr.codtrat=parseInt(varr.codtrat);
+    for(var i=0;i<=(Object.keys(varr.viejos).length)-1;i++){
+        varr.viejos[i].codmedicamento=parseInt(varr.viejos[i].codmedicamento);
+        varr.viejos[i].dosis=parseInt(varr.viejos[i].dosis);
+        varr.viejos[i].cantdias=parseInt(varr.viejos[i].cantdias);
+        console.log(varr.viejos[i]);
+        await pool.query("update consiste set ? where codtrat=? and codmedicamento=?",[varr.viejos[i],varr.codtrat,varr.viejos[i].codmedicamento]);
+    }
+    for(i=0;i<=(Object.keys(varr.consiste).length)-1;i++){
+        varr.consiste[i].codmedicamento=parseInt(varr.consiste[i].codmedicamento);
+        varr.consiste[i].dosis=parseInt(varr.consiste[i].dosis);
+        varr.consiste[i].cantdias=parseInt(varr.consiste[i].cantdias);
+        await pool.query("INSERT INTO consiste set ? ",{
+            codtrat:varr.codtrat,
+            codmedicamento:varr.consiste[i].codmedicamento,
+            frecuencia:varr.consiste[i].frecuencia,
+            dosis:varr.consiste[i].dosis,
+            cantdias:varr.consiste[i].cantdias
+        });
+    }
+    res.json();
+});
+
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
 router.get('/desicionContagioTratamiento', async(req, res) => {
