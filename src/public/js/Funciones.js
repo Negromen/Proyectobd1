@@ -706,6 +706,7 @@ async function buscaTrat() {
     let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
+    document.getElementById('tablaMedicamentos').innerHTML = '';
     for (var i = 0; i <= (valor - 1); i++) {
         var divPadre = document.getElementById('tablaMedicamentos');
         var divRow = document.createElement('div');
