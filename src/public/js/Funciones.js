@@ -1,6 +1,7 @@
 //const { options } = require("../../routes/links");
 
 var contador = 1;
+var lacuenta=0;
 
 /*-----------------------------------------------EVENTOS VARIOS-------------------------------------------------*/
 //PARA ELEGIR LA CANTIDAD DE DOSIS DE UNA VACUNA
@@ -514,8 +515,6 @@ async function borraCentro() {
     ).then(Result => {
         window.location = "http://localhost:4000/links/controlCentroSalud"
     });
-    console.log("qlq");
-    // window.location = "http://localhost:4000/links/controlCentroSalud"
 };
 
 async function habilitaranadirCentro() {
@@ -599,24 +598,25 @@ function aparecer() {
 
 function paraAnadir(){
     document.getElementById('tablaMedicamentos').innerHTML = '';
+    document.getElementById('divdescripcion').style.display = 'block';
     document.getElementById('elbotoncito').style.display = 'block';
     document.getElementById('buttonEditar').disabled = true;
     document.getElementById('buttonBorrar').disabled = true;
     document.getElementById('butoncitobuscar').disabled = true;
 }
 
-function añadirMedicamento() {
+async function añadirMedicamento() {
     // var original = document.getElementById("inputsMedicamentos");
     // var nuevo = original.cloneNode(true);
     // nuevo.id = "inputsMedicamentos" + contador;
     // destino = document.getElementById("tablaMedicamentos");
     // destino.appendChild(nuevo);
     // contador = contador + 1;
-    /*
+    lacuenta++;
     let response = await fetch(`http://localhost:4000/links/dameMedicamentos/`);
     let response2 = await response.json();
     const valor = Object.keys(response2).length;
-    */
+
     var divPadre = document.getElementById('tablaMedicamentos');
     var divRow = document.createElement('div');
     divRow.className = 'row';
@@ -640,11 +640,18 @@ function añadirMedicamento() {
     divCol12.appendChild(select);
 
     const select1 = document.getElementById('medicaments' + contador);
-    const option1 = document.createElement('option');
-    option1.value = '';
-    option1.text = 'Seleccionar medicamento...';
-    option1.selected = true;
-    select1.appendChild(option1);
+    const option2 = document.createElement('option');
+    option2.disabled=true;
+    option2.value = '';
+    option2.text = 'Medicamento...';
+    option2.selected = true;
+    select1.appendChild(option2);
+    for(var i=0;i <= (valor - 1);i++){
+        const option1 = document.createElement('option');
+        option1.value = response2[i].codmedicamento;
+        option1.text = response2[i].nombre_medicamento;
+        select1.appendChild(option1);
+    }
 
     divRow = document.getElementById('inputsMedicamentos' + contador);
     var divCol4 = document.createElement('div');
@@ -703,6 +710,7 @@ function añadirMedicamento() {
 };
 
 async function buscaTrat() {
+    document.getElementById('buttonGuardar').disabled = true;
     var codtrat = document.getElementById('codigoTrat').value;
     let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
     let response2 = await response.json();
@@ -794,4 +802,62 @@ async function buscaTrat() {
         contador = contador + 1;
     }
     return false;
+};
+
+
+async function GuardaranadirTrat(){
+    trat={
+        descriptratamiento:document.getElementById('descripciontrat').value,
+        consiste:[]
+    }
+    var medicamentos=[];
+    for(var i=1;i<=lacuenta;i++){
+        var indice=i.toString();
+        var medicaments ='medicaments'+indice;
+        var frecuencia ='frecuencia'+indice;
+        var dosis ='dosis'+indice;
+        var cantDias ='cantDias'+indice;
+        consiste={
+            codmedicamento:document.getElementById(medicaments).value,
+            frecuencia:document.getElementById(frecuencia).value,
+            dosis:document.getElementById(dosis).value,
+            cantdias:document.getElementById(cantDias).value
+        }
+        medicamentos.push(consiste);
+    }
+    trat.consiste=medicamentos;
+    await fetch(`http://localhost:4000/links/anadirTrat/`, {
+        method: 'POST',
+        body: JSON.stringify(trat),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+    Swal.fire(
+        'Bien hecho!',
+        'Tratamiento registrado correctamente!',
+        'success'
+    ).then(Result => {
+        window.location = "http://localhost:4000/links/registrarTratamiento"
+    });
+};
+
+
+async function borrarTrat(){
+    trat={codtrat:document.getElementById('codigoTrat').value}
+    await fetch(`http://localhost:4000/links/borrarTrat/`, {
+        method: 'POST',
+        body: JSON.stringify(trat),
+        headers: {
+            "Content-type": "application/json"
+        }
+    });
+
+    Swal.fire(
+        'Bien hecho!',
+        'El tratamiento se ha borrado exitosamente!',
+        'success'
+    ).then(Result => {
+        window.location = "http://localhost:4000/links/registrarTratamiento"
+    });
 };

@@ -630,9 +630,38 @@ router.get('/dameMedicamentos', async(req, res) => {
 router.get('/dameMedicamentosV2/:codtrat', async(req, res) => {
     var codtrat=req.params.codtrat;
     const Query=await pool.query("select c.codmedicamento, m.nombre_medicamento,c.frecuencia,c.dosis,c.cantdias from consiste as c,medicamento as m where m.codmedicamento=c.codmedicamento and c.codtrat=? ",[codtrat]);
-    console.log(Query);
     if(Query)
         res.json(Query);
+});
+
+router.post('/borrarTrat/', async(req, res, next) => {
+    const varr = req.body;
+    varr.codtrat=parseInt(varr.codtrat);
+    console.log("el body",varr);
+    await pool.query("update tratamiento set `borrado` =1 where codtrat=?",[varr.codtrat]);
+    res.json();
+});
+
+router.post('/anadirTrat/', async(req, res, next) => {
+    const varr = req.body;
+    await pool.query("INSERT INTO tratamiento set ? ",{
+        descriptratamiento:varr.descriptratamiento
+    });
+    const codtrat=await pool.query("select codtrat from tratamiento where descriptratamiento=? ",[varr.descriptratamiento]);
+    console.log(codtrat);
+    for(var i=0;i<=(Object.keys(varr.consiste).length)-1;i++){
+        varr.consiste[i].codmedicamento=parseInt(varr.consiste[i].codmedicamento);
+        varr.consiste[i].dosis=parseInt(varr.consiste[i].dosis);
+        varr.consiste[i].cantdias=parseInt(varr.consiste[i].cantdias);
+        await pool.query("INSERT INTO consiste set ? ",{
+            codtrat:codtrat[0].codtrat,
+            codmedicamento:varr.consiste[i].codmedicamento,
+            frecuencia:varr.consiste[i].frecuencia,
+            dosis:varr.consiste[i].dosis,
+            cantdias:varr.consiste[i].cantdias
+        });
+    }
+    res.json();
 });
 
 /*---------------------------------------------------------------------------------------------------------------------------*/

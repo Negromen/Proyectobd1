@@ -36,7 +36,7 @@
         </div>
         <form action="" class="row py-3">
             <div class="col-md-4" style="z-index: 1;">
-                <select class="form-select"name="codigoTrat" id="codigoTrat">
+                <select class="form-select" name="codigotratamiento" id="codigoTrat">
                     <option value="" disabled selected>Seleccionar codigo...</option>
                     {{#each Query}}
                     <option value="{{codtrat}}">{{descriptratamiento}}</option>
@@ -46,8 +46,8 @@
             <div class="col-md-8" style="margin-left: -10px;z-index:1;" >
                 <button class="btn btn-primary" id="butoncitobuscar" onclick="return buscaTrat();" type="button" >Buscar</button>
             </div>
-            <div class="col-md-4 pt-2" style="z-index: 1;display: none;">
-                <input type="text" class="form-control" placeholder="Descripción...">
+            <div class="col-md-4 pt-2" style="z-index: 1;display: none;" id="divdescripcion">
+                <input type="text" class="form-control" id="descripciontrat" placeholder="Descripción...">
             </div>
             <span class="dropdown-divider"></span>
             <div class="tituloContagio" style="margin-top: -80px;">
@@ -163,9 +163,9 @@
             </div>
             <div class="divBotones pt-2">
                 <button class="btn btn-success" id="buttonAnadir" onclick="paraAnadir();" type="button">Añadir</button>
-                <button class="btn btn-danger" id="buttonBorrar" type="button" >Borrar</button>
+                <button class="btn btn-danger" id="buttonBorrar" onclick="borrarTrat();" type="button" >Borrar</button>
                 <button class="btn btn-warning" id="buttonEditar"type="button" >Editar</button>
-                <button class="btn btn-primary" id="buttonGuardar" type="button" >Guardar</button>
+                <button class="btn btn-primary" id="buttonGuardar" onclick="GuardaranadirTrat();" type="button" >Guardar</button>
                 <button class="btn btn-primary" id="buttonGuardar2" type="button" style="display: none;">Guardar</button>
             </div>
         </form>
