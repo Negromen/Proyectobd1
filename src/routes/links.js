@@ -617,7 +617,7 @@ router.get('/verificarContagio', async(req, res) => {
 /*----------------------------------------------TRATAMIENTO-------------------------------------------------------------------*/
 
 router.get('/registrarTratamiento', async(req, res) => {
-    const Query=await pool.query("select codtrat from tratamiento where borrado=0");
+    const Query=await pool.query("select * from tratamiento where borrado=0");
     res.render("links/registrarTratamiento",{Query});
 });
 

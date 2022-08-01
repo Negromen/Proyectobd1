@@ -356,7 +356,15 @@ async function borraPS() {
 };
 
 //-------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------TRATAMIENTOS------------------------------------------------------------------*/
+/*
+async function buscarTratamiento(){
+    var codtrat=document.getElementById('codigoTrat').value;
 
+}
+*/
+
+//-------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------CENTROS DE SALUD-------------------------------------------------------------*/
 //PARA BUSCAR CENTROS EN LA INTERFAZ DE CONTROL DE CENTROS
 async function buscarCentro() {
@@ -568,10 +576,6 @@ function datosContagio(){
     document.getElementById('divReposo').style.display = 'block';
     document.getElementById('divTratamiento').style.display = 'block';
     document.getElementById('divHospital').style.display = 'block';
-    /*
-    let date = new Date();
-    let output = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-    document.getElementById('fechaContagioso').value = output;*/
 }
 
 //HABILITA CAMPOS PARA REGISTRAR UNA VACUNA
@@ -592,7 +596,6 @@ function aparecer() {
         boton.style.display = 'none';
     }, false);
 };
-
 
 function añadirMedicamento() {
     var original = document.getElementById("inputsMedicamentos");
