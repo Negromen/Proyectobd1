@@ -569,7 +569,7 @@ function editarfechaEncargado() {
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-function datosContagio(){
+function datosContagio() {
     document.getElementById('divBtnregistrar').style.display = 'block';
     document.getElementById('divVirus').style.display = 'block';
     document.getElementById('divFechacontagio').style.display = 'block';
@@ -598,11 +598,95 @@ function aparecer() {
 };
 
 function añadirMedicamento() {
-    var original = document.getElementById("inputsMedicamentos");
-    var nuevo = original.cloneNode(true);
-    nuevo.id = "inputsMedicamentos" + contador;
-    destino = document.getElementById("tablaMedicamentos");
-    destino.appendChild(nuevo);
+    // var original = document.getElementById("inputsMedicamentos");
+    // var nuevo = original.cloneNode(true);
+    // nuevo.id = "inputsMedicamentos" + contador;
+    // destino = document.getElementById("tablaMedicamentos");
+    // destino.appendChild(nuevo);
+    // contador = contador + 1;
+    var divPadre = document.getElementById('tablaMedicamentos');
+    var divRow = document.createElement('div');
+    divRow.className = 'row';
+    divRow.id = "inputsMedicamentos" + contador;
+    divPadre.appendChild(divRow);
+
+    const divCol12 = document.createElement('div');
+    divCol12.className = 'col-md-12';
+    divCol12.style.paddingRight = '856px';
+    divRow.appendChild(divCol12);
+
+    var label = document.createElement('label');
+    label.innerHTML = "Medicamentos";
+    label.htmlFor = 'medicaments' + contador;
+    divCol12.appendChild(label);
+
+    var select = document.createElement('select');
+    select.name = 'medicaments' + contador;
+    select.id = 'medicaments' + contador;
+    select.className = 'form-select';
+    divCol12.appendChild(select);
+
+    const select1 = document.getElementById('medicaments' + contador);
+    const option1 = document.createElement('option');
+    option1.value = '';
+    option1.text = 'Seleccionar medicamento...';
+    option1.selected = true;
+    select1.appendChild(option1);
+
+    divRow = document.getElementById('inputsMedicamentos' + contador);
+    var divCol4 = document.createElement('div');
+    divCol4.className = 'col-md-4';
+    divRow.appendChild(divCol4);
+
+    label = document.createElement('label');
+    label.innerHTML = "Frecuencia";
+    label.htmlFor = 'frecuencia' + contador;
+    divCol4.appendChild(label);
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'frecuencia' + contador;
+    input.className = 'form-control';
+    input.placeholder = 'Ej: Cada 10 dias';
+    divCol4.appendChild(input);
+
+    divRow = document.getElementById('inputsMedicamentos' + contador);
+    var divCol4 = document.createElement('div');
+    divCol4.className = 'col-md-4';
+    divRow.appendChild(divCol4);
+
+    label = document.createElement('label');
+    label.innerHTML = 'Dosis';
+    label.htmlFor = 'dosis' + contador;
+    divCol4.appendChild(label);
+    input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'dosis' + contador;
+    input.className = 'form-control';
+    input.placeholder = 'Ej: 10';
+    divCol4.appendChild(input);
+
+    divRow = document.getElementById('inputsMedicamentos' + contador);
+    var divCol4 = document.createElement('div');
+    divCol4.className = 'col-md-4';
+    divRow.appendChild(divCol4);
+
+    label = document.createElement('label');
+    label.innerHTML = 'Cantidad de dias';
+    label.htmlFor = 'cantDias' + contador;
+    divCol4.appendChild(label);
+    input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'cantDias' + contador;
+    input.className = 'form-control';
+    input.placeholder = 'Ej: 3';
+    divCol4.appendChild(input);
+
+    var divDivider = document.createElement('div');
+    divDivider.className = 'dropdown-divider';
+    divRow = document.getElementById('inputsMedicamentos' + contador);
+    divRow.appendChild(divDivider);
+
     contador = contador + 1;
+
     return false;
 };
