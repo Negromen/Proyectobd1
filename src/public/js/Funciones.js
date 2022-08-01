@@ -597,6 +597,13 @@ function aparecer() {
     }, false);
 };
 
+function paraAnadir(){
+    document.getElementById('buttonAnadir').style.display = 'block';
+    document.getElementById('buttonEditar').disabled = true;
+    document.getElementById('buttonBorrar').disabled = true;
+    document.getElementById('butoncitobuscar').disabled = true;
+}
+
 function añadirMedicamento() {
     // var original = document.getElementById("inputsMedicamentos");
     // var nuevo = original.cloneNode(true);
@@ -604,6 +611,11 @@ function añadirMedicamento() {
     // destino = document.getElementById("tablaMedicamentos");
     // destino.appendChild(nuevo);
     // contador = contador + 1;
+    /*
+    let response = await fetch(`http://localhost:4000/links/dameMedicamentos/`);
+    let response2 = await response.json();
+    const valor = Object.keys(response2).length;
+    */
     var divPadre = document.getElementById('tablaMedicamentos');
     var divRow = document.createElement('div');
     divRow.className = 'row';
@@ -685,8 +697,102 @@ function añadirMedicamento() {
     divDivider.className = 'dropdown-divider';
     divRow = document.getElementById('inputsMedicamentos' + contador);
     divRow.appendChild(divDivider);
-
     contador = contador + 1;
+    return false;
+};
 
+async function buscaTrat(){
+    var codtrat=document.getElementById('codigoTrat').value;
+    let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
+    let response2 = await response.json();
+    const valor = Object.keys(response2).length;
+    for(var i=0;i<=(valor-1);i++){
+        var divPadre = document.getElementById('tablaMedicamentos');
+        var divRow = document.createElement('div');
+        divRow.className = 'row';
+        divRow.id = "inputsMedicamentos" + contador;
+        divPadre.appendChild(divRow);
+    
+        const divCol12 = document.createElement('div');
+        divCol12.className = 'col-md-12';
+        divCol12.style.paddingRight = '856px';
+        divRow.appendChild(divCol12);
+    
+        var label = document.createElement('label');
+        label.innerHTML = "Medicamentos";
+        label.htmlFor = 'medicaments' + contador;
+        divCol12.appendChild(label);
+    
+        /*
+        var select = document.createElement('select');
+        select.name = 'medicaments' + contador;
+        select.id = 'medicaments' + contador;
+        select.className = 'form-select';
+        divCol12.appendChild(select);
+    
+        const select1 = document.getElementById('medicaments' + contador);
+        const option1 = document.createElement('option');
+        option1.value = response2[i].codmedicamento;
+        option1.text = response2[i].nombre_medicamento;
+        option1.selected = true;
+        select1.appendChild(option1);
+        */
+        divRow = document.getElementById('inputsMedicamentos' + contador);
+        var divCol4 = document.createElement('div');
+        divCol4.className = 'col-md-4';
+        divRow.appendChild(divCol4);
+
+        label = document.createElement('label');
+        label.innerHTML = "Frecuencia";
+        label.htmlFor = 'frecuencia' + contador;
+        divCol4.appendChild(label);
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'frecuencia' + contador;
+        input.className = 'form-control';
+        input.placeholder = 'Ej: Cada 10 dias';
+        input.value=response2[i].frecuencia;
+        divCol4.appendChild(input);
+    
+        divRow = document.getElementById('inputsMedicamentos' + contador);
+        var divCol4 = document.createElement('div');
+        divCol4.className = 'col-md-4';
+        divRow.appendChild(divCol4);
+    
+        label = document.createElement('label');
+        label.innerHTML = 'Dosis';
+        label.htmlFor = 'dosis' + contador;
+        divCol4.appendChild(label);
+        input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'dosis' + contador;
+        input.className = 'form-control';
+        input.placeholder = 'Ej: 10';
+        input.value=response2[i].dosis;
+        divCol4.appendChild(input);
+    
+        divRow = document.getElementById('inputsMedicamentos' + contador);
+        var divCol4 = document.createElement('div');
+        divCol4.className = 'col-md-4';
+        divRow.appendChild(divCol4);
+    
+        label = document.createElement('label');
+        label.innerHTML = 'Cantidad de dias';
+        label.htmlFor = 'cantDias' + contador;
+        divCol4.appendChild(label);
+        input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'cantDias' + contador;
+        input.className = 'form-control';
+        input.placeholder = 'Ej: 3';
+        input.value=response2[i].cantdias;
+        divCol4.appendChild(input);
+    
+        var divDivider = document.createElement('div');
+        divDivider.className = 'dropdown-divider';
+        divRow = document.getElementById('inputsMedicamentos' + contador);
+        divRow.appendChild(divDivider);
+        contador = contador + 1;
+    }
     return false;
 };

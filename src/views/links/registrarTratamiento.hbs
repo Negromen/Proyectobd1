@@ -43,13 +43,13 @@
                     {{/each}}
                 </select>
             </div>
-            <div class="col-md-8" style="margin-left: -10px;">
-                <button class="btn btn-primary" type="submit">Buscar</button>
+            <div class="col-md-8" style="margin-left: -10px;z-index:1;" >
+                <button class="btn btn-primary" id="butoncitobuscar" onclick="return buscaTrat();" type="submit" >Buscar</button>
             </div>
             <span class="dropdown-divider"></span>
             <div class="tituloContagio" style="margin-top: -80px;">
                 <div class="textoContagio" style="margin-bottom: 10px;">
-                    <h2>Medicamentos</h2>
+                    <h2>Medicamentos</h2> 
                 </div>
             </div>
             {{!-- <div class="col-auto" id="medicamentos">
@@ -153,33 +153,13 @@
                 </div>
             </div> --}}
             <div class="row" id="tablaMedicamentos">
-                <div class="row" id="inputsMedicamentos">
-                    <div class="col-md-12" style="padding-right: 856px;">
-                        <label for="medicaments">Medicamentos</label>
-                        <select name="medicaments" id="medicaments" class="form-select" >
-                            <option value="">Seleccionar medicamento...</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4" id="frecuencia" style="display: none;">
-                        <label for="frecuencia" >Frecuencia</label>
-                        <input type="text" id="frecuencia" class="form-control" placeholder="Ej: Cada 10 dias">
-                    </div>
-                    <div class="col-md-4" id="dosisMed" style="display: none;">
-                        <label for="dosis" >Dosis</label>
-                        <input type="text" id="dosis" class="form-control" placeholder="Ej: 10">
-                    </div>
-                    <div class="col-md-4" id="cantDias" style="display: none;">
-                        <label for="cantDias" >Cantidad de dias</label>
-                        <input type="text" id="cantDias" class="form-control" placeholder="Ej: 3">
-                    </div>
-                    <div class="dropdown-divider"></div>
-                </div>
+                
             </div>
             <div class="col-md-12 pt-2">
-                <a href="#footer"><button class="btn btn-primary" type="submit" style="display: none;" onclick="return añadirMedicamento();">Añadir medicamento</button></a>
+                <a href="#footer"><button class="btn btn-primary" type="submit" onclick="return añadirMedicamento();">Añadir medicamento</button></a>
             </div>
             <div class="divBotones pt-2">
-                <button class="btn btn-success" id="buttonAnadir" type="submit">Añadir</button>
+                <button class="btn btn-success" id="buttonAnadir" onclick="paraAnadir();" type="submit">Añadir</button>
                 <button class="btn btn-danger" id="buttonBorrar" type="submit" >Borrar</button>
                 <button class="btn btn-warning" id="buttonEditar"type="submit" >Editar</button>
                 <button class="btn btn-primary" id="buttonGuardar" type="submit" >Guardar</button>

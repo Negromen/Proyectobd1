@@ -621,7 +621,19 @@ router.get('/registrarTratamiento', async(req, res) => {
     res.render("links/registrarTratamiento",{Query});
 });
 
+router.get('/dameMedicamentos', async(req, res) => {
+    const Query=await pool.query("select codmedicamento,nombre_medicamento from medicamento");
+    if(Query)
+        res.json(Query);
+});
 
+router.get('/dameMedicamentosV2/:codtrat', async(req, res) => {
+    var codtrat=req.params.codtrat;
+    const Query=await pool.query("select c.codmedicamento, m.nombre_medicamento,c.frecuencia,c.dosis,c.cantdias from consiste as c,medicamento as m where m.codmedicamento=c.codmedicamento and c.codtrat=? ",[codtrat]);
+    console.log(Query);
+    if(Query)
+        res.json(Query);
+});
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
