@@ -597,7 +597,7 @@ function aparecer() {
     }, false);
 };
 
-function paraAnadir() {
+function paraAnadir(){
     document.getElementById('buttonAnadir').style.display = 'block';
     document.getElementById('buttonEditar').disabled = true;
     document.getElementById('buttonBorrar').disabled = true;
@@ -701,50 +701,39 @@ function añadirMedicamento() {
     return false;
 };
 
-async function prueba(codtrat) {
+async function buscaTrat(){
+    var codtrat=document.getElementById('codigoTrat').value;
     let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
     let response2 = await response.json();
-    // var listica = [];
-    // listica.push(response2);
-    return response2;
-}
-
-function buscaTrat() {
-    var codtrat = document.getElementById('codigoTrat').value;
-    var objeto = {};
-    console.log(prueba());
-    objeto = Object.assign(objeto, prueba()[0]);
     const valor = Object.keys(response2).length;
-    for (var i = 0; i <= (valor - 1); i++) {
+    for(var i=0;i<=(valor-1);i++){
         var divPadre = document.getElementById('tablaMedicamentos');
         var divRow = document.createElement('div');
         divRow.className = 'row';
         divRow.id = "inputsMedicamentos" + contador;
         divPadre.appendChild(divRow);
-
+    
         const divCol12 = document.createElement('div');
         divCol12.className = 'col-md-12';
         divCol12.style.paddingRight = '856px';
         divRow.appendChild(divCol12);
-
+    
         var label = document.createElement('label');
         label.innerHTML = "Medicamentos";
         label.htmlFor = 'medicaments' + contador;
         divCol12.appendChild(label);
-
+    
         var select = document.createElement('select');
         select.name = 'medicaments' + contador;
         select.id = 'medicaments' + contador;
         select.className = 'form-select';
         divCol12.appendChild(select);
-
         const select1 = document.getElementById('medicaments' + contador);
         const option1 = document.createElement('option');
-        option1.value = objeto[i].codmedicamento;
-        option1.text = objeto[i].nombre_medicamento;
+        option1.value = response2[i].codmedicamento;
+        option1.text = response2[i].nombre_medicamento;
         option1.selected = true;
         select1.appendChild(option1);
-
         divRow = document.getElementById('inputsMedicamentos' + contador);
         var divCol4 = document.createElement('div');
         divCol4.className = 'col-md-4';
@@ -759,14 +748,14 @@ function buscaTrat() {
         input.id = 'frecuencia' + contador;
         input.className = 'form-control';
         input.placeholder = 'Ej: Cada 10 dias';
-        input.value = response2[i].frecuencia;
+        input.value=response2[i].frecuencia;
         divCol4.appendChild(input);
-
+    
         divRow = document.getElementById('inputsMedicamentos' + contador);
         var divCol4 = document.createElement('div');
         divCol4.className = 'col-md-4';
         divRow.appendChild(divCol4);
-
+    
         label = document.createElement('label');
         label.innerHTML = 'Dosis';
         label.htmlFor = 'dosis' + contador;
@@ -776,14 +765,14 @@ function buscaTrat() {
         input.id = 'dosis' + contador;
         input.className = 'form-control';
         input.placeholder = 'Ej: 10';
-        input.value = response2[i].dosis;
+        input.value=response2[i].dosis;
         divCol4.appendChild(input);
-
+    
         divRow = document.getElementById('inputsMedicamentos' + contador);
         var divCol4 = document.createElement('div');
         divCol4.className = 'col-md-4';
         divRow.appendChild(divCol4);
-
+    
         label = document.createElement('label');
         label.innerHTML = 'Cantidad de dias';
         label.htmlFor = 'cantDias' + contador;
@@ -793,9 +782,9 @@ function buscaTrat() {
         input.id = 'cantDias' + contador;
         input.className = 'form-control';
         input.placeholder = 'Ej: 3';
-        input.value = response2[i].cantdias;
+        input.value=response2[i].cantdias;
         divCol4.appendChild(input);
-
+    
         var divDivider = document.createElement('div');
         divDivider.className = 'dropdown-divider';
         divRow = document.getElementById('inputsMedicamentos' + contador);
