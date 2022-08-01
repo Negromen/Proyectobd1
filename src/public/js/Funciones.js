@@ -701,19 +701,10 @@ function añadirMedicamento() {
     return false;
 };
 
-async function prueba(codtrat) {
+async function buscaTrat() {
+    var codtrat = document.getElementById('codigoTrat').value;
     let response = await fetch(`http://localhost:4000/links/dameMedicamentosV2/${codtrat}`);
     let response2 = await response.json();
-    // var listica = [];
-    // listica.push(response2);
-    return response2;
-}
-
-function buscaTrat() {
-    var codtrat = document.getElementById('codigoTrat').value;
-    var objeto = {};
-    console.log(prueba());
-    objeto = Object.assign(objeto, prueba()[0]);
     const valor = Object.keys(response2).length;
     for (var i = 0; i <= (valor - 1); i++) {
         var divPadre = document.getElementById('tablaMedicamentos');
@@ -740,8 +731,8 @@ function buscaTrat() {
 
         const select1 = document.getElementById('medicaments' + contador);
         const option1 = document.createElement('option');
-        option1.value = objeto[i].codmedicamento;
-        option1.text = objeto[i].nombre_medicamento;
+        option1.value = response2[i].codmedicamento;
+        option1.text = response2[i].nombre_medicamento;
         option1.selected = true;
         select1.appendChild(option1);
 
