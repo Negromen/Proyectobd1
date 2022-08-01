@@ -598,7 +598,8 @@ function aparecer() {
 };
 
 function paraAnadir(){
-    document.getElementById('buttonAnadir').style.display = 'block';
+    document.getElementById('tablaMedicamentos').innerHTML = '';
+    document.getElementById('elbotoncito').style.display = 'block';
     document.getElementById('buttonEditar').disabled = true;
     document.getElementById('buttonBorrar').disabled = true;
     document.getElementById('butoncitobuscar').disabled = true;
